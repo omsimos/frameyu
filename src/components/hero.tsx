@@ -21,8 +21,8 @@ export function Hero() {
         </h1>
 
         <p className="md:mt-6 mt-2 sm:mt-4 font-medium lg:max-w-xl max-w-md mx-auto xl:mx-0 text-center xl:text-left md:text-lg lg:text-xl">
-          Seamlessly add a frame to your photo with image controls like drag and
-          zoom.
+          Seamlessly add a frame to your photo with built-in image controls for
+          drag and zoom.
         </p>
 
         <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-12 space-x-4 justify-center xl:justify-start">
