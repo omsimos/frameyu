@@ -15,7 +15,7 @@ export function Navbar() {
         <div className="bg-secondary-200 relative rounded h-[45px] w-[150px]">
           <button
             type="button"
-            className="border-2 text-secondary-200 absolute w-full h-full -mt-1 -ml-1 border-secondary-200 bg-white rounded"
+            className="border-2 text-secondary-200 absolute w-full h-full -mt-1 -ml-1 border-secondary-200 bg-white rounded text-sm md:text-base"
           >
             Let&apos;s Frame
           </button>
