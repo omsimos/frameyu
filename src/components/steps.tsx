@@ -1,14 +1,12 @@
+import { Heading } from "./heading";
+
 export function Steps() {
   return (
-    <section className="mt-40">
-      <div className="text-center">
-        <h1 className="lg:text-5xl text-3xl sm:text-4xl text-secondary-200 font-extrabold">
-          Easy to use.
-        </h1>
-        <p className="font-medium mt-2 sm:mt-4 md:text-lg lg:text-xl">
-          Add a frame to your photo in just 3 quick steps!
-        </p>
-      </div>
+    <section className="mt-52">
+      <Heading
+        title="Easy to use"
+        sub="Add a frame to your photo in just 3 quick steps!"
+      />
 
       <div className="flex justify-between mt-16 lg:space-x-8 md:space-x-4 flex-col md:flex-row max-w-md mx-auto md:max-w-full space-y-12 md:space-y-0">
         <Step num={1} desc="Upload the 1x1 PNG image of your frame" />
