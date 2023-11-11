@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font";
 import "./globals.css";
 
+import { Toaster } from "react-hot-toast";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} max-w-screen-xl px-6 2xl:px-0 mx-auto bg-white text-secondary-100`}
       >
+        <Toaster />
         <Navbar />
         {children}
         <Footer />
