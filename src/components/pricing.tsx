@@ -49,7 +49,7 @@ function Plan({ title, sub, details, img }: Props) {
 
         <ul className="list-disc ml-12 text-left font-medium mt-8 md:mt-12 md:text-lg space-y-2 lg:text-xl">
           {details.map((d) => (
-            <li>{d}</li>
+            <li key={d}>{d}</li>
           ))}
         </ul>
       </div>

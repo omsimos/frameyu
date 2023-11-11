@@ -1,6 +1,6 @@
 import { Hero } from "@/components/hero";
-import { Pricing } from "@/components/pricing";
 import { Steps } from "@/components/steps";
+import { Pricing } from "@/components/pricing";
 
 export default function Home() {
   return (
