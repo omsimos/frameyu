@@ -1,3 +1,5 @@
+import { Button } from "./utils/button";
+
 export function Navbar() {
   return (
     <nav className="py-12 flex justify-between items-center">
@@ -12,14 +14,7 @@ export function Navbar() {
           <li>Contact</li>
         </ul>
 
-        <div className="bg-secondary-200 relative rounded h-[45px] w-[150px]">
-          <button
-            type="button"
-            className="border-2 text-secondary-200 absolute w-full h-full -mt-1 -ml-1 border-secondary-200 bg-white rounded text-sm md:text-base"
-          >
-            Let&apos;s Frame
-          </button>
-        </div>
+        <Button link="/tool">Let&apos;s Frame</Button>
       </div>
     </nav>
   );

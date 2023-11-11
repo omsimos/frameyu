@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import encircle from "@/assets/encircle.svg";
 
 export function Hero() {
@@ -26,9 +27,12 @@ export function Hero() {
         </p>
 
         <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-12 space-x-4 justify-center xl:justify-start">
-          <button className="px-6 py-3 bg-secondary-200 text-white rounded">
+          <Link
+            href="/tool"
+            className="px-6 py-3 bg-secondary-200 text-white rounded"
+          >
             Get Started
-          </button>
+          </Link>
 
           <button className="px-6 py-3 border-2 border-secondary-200 box-border rounded text-secondary-200">
             Learn More &rarr;
