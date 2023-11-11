@@ -3,7 +3,7 @@ import { Heading } from "./heading";
 
 export function Pricing() {
   return (
-    <section className="md:mt-96 mt-72">
+    <section className="md:pt-52 pt-32">
       <Heading
         title="Get started for free!"
         sub="Affordable pricing to supercharge your campaign."
