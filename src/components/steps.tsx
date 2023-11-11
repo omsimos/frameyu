@@ -2,7 +2,7 @@ import { Heading } from "./heading";
 
 export function Steps() {
   return (
-    <section className="mt-52">
+    <section className="md:my-52 my-40">
       <Heading
         title="Easy to use"
         sub="Add a frame to your photo in just 3 quick steps!"

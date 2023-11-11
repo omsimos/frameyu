@@ -3,7 +3,7 @@ import encircle from "@/assets/encircle.svg";
 
 export function Hero() {
   return (
-    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row">
+    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40">
       <div>
         <h1 className="lg:text-6xl text-3xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-secondary-200 leading-tight">
           Frame overlayer,

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function Partners() {
   return (
-    <section className='mt-52 flex flex-col items-center'>
+    <section className='mt-24 mb-12 flex flex-col items-center'>
       <h4 className="md:text-2xl text-xl text-secondary-200 font-medium">Built with trusted organizations</h4>
 
       <div className="flex md:space-x-24 space-x-12">
