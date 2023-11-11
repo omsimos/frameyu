@@ -37,6 +37,7 @@ export function Hero() {
       </div>
 
       <Image
+        priority
         width={400}
         height={400}
         src="/assets/characters.png"
