@@ -31,7 +31,17 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} max-w-screen-xl px-6 2xl:px-0 mx-auto bg-white text-secondary-100`}
       >
-        <Toaster />
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              border: "2px solid #000",
+              padding: "12px",
+              marginBottom: '52px',
+              fontWeight: '500'
+            },
+          }}
+        />
         <Navbar />
         {children}
         <Footer />

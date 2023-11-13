@@ -34,6 +34,7 @@ export function Pricing() {
           handleStart={() =>
             toast("Coming soon!", {
               icon: "🦸",
+              id: "super_plan",
             })
           }
         />
