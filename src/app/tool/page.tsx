@@ -8,6 +8,7 @@ import { useState, useCallback, useRef } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import { Button } from "@/components/utils/button";
+import { IconPhoto } from "@/components/utils/icons";
 
 const handlePicChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -97,9 +98,10 @@ export default function Home() {
             ) : (
               <button
                 onClick={() => frameRef.current?.click()}
-                className="bg-purple-100 font-semibold text-secondary-200 rounded-2xl h-full w-full"
+                className="bg-purple-100 border-2 border-dashed border-secondary-200 font-medium text-secondary-200 text-opacity-80 rounded-2xl h-full w-full flex items-center justify-center flex-col"
               >
-                Upload Frame
+                <IconPhoto className="text-6xl" />
+                <p>Upload Frame</p>
               </button>
             )}
 
@@ -128,14 +130,34 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-12 space-x-3 text-sm md:text-base flex">
-          <Button disabled={!frame} onClick={() => profileRef.current?.click()}>
-            Upload Photo
-          </Button>
+        <div className="mt-6 space-x-3 text-sm md:text-base flex">
+          {!frame && (
+            <div>
+              <p className="text-left text-secondary-200">
+                Get started by uploading your frame above.{" "}
+              </p>
+              <button
+                onClick={() => setFrame("/assets/sample_frame.png")}
+                type="button"
+                className="text-primary-100"
+              >
+                Use sample frame &rarr;
+              </button>
+            </div>
+          )}
 
-          <Button disabled={!profilePic || !frame} onClick={saveImage}>
-            Save Image
-          </Button>
+          {frame && (
+            <Button
+              disabled={!frame}
+              onClick={() => profileRef.current?.click()}
+            >
+              Upload Photo
+            </Button>
+          )}
+
+          {frame && profilePic && (
+            <Button onClick={saveImage}>Save Image</Button>
+          )}
         </div>
       </div>
     </section>
