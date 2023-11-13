@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font";
-import "./globals.css";
-
 import { Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
+
+import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
@@ -37,11 +38,13 @@ export default function RootLayout({
             style: {
               border: "2px solid #000",
               padding: "12px",
-              marginBottom: '52px',
-              fontWeight: '500'
+              marginBottom: "52px",
+              fontWeight: "500",
             },
           }}
         />
+        <NextTopLoader showSpinner={false} />
+
         <Navbar />
         {children}
         <Footer />
