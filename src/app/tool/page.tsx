@@ -9,6 +9,23 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import { Button } from "@/components/utils/button";
 
+const handlePicChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setter: React.Dispatch<React.SetStateAction<string>>
+) => {
+  if (!e.target.files) return;
+
+  const file = e.target.files[0];
+  const reader = new FileReader();
+
+  reader.onloadend = () => {
+    const dataUrl = reader.result as string;
+    setter(dataUrl);
+  };
+
+  reader.readAsDataURL(file);
+};
+
 export default function Home() {
   const [frame, setFrame] = useState("");
   const [profilePic, setProfilePic] = useState("");
@@ -17,23 +34,6 @@ export default function Home() {
   const ref = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLInputElement>(null);
   const frameRef = useRef<HTMLInputElement>(null);
-
-  const handlePicChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setter: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    if (!e.target.files) return;
-
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const dataUrl = reader.result as string;
-      setter(dataUrl);
-    };
-
-    reader.readAsDataURL(file);
-  };
 
   const saveImage = useCallback(() => {
     if (ref.current === null) {
