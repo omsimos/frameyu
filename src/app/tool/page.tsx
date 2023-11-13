@@ -80,7 +80,7 @@ export default function Home() {
         <div className="overflow-hidden rounded-2xl">
           <div
             ref={ref}
-            className="relative overflow-hidden md:h-[500px] md:w-[500px] h-[350px] w-[350px]"
+            className="relative overflow-hidden h-[350px] w-[350px]"
           >
             {frame ? (
               <div style={{ opacity: frameOpacity }} className="z-50 relative">
