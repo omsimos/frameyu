@@ -13,9 +13,15 @@ export function Navbar() {
 
       <div className="font-medium flex space-x-24 items-center">
         <ul className="lg:flex space-x-28 hidden">
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="#pricing">Pricing</Link>
+          </li>
+          <li>
+            <Link href="mailto:omsimos.agency@gmail.com">Contact</Link>
+          </li>
         </ul>
 
         <Button link="/tool">Let&apos;s Frame</Button>
