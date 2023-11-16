@@ -130,7 +130,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-6 space-x-3 text-sm md:text-base flex self-start">
+        <div className="mt-6 space-x-3 text-sm md:text-base flex w-full self-start">
           {!frame && (
             <div>
               <p className="text-secondary-200">
@@ -157,7 +157,9 @@ export default function Home() {
           )}
 
           {frame && profilePic && (
-            <Button onClick={saveImage}>Save Image</Button>
+            <Button onClick={saveImage} className="w-full">
+              Save Image
+            </Button>
           )}
         </div>
       </div>
