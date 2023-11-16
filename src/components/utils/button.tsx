@@ -3,6 +3,7 @@ import Link from "next/link";
 type Props = {
   onClick?: () => void;
   link?: string;
+  className?: string;
   children: React.ReactNode;
 } & React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,

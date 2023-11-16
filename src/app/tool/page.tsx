@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <section className="flex justify-center">
-      <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl inline-flex max-w-screen-sm md:mt-16 mt-8">
+      <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl inline-flex md:mt-16 mt-8">
         <input
           ref={profileRef}
           type="file"
@@ -81,7 +81,7 @@ export default function Home() {
         <div className="overflow-hidden rounded-2xl">
           <div
             ref={ref}
-            className="relative overflow-hidden h-[350px] w-[350px]"
+            className="relative overflow-hidden h-[300px] lg:h-[400px] aspect-square"
           >
             {frame ? (
               <div style={{ opacity: frameOpacity }} className="z-50 relative">
@@ -130,10 +130,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-6 space-x-3 text-sm md:text-base flex">
+        <div className="mt-6 space-x-3 text-sm md:text-base flex self-start">
           {!frame && (
             <div>
-              <p className="text-left text-secondary-200">
+              <p className="text-secondary-200">
                 Get started by uploading your frame above.{" "}
               </p>
               <button
