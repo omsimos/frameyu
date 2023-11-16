@@ -17,7 +17,8 @@
     "react-dom": "^18",
     "react-draggable": "^4.4.6",
     "react-hot-toast": "^2.4.1",
-    "react-zoom-pan-pinch": "^3.3.0"
+    "react-zoom-pan-pinch": "^3.3.0",
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

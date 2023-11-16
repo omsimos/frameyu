@@ -150,6 +150,7 @@ export default function Home() {
             <Button
               disabled={!frame}
               onClick={() => profileRef.current?.click()}
+              className="w-full"
             >
               Upload Photo
             </Button>
