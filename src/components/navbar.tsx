@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "./utils/button";
+import { usePathname } from "next/navigation";
 
 export function Navbar() {
+  const pathname = usePathname();
+
   return (
     <nav className="py-12 flex justify-between items-center">
       <Link
@@ -24,7 +29,9 @@ export function Navbar() {
           </li>
         </ul>
 
-        <Button link="/tool">Let&apos;s Frame</Button>
+        <Button className={pathname === "/tool" ? "hidden" : ""} link="/tool">
+          Let&apos;s Frame
+        </Button>
       </div>
     </nav>
   );
