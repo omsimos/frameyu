@@ -44,11 +44,11 @@ export default function Home() {
     toast.promise(
       toPng(ref.current, {
         cacheBust: true,
-        pixelRatio: 3,
+        pixelRatio: 4,
       })
         .then((dataUrl) => {
           const link = document.createElement("a");
-          link.download = "gravitate-dp.png";
+          link.download = "framedip.png";
           link.href = dataUrl;
           link.click();
         })
