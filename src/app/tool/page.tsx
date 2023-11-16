@@ -8,7 +8,7 @@ import { useState, useCallback, useRef } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import { Button } from "@/components/utils/button";
-import { IconPhoto } from "@/components/utils/icons";
+import { IconPhoto, IconRestart } from "@/components/utils/icons";
 
 const handlePicChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -59,6 +59,11 @@ export default function Home() {
     );
   }, [ref]);
 
+  const handleReset = () => {
+    setFrame("");
+    setProfilePic("");
+  };
+
   return (
     <section className="flex justify-center">
       <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl inline-flex md:mt-16 mt-8">
@@ -98,7 +103,7 @@ export default function Home() {
             ) : (
               <button
                 onClick={() => frameRef.current?.click()}
-                className="bg-purple-100 border-2 border-dashed border-secondary-200 font-medium text-secondary-200 text-opacity-80 rounded-2xl h-full w-full flex items-center justify-center flex-col"
+                className="bg-purple-100 border-2 border-dashed border-secondary-200 text-secondary-200 text-opacity-80 rounded-2xl h-full w-full flex items-center justify-center flex-col"
               >
                 <IconPhoto className="text-6xl" />
                 <p>Upload Frame</p>
@@ -139,7 +144,7 @@ export default function Home() {
               <button
                 onClick={() => setFrame("/assets/sample_frame.png")}
                 type="button"
-                className="text-primary-100"
+                className="text-primary-100 mt-2"
               >
                 Use sample frame &rarr;
               </button>
@@ -152,7 +157,7 @@ export default function Home() {
               onClick={() => profileRef.current?.click()}
               className="w-full"
             >
-              Upload Photo
+              {profilePic ? "Change" : "Upload"} Photo
             </Button>
           )}
 
@@ -162,6 +167,15 @@ export default function Home() {
             </Button>
           )}
         </div>
+
+        {frame && (
+          <button
+            onClick={handleReset}
+            className="flex items-center text-sm font-light mt-6 self-start text-primary-100"
+          >
+            <IconRestart className="mr-1 font-semibold" /> Reset all changes
+          </button>
+        )}
       </div>
     </section>
   );
