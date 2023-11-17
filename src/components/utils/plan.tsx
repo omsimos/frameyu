@@ -21,7 +21,7 @@ export function Plan({ title, sub, details, img, handleStart }: Props) {
         </h1>
         <p className="font-medium mt-1 lg:text-lg xl:text-xl">{sub}</p>
 
-        <ul className="ml-12 lg:ml-8 text-left font-medium mt-8 lg:mt-12 space-y-2 lg:text-lg xl:text-xl">
+        <ul className="ml-8 text-left font-medium mt-8 lg:mt-12 space-y-2 lg:text-lg xl:text-xl">
           {details.map((d) => (
             <li key={d?.toString()} className="flex items-center">
               <IconCheckCircle className="text-primary-100 mr-2 text-xl" /> {d}
