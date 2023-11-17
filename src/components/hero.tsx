@@ -13,6 +13,7 @@ export function Hero() {
           <span className="relative">
             your
             <Image
+              priority
               src={encircle}
               alt="Circle"
               className="absolute top-0 right-0"

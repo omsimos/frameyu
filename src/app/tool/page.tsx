@@ -3,12 +3,15 @@
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { toPng } from "html-to-image";
-import Draggable from "react-draggable";
 import { useState, useCallback, useRef } from "react";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+  TransformWrapper,
+  TransformComponent,
+  ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
 
 import { Button } from "@/components/utils/button";
-import { IconPhoto, IconRestart } from "@/components/utils/icons";
+import { IconInfo, IconPhoto, IconRestart } from "@/components/utils/icons";
 
 const handlePicChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -35,6 +38,7 @@ export default function Home() {
   const ref = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLInputElement>(null);
   const frameRef = useRef<HTMLInputElement>(null);
+  const controlRef = useRef<ReactZoomPanPinchRef>(null);
 
   const saveImage = useCallback(() => {
     if (ref.current === null) {
@@ -82,6 +86,10 @@ export default function Home() {
           onChange={(e) => handlePicChange(e, setFrame)}
           className="hidden"
         />
+        <p className="mb-2 self-start flex text-sm font-light items-center">
+          <IconInfo className="text-primary-100 text-base mr-1" /> Drag and pinch to
+          adjust
+        </p>
 
         <div className="overflow-hidden rounded-2xl">
           <div
@@ -111,26 +119,23 @@ export default function Home() {
             )}
 
             {profilePic && (
-              <Draggable
-                onStart={() => setFrameOpacity(0.8)}
-                onStop={() => setFrameOpacity(1)}
+              <TransformWrapper
+                ref={controlRef}
+                onPanningStart={() => setFrameOpacity(0.8)}
+                onPanningStop={() => setFrameOpacity(1)}
               >
-                <div>
-                  <TransformWrapper>
-                    <TransformComponent>
-                      <Image
-                        quality={100}
-                        src={profilePic}
-                        height={500}
-                        width={500}
-                        className="object-contain scale-50"
-                        alt="Profile Picture"
-                        draggable={false}
-                      />
-                    </TransformComponent>
-                  </TransformWrapper>
-                </div>
-              </Draggable>
+                <TransformComponent>
+                  <Image
+                    quality={100}
+                    src={profilePic}
+                    height={500}
+                    width={500}
+                    className="object-contain scale-50"
+                    alt="Profile Picture"
+                    draggable={false}
+                  />
+                </TransformComponent>
+              </TransformWrapper>
             )}
           </div>
         </div>
@@ -173,7 +178,8 @@ export default function Home() {
             onClick={handleReset}
             className="flex items-center text-sm font-light mt-6 self-start text-primary-100"
           >
-            <IconRestart className="mr-1 font-semibold" /> Reset all changes
+            <IconRestart className="mr-1 text-lg" /> Reset all
+            changes
           </button>
         )}
       </div>
