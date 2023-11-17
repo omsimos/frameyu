@@ -42,7 +42,9 @@ export function Pricing() {
           title="Ultimate"
           sub="₱1,099/3 months"
           details={[
-            "Everything in Super",
+            <>
+              Everything in <span className="ml-1 text-primary-100">Super</span>
+            </>,
             "Personalized theme",
             "Custom subdomain",
             "Create up to 10 pages",
