@@ -14,7 +14,7 @@ type Props = {
 
 export function Plan({ title, sub, details, img, handleStart }: Props) {
   return (
-    <div className="border-[3px] border-secondary-200 rounded-md pt-12 p-8 text-center bg-white relative max-w-md w-full flex flex-col justify-between mx-auto lg:mx-0">
+    <div className="border-[3px] border-secondary-200 rounded-md pt-12 p-8 text-center bg-white relative max-w-md w-full flex flex-col justify-between mx-auto lg:mx-0 shadow-lg">
       <div>
         <h1 className="xl:text-6xl text-5xl text-primary-100 font-bold">
           {title}

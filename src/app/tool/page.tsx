@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <section className="flex justify-center">
-      <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl inline-flex md:mt-16 mt-8">
+      <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl inline-flex md:mt-16 mt-8 shadow-lg">
         <input
           ref={profileRef}
           type="file"
@@ -87,11 +87,11 @@ export default function Home() {
           className="hidden"
         />
         <p className="mb-2 self-start flex text-sm font-light items-center">
-          <IconInfo className="text-primary-100 text-base mr-1" /> Drag and pinch to
-          adjust
+          <IconInfo className="text-primary-100 text-base mr-1" /> Drag and
+          pinch to adjust
         </p>
 
-        <div className="overflow-hidden rounded-2xl">
+        <div className="overflow-hidden rounded-xl shadow-lg">
           <div
             ref={ref}
             className="relative overflow-hidden h-[300px] lg:h-[400px] aspect-square"
@@ -178,8 +178,7 @@ export default function Home() {
             onClick={handleReset}
             className="flex items-center text-sm font-light mt-6 self-start text-primary-100"
           >
-            <IconRestart className="mr-1 text-lg" /> Reset all
-            changes
+            <IconRestart className="mr-1 text-lg" /> Reset all changes
           </button>
         )}
       </div>
