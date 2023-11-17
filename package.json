@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^10.6.0",
     "geist": "^1.0.0",
     "html-to-image": "^1.11.11",
     "next": "14.0.1",
