@@ -12,7 +12,7 @@ export function Pricing() {
         sub="Affordable pricing to supercharge your campaign."
       />
 
-      <div className="md:mt-16 mt-40 flex lg:space-x-8 md:space-x-4 justify-center h-[600px] relative text-secondary-200 flex-col md:flex-row space-y-8 md:space-y-0">
+      <div className="mt-16 flex xl:space-x-8 lg:space-x-4 justify-center lg:h-[600px] text-secondary-200 flex-col lg:flex-row space-y-8 lg:space-y-0">
         <Plan
           title="Enjoyer"
           sub="No payment required"
@@ -24,13 +24,31 @@ export function Pricing() {
           title="Super"
           sub="₱109/page for 3 months"
           details={[
-            "Custom link",
+            "Shareable link",
             "No watermark",
             "High-quality image",
             "Unlimited frame change",
             "Caption text input",
           ]}
           img="/assets/super-avatar.svg"
+          handleStart={() =>
+            toast("Coming soon!", {
+              icon: "🦸",
+              id: "super_plan",
+            })
+          }
+        />
+        <Plan
+          title="Ultimate"
+          sub="₱1,099/3 months"
+          details={[
+            "Everything in Super",
+            "Personalized theme",
+            "Custom subdomain",
+            "Create up to 10 pages",
+            "Priority customer support",
+          ]}
+          img="/assets/ultimate-avatar.svg"
           handleStart={() =>
             toast("Coming soon!", {
               icon: "🦸",
