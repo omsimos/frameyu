@@ -35,9 +35,12 @@ export function Hero() {
             Get Started
           </Link>
 
-          <button className="px-6 py-3 border-2 border-secondary-200 box-border rounded text-secondary-200">
+          <Link
+            href="/#pricing"
+            className="px-6 py-3 border-2 border-secondary-200 box-border rounded text-secondary-200"
+          >
             Learn More &rarr;
-          </button>
+          </Link>
         </div>
       </div>
 

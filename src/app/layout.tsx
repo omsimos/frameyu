@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
   openGraph: {
     type: "website",
-    title: "FrameDip: Supercharge your campaign.",
+    title: "FrameDip: Supercharge your campaign!",
     description:
       "Transform your photos with FrameDip! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
     images: [
