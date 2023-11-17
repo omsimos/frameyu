@@ -39,13 +39,11 @@ export function Plan({ title, sub, details, img, handleStart }: Props) {
           Get started <span className="text-primary-100">&rarr;</span>
         </Link>
       ) : (
-        <button
-          type="button"
-          onClick={handleStart}
-          className="font-medium lg:mt-1 lg:text-lg xl:text-xl self-end mt-8"
+        <p
+          className="font-medium lg:mt-1 lg:text-lg xl:text-xl self-end mt-8 text-secondary-100"
         >
-          Get started <span className="text-primary-100">&rarr;</span>
-        </button>
+            Coming soon!
+        </p>
       )}
 
       <Image
