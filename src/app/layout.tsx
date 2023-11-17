@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "Transform your photos with FrameDip! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
     images: [
-      "https://github.com/joshxfi/joshxfi/assets/69457996/55caa3bb-8ed9-4e92-aaa0-101fa81d4733",
+      "https://github.com/joshxfi/joshxfi/assets/69457996/343382e2-0123-4d2e-8d98-716a7694b8d5",
     ],
   },
   twitter: {
