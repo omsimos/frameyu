@@ -121,8 +121,9 @@ export default function Home() {
             {profilePic && (
               <TransformWrapper
                 ref={controlRef}
-                onPanningStart={() => setFrameOpacity(0.8)}
+                onPanningStart={() => setFrameOpacity(0.7)}
                 onPanningStop={() => setFrameOpacity(1)}
+                onPinchingStop={() => setFrameOpacity(1)}
               >
                 <TransformComponent>
                   <Image
