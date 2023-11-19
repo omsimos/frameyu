@@ -86,10 +86,12 @@ export default function Home() {
           onChange={(e) => handlePicChange(e, setFrame)}
           className="hidden"
         />
-        <p className="mb-2 self-start flex text-sm font-light items-center">
-          <IconInfo className="text-primary-100 text-base mr-1" /> Drag and
-          pinch to adjust
-        </p>
+        {profilePic && (
+          <p className="mb-2 self-start flex text-sm font-light items-center">
+            <IconInfo className="text-primary-100 text-base mr-1" /> Drag and
+            pinch to adjust
+          </p>
+        )}
 
         <div className="overflow-hidden rounded-xl shadow-lg">
           <div
