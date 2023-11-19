@@ -1,7 +1,4 @@
-"use client";
-
 import { Heading } from "./heading";
-import toast from "react-hot-toast";
 import { Plan } from "./utils/plan";
 
 export function Pricing() {
@@ -31,16 +28,10 @@ export function Pricing() {
             "Caption text input",
           ]}
           img="/assets/super-avatar.svg"
-          handleStart={() =>
-            toast("Coming soon!", {
-              icon: "🦸",
-              id: "super_plan",
-            })
-          }
         />
         <Plan
           title="Ultimate"
-          sub="₱1,099/3 months"
+          sub="₱409/3 months"
           details={[
             <>
               Everything in <span className="ml-1 text-primary-100">Super</span>
@@ -51,12 +42,6 @@ export function Pricing() {
             "Priority customer support",
           ]}
           img="/assets/ultimate-avatar.svg"
-          handleStart={() =>
-            toast("Coming soon!", {
-              icon: "🦸",
-              id: "super_plan",
-            })
-          }
         />
       </div>
     </section>

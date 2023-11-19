@@ -13,7 +13,7 @@ export function Navbar() {
         href="/"
         className="text-2xl font-black text-secondary-200 tracking-[-0.09em]"
       >
-        frame<span className="tracking-tighter text-primary-100">dip</span>
+        frame<span className="text-primary-100">yu</span>
       </Link>
 
       <div className="font-medium flex space-x-24 items-center">

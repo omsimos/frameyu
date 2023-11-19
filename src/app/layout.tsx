@@ -8,18 +8,18 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://framedip.omsimos.com"),
-  title: "FrameDip",
+  metadataBase: new URL("https://frameyu.omsimos.com"),
+  title: "Frameyu",
   description:
-    "Transform your photos with FrameDip! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
+    "Transform your photos with Frameyu! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
   robots: "index, follow",
   openGraph: {
     type: "website",
-    title: "FrameDip: Supercharge your campaign!",
+    title: "Frameyu — Supercharge your campaign!",
     description:
-      "Transform your photos with FrameDip! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
+      "Transform your photos with Frameyu! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
     images: [
-      "https://github.com/joshxfi/joshxfi/assets/69457996/343382e2-0123-4d2e-8d98-716a7694b8d5",
+      "https://github.com/joshxfi/joshxfi/assets/69457996/7968f64d-d49f-4174-a698-2e157ab6af78",
     ],
   },
   twitter: {
