@@ -106,7 +106,7 @@ export default function Home() {
                   src={frame}
                   height={500}
                   width={500}
-                  className="object-contain absolute pointer-events-none z-50"
+                  className="object-contain absolute pointer-events-none"
                   alt="DP Frame"
                 />
               </div>
@@ -133,7 +133,7 @@ export default function Home() {
                     src={profilePic}
                     height={500}
                     width={500}
-                    className="object-contain scale-50"
+                    className="object-contain h-[300px] lg:h-[400px] scale-[0.5]"
                     alt="Profile Picture"
                     draggable={false}
                   />
