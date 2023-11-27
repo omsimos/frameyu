@@ -3,7 +3,7 @@
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { toPng } from "html-to-image";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   TransformWrapper,
   TransformComponent,
@@ -12,6 +12,7 @@ import {
 
 import { Button } from "@/components/utils/button";
 import { IconInfo, IconPhoto, IconRestart } from "@/components/utils/icons";
+import Modal from "@/components/utils/modal";
 
 const handlePicChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -32,6 +33,7 @@ const handlePicChange = (
 
 export default function Home() {
   const [frame, setFrame] = useState("");
+  const [isFb, setIsFb] = useState(false);
   const [profilePic, setProfilePic] = useState("");
   const [frameOpacity, setFrameOpacity] = useState(1);
 
@@ -39,6 +41,12 @@ export default function Home() {
   const profileRef = useRef<HTMLInputElement>(null);
   const frameRef = useRef<HTMLInputElement>(null);
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
+
+  useEffect(() => {
+    if (navigator.userAgent.match(/FBAN|FBAV/i)) {
+      setIsFb(true);
+    }
+  }, []);
 
   const saveImage = useCallback(() => {
     if (ref.current === null) {
@@ -70,6 +78,16 @@ export default function Home() {
 
   return (
     <section className="flex justify-center">
+      <Modal
+        title="In-app browser detected"
+        description="To avoid running into issues with Frameyu, we recommend opening the tool in an external browser."
+        isOpen={isFb}
+        handleConfirm={{
+          text: "Continue with browser",
+          fn: () => window.location.replace("https://frameyu.omsimos.com"),
+        }}
+        onClose={() => null}
+      />
       <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl inline-flex md:mt-16 mt-8 shadow-lg">
         <input
           ref={profileRef}
