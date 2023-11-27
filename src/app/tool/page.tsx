@@ -56,11 +56,11 @@ export default function Home() {
     toast.promise(
       toPng(ref.current, {
         cacheBust: true,
-        pixelRatio: 4,
+        pixelRatio: 3,
       })
         .then((dataUrl) => {
           const link = document.createElement("a");
-          link.download = "framedip.png";
+          link.download = "frameyu.png";
           link.href = dataUrl;
           link.click();
         })
