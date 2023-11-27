@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { nanoid } from "nanoid";
 import toast from "react-hot-toast";
 import { toPng } from "html-to-image";
 import { useState, useCallback, useRef, useEffect } from "react";
@@ -34,6 +35,7 @@ const handlePicChange = (
 export default function Home() {
   const [frame, setFrame] = useState("");
   const [isFb, setIsFb] = useState(false);
+  const [warnModal, setWarnModal] = useState(false);
   const [profilePic, setProfilePic] = useState("");
   const [frameOpacity, setFrameOpacity] = useState(1);
 
@@ -45,6 +47,7 @@ export default function Home() {
   useEffect(() => {
     if (navigator.userAgent.match(/FBAN|FBAV/i)) {
       setIsFb(true);
+      setWarnModal(true);
     }
   }, []);
 
@@ -60,7 +63,7 @@ export default function Home() {
       })
         .then((dataUrl) => {
           const link = document.createElement("a");
-          link.download = "frameyu.png";
+          link.download = `frameyu-${nanoid(5)}.png`;
           link.href = dataUrl;
           link.click();
         })
@@ -81,10 +84,10 @@ export default function Home() {
       <Modal
         title="In-app browser detected"
         description="To avoid running into issues with Frameyu, we recommend opening the tool in an external browser."
-        isOpen={isFb}
+        isOpen={warnModal}
         handleConfirm={{
           text: "Understood",
-          fn: () => setIsFb(false),
+          fn: () => setWarnModal(false),
         }}
         onClose={() => null}
       />
@@ -94,7 +97,7 @@ export default function Home() {
           <button
             type="button"
             className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 items-center mb-4 mx-auto"
-            onClick={() => setIsFb(true)}
+            onClick={() => setWarnModal(true)}
           >
             <IconWarning className="text-red-500 text-base mr-1" /> In-app
             browser detected
