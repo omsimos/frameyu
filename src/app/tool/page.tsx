@@ -90,14 +90,16 @@ export default function Home() {
       />
 
       <div className="md:mt-16 mt-8 flex flex-col">
-        <button
-          type="button"
-          className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 items-center mb-4 mx-auto"
-          onClick={() => setIsFb(true)}
-        >
-          <IconWarning className="text-red-500 text-base mr-1" /> In-app browser
-          detected
-        </button>
+        {isFb && (
+          <button
+            type="button"
+            className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 items-center mb-4 mx-auto"
+            onClick={() => setIsFb(true)}
+          >
+            <IconWarning className="text-red-500 text-base mr-1" /> In-app
+            browser detected
+          </button>
+        )}
 
         <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl flex shadow-lg">
           <input
