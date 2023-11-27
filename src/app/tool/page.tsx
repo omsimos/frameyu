@@ -84,7 +84,7 @@ export default function Home() {
         isOpen={isFb}
         handleConfirm={{
           text: "Continue with browser",
-          fn: () => window.location.replace("https://frameyu.omsimos.com"),
+          fn: () => window.open("https://frameyu.omsimos.com", "_blank"),
         }}
         onClose={() => null}
       />
