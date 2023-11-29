@@ -13,30 +13,24 @@ export function Pricing() {
         <Plan
           title="Enjoyer"
           sub="No payment required"
-          details={["100% free forever", "No watermark", "High-quality image"]}
+          details={[
+            "100% free forever",
+            "No watermark",
+            "High-quality image",
+            <span className="text-secondary-100">Shareable link</span>,
+            <span className="text-secondary-100">Caption text input</span>,
+          ]}
           img="/assets/enjoyer-avatar.svg"
           handleStart="/tool"
         />
         <Plan
-          title="Super"
-          sub="₱109/page for 3 months"
-          details={[
-            "Shareable link",
-            "No watermark",
-            "High-quality image",
-            "Unlimited frame change",
-            "Caption text input",
-          ]}
-          img="/assets/super-avatar.svg"
-        />
-        <Plan
-          title="Ultimate"
-          sub="₱409/3 months"
+          title="Custom"
+          sub="₱1,099/3 months"
           details={[
             <>
-              Everything in <span className="ml-1 text-primary-100">Super</span>
+              Everything in <span className="ml-1 text-primary-100">Enjoyer</span>
             </>,
-            "Personalized theme",
+            "Personalized website",
             "Custom subdomain",
             "Create up to 10 pages",
             "Priority customer support",
