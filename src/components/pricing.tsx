@@ -17,8 +17,12 @@ export function Pricing() {
             "100% free forever",
             "No watermark",
             "High-quality image",
-            <span className="text-secondary-100">Shareable link</span>,
-            <span className="text-secondary-100">Caption text input</span>,
+            <span key="item 4" className="text-secondary-100">
+              Shareable link
+            </span>,
+            <span key="item 5" className="text-secondary-100">
+              Caption text input
+            </span>,
           ]}
           img="/assets/enjoyer-avatar.svg"
           handleStart="/tool"
@@ -28,7 +32,8 @@ export function Pricing() {
           sub="₱1,099/3 months"
           details={[
             <>
-              Everything in <span className="ml-1 text-primary-100">Enjoyer</span>
+              Everything in{" "}
+              <span className="ml-1 text-primary-100">Enjoyer</span>
             </>,
             "Personalized website",
             "Custom subdomain",

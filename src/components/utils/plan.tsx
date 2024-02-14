@@ -1,7 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { useMemo } from "react";
+import { nanoid } from "nanoid";
+
 import { IconCheckCircle } from "./icons";
 
 type Props = {
@@ -13,6 +16,10 @@ type Props = {
 };
 
 export function Plan({ title, sub, details, img, handleStart }: Props) {
+  const ids = useMemo(
+    () => Array.from({ length: details.length }).map(() => nanoid()),
+    [details],
+  );
   return (
     <div className="border-[3px] border-secondary-200 rounded-md pt-12 p-8 text-center bg-white relative max-w-md w-full flex flex-col justify-between mx-auto lg:mx-0 shadow-lg">
       <div>
@@ -22,8 +29,8 @@ export function Plan({ title, sub, details, img, handleStart }: Props) {
         <p className="font-medium mt-1 lg:text-lg xl:text-xl">{sub}</p>
 
         <ul className="md:ml-8 ml-4 text-left font-medium mt-8 lg:mt-12 space-y-2 lg:text-lg xl:text-xl">
-          {details.map((d) => (
-            <li key={d?.toString()} className="flex items-center">
+          {details.map((d, i) => (
+            <li key={ids[i]} className="flex items-center">
               <IconCheckCircle className="text-primary-100 mr-2 text-xl" /> {d}
             </li>
           ))}
@@ -39,10 +46,8 @@ export function Plan({ title, sub, details, img, handleStart }: Props) {
           Get started <span className="text-primary-100">&rarr;</span>
         </Link>
       ) : (
-        <p
-          className="font-medium lg:mt-1 lg:text-lg xl:text-xl self-end mt-8 text-secondary-100"
-        >
-            Coming soon!
+        <p className="font-medium lg:mt-1 lg:text-lg xl:text-xl self-end mt-8 text-secondary-100">
+          Coming soon!
         </p>
       )}
 
