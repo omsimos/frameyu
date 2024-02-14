@@ -11,9 +11,9 @@ import {
   ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 
+import Modal from "@/components/utils/modal";
 import { Button } from "@/components/utils/button";
 import { IconPhoto, IconRestart, IconWarning } from "@/components/utils/icons";
-import Modal from "@/components/utils/modal";
 
 const handlePicChange = (
   e: React.ChangeEvent<HTMLInputElement>,
