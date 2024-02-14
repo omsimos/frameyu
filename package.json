@@ -12,7 +12,7 @@
     "@headlessui/react": "^1.7.17",
     "firebase": "^10.6.0",
     "geist": "^1.0.0",
-    "html-to-image": "^1.11.11",
+    "modern-screenshot": "^4.4.38",
     "nanoid": "^5.0.3",
     "next": "14.0.1",
     "nextjs-toploader": "^1.6.4",

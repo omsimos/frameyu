@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { nanoid } from "nanoid";
 import toast from "react-hot-toast";
-import { toPng } from "html-to-image";
+import { domToPng } from "modern-screenshot";
 import { useState, useCallback, useRef, useEffect } from "react";
 import {
   TransformWrapper,
@@ -17,7 +17,7 @@ import Modal from "@/components/utils/modal";
 
 const handlePicChange = (
   e: React.ChangeEvent<HTMLInputElement>,
-  setter: React.Dispatch<React.SetStateAction<string>>
+  setter: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   if (!e.target.files) return;
 
@@ -57,9 +57,9 @@ export default function Home() {
     }
 
     toast.promise(
-      toPng(ref.current, {
-        cacheBust: true,
-        pixelRatio: 3,
+      domToPng(ref.current, {
+        quality: 1,
+        scale: 4,
       })
         .then((dataUrl) => {
           const link = document.createElement("a");
@@ -70,7 +70,7 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         }),
-      { loading: "Saving...", success: "Saved!", error: "Error!" }
+      { loading: "Saving...", success: "Saved!", error: "Error!" },
     );
   }, [ref]);
 

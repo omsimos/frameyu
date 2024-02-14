@@ -14,9 +14,9 @@ dependencies:
   geist:
     specifier: ^1.0.0
     version: 1.0.0
-  html-to-image:
-    specifier: ^1.11.11
-    version: 1.11.11
+  modern-screenshot:
+    specifier: ^4.4.38
+    version: 4.4.38
   nanoid:
     specifier: ^5.0.3
     version: 5.0.3
@@ -2035,10 +2035,6 @@ packages:
       function-bind: 1.1.2
     dev: true
 
-  /html-to-image@1.11.11:
-    resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
-    dev: false
-
   /http-parser-js@0.5.8:
     resolution: {integrity: sha512-SGeBX54F94Wgu5RH3X5jsDtf4eHyRogWX1XGT3b4HuW3tQPM4AaBzoUji/4AAJNXCEOWZ5O0DgZmJw1947gD5Q==}
     dev: false
@@ -2405,6 +2401,10 @@ packages:
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
+
+  /modern-screenshot@4.4.38:
+    resolution: {integrity: sha512-WeC3BuaJYjKvtXPSvSZRV5uvoJ4A1yrdb4mu1w5eLWkrONwD2mxYecRIJx3scf6/IwNl4zRh1SBrMibeJHMrYQ==}
+    dev: false
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
