@@ -4,4 +4,5 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_PASSWORD: frameyu
+      POSTGRES_DB: frameyu-db
+      POSTGRES_PASSWORD: postgres

@@ -36,6 +36,13 @@ export function Hero() {
           </Link>
 
           <Link
+            href="/login/google"
+            className="px-6 py-3 bg-secondary-200 text-white rounded"
+          >
+          Login
+          </Link>
+
+          <Link
             href="/#pricing"
             className="px-6 py-3 border-2 border-secondary-200 box-border rounded text-secondary-200"
           >
