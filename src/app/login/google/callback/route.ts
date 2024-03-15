@@ -1,8 +1,9 @@
-import { google, lucia } from "@/lib/auth";
-import { cookies } from "next/headers";
-import { GoogleTokens, OAuth2RequestError } from "arctic";
 import { generateId } from "lucia";
+import { cookies } from "next/headers";
+import { OAuth2RequestError } from "arctic";
+
 import prisma from "@/lib/db";
+import { google, lucia } from "@/lib/auth";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -10,8 +11,7 @@ export async function GET(request: Request): Promise<Response> {
   const state = url.searchParams.get("state");
 
   const storedState = cookies().get("google_oauth_state")?.value ?? null;
-  const storedCodeVerifier =
-    cookies().get("google_oauth_code_verifier")?.value ?? null;
+  const storedCodeVerifier = cookies().get("code_verifier")?.value ?? null;
 
   if (
     !code ||
@@ -26,7 +26,7 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   try {
-    const tokens: GoogleTokens = await google.validateAuthorizationCode(
+    const tokens = await google.validateAuthorizationCode(
       code,
       storedCodeVerifier,
     );
@@ -44,7 +44,7 @@ export async function GET(request: Request): Promise<Response> {
 
     const existingUser = await prisma.user.findUnique({
       where: {
-        googleId: googleUser.id,
+        googleId: googleUser.sub,
       },
     });
 
@@ -70,7 +70,7 @@ export async function GET(request: Request): Promise<Response> {
 
     const newUser = await prisma.user.create({
       data: {
-        googleId: googleUser.id,
+        googleId: googleUser.sub,
         username: `user_${usernameId}`,
       },
     });
@@ -90,7 +90,7 @@ export async function GET(request: Request): Promise<Response> {
         Location: "/",
       },
     });
-  } catch (e) {
+  } catch (e: any) {
     if (e instanceof OAuth2RequestError) {
       return new Response(null, {
         status: 400,
@@ -104,5 +104,5 @@ export async function GET(request: Request): Promise<Response> {
 }
 
 interface GoogleUser {
-  id: string;
+  sub: string;
 }
