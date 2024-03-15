@@ -1,19 +1,14 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "./utils/button";
-import { usePathname } from "next/navigation";
 
 export function Navbar() {
-  const pathname = usePathname();
-
   return (
     <nav className="py-12 flex justify-between items-center">
       <Link
         href="/"
-        className="text-2xl font-black text-secondary-200 tracking-[-0.09em]"
+        className="text-2xl font-black text-zinc-800 tracking-[-0.09em]"
       >
-        frame<span className="text-primary-100">yu</span>
+        frame<span className="text-purple-600">yu</span>
       </Link>
 
       <div className="font-medium flex space-x-24 items-center">
@@ -29,9 +24,7 @@ export function Navbar() {
           </li>
         </ul>
 
-        <Button className={pathname === "/tool" ? "hidden" : ""} link="/tool">
-          Let&apos;s Frame
-        </Button>
+        <Button link="/tool">Let&apos;s Frame</Button>
       </div>
     </nav>
   );

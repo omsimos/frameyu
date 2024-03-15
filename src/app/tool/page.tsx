@@ -104,7 +104,7 @@ export default function Home() {
           </button>
         )}
 
-        <div className="items-center flex-col justify-center border-2 border-secondary-200 p-6 rounded-2xl flex shadow-lg">
+        <div className="items-center flex-col justify-center border-2 border-zinc-800 p-6 rounded-2xl flex shadow-lg">
           <input
             ref={profileRef}
             type="file"
@@ -144,7 +144,7 @@ export default function Home() {
               ) : (
                 <button
                   onClick={() => frameRef.current?.click()}
-                  className="bg-purple-100 border-2 border-dashed border-secondary-200 text-secondary-200 text-opacity-80 rounded-2xl h-full w-full flex items-center justify-center flex-col"
+                  className="bg-purple-100 border-2 border-dashed border-zinc-800 text-zinc-800 text-opacity-80 rounded-2xl h-full w-full flex items-center justify-center flex-col"
                 >
                   <IconPhoto className="text-6xl" />
                   <p>Upload Frame</p>
@@ -177,7 +177,7 @@ export default function Home() {
           <div className="mt-6 space-x-3 text-sm md:text-base flex w-full self-start">
             {!frame && (
               <div>
-                <p className="text-secondary-200">
+                <p className="text-zinc-800">
                   Get started by uploading your frame above.{" "}
                 </p>
                 <button

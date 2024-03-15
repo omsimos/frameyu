@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40">
       <div>
-        <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-secondary-200 leading-tight">
+        <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-zinc-800 leading-tight">
           Frame overlayer,
           <br />
           built for{" "}
@@ -29,17 +29,17 @@ export function Hero() {
 
         <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-12 space-x-4 justify-center xl:justify-start">
           <Link
-            href="/tool"
-            className="px-6 py-3 bg-secondary-200 text-white rounded"
+            href="/login"
+            className="px-6 py-3 bg-zinc-800 text-white rounded"
           >
             Get Started
           </Link>
 
           <Link
-            href="/#pricing"
-            className="px-6 py-3 border-2 border-secondary-200 box-border rounded text-secondary-200"
+            href="/tool"
+            className="px-6 py-3 border-2 border-zinc-800 box-border rounded text-zinc-800"
           >
-            Learn More &rarr;
+            Use tool &rarr;
           </Link>
         </div>
       </div>

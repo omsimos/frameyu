@@ -1,14 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  ::-moz-selection {
-    /* Code for Firefox */
-    @apply bg-purple-100;
-  }
-
-  ::selection {
-    @apply bg-purple-100;
-  }
-}
