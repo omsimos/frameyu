@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${GeistSans.className} max-w-screen-xl px-6 2xl:px-0 mx-auto bg-white text-secondary-100`}
+        className={`${GeistSans.className} max-w-screen-xl px-6 2xl:px-0 mx-auto bg-background text-foreground`}
       >
         <Toaster
           position="bottom-center"
