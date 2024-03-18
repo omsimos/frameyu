@@ -61,17 +61,19 @@ export async function GET(request: Request): Promise<Response> {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/",
+          Location: "/login",
         },
       });
     }
 
-    const usernameId = generateId(11);
+    const usernameId = generateId(5);
 
     const newUser = await prisma.user.create({
       data: {
         googleId: googleUser.sub,
-        username: `user_${usernameId}`,
+        username: `${googleUser.given_name.split(" ").join("").toLowerCase()}_${usernameId}`,
+        image: googleUser.picture,
+        email: googleUser.email,
       },
     });
 
@@ -87,11 +89,12 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/",
+        Location: "/login",
       },
     });
-  } catch (e: any) {
-    if (e instanceof OAuth2RequestError) {
+  } catch (err: any) {
+    console.log(err);
+    if (err instanceof OAuth2RequestError) {
       return new Response(null, {
         status: 400,
       });
@@ -105,4 +108,7 @@ export async function GET(request: Request): Promise<Response> {
 
 interface GoogleUser {
   sub: string;
+  given_name: string;
+  picture: string;
+  email: string;
 }
