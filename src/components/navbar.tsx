@@ -24,7 +24,7 @@ export function Navbar() {
           </li>
         </ul>
 
-        <Button link="/tool">Let&apos;s Frame</Button>
+        <Button link="/login">Let&apos;s Frame</Button>
       </div>
     </nav>
   );

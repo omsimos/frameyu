@@ -17,6 +17,7 @@
     "@pothos/core": "^3.41.0",
     "@pothos/plugin-prisma": "^3.65.0",
     "@prisma/client": "^5.11.0",
+    "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
     "arctic": "^1.2.1",
     "class-variance-authority": "^0.7.0",

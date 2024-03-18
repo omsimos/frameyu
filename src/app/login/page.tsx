@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { Button } from "@/components/utils/button";
-import { lucia, validateRequest } from "@/lib/auth";
+import { validateRequest } from "@/lib/auth";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -15,17 +13,11 @@ import {
 import { cn } from "@/lib/utils";
 import { GoogleIcon } from "@/components/icons";
 
-export default async function RegPage() {
+export default async function LoginPage() {
   const { user } = await validateRequest();
 
   if (user) {
-    return (
-      <form action={logout}>
-        <p>Hello, {user.username}</p>
-
-        <Button type="submit">Sign out</Button>
-      </form>
-    );
+    redirect("/dashboard");
   }
 
   return (
@@ -73,32 +65,4 @@ export default async function RegPage() {
       </Card>
     </section>
   );
-}
-
-async function logout(): Promise<ActionResult> {
-  "use server";
-
-  const { session } = await validateRequest();
-
-  if (!session) {
-    return {
-      error: "Unauthorized",
-    };
-  }
-
-  await lucia.invalidateSession(session.id);
-
-  const sessionCookie = lucia.createBlankSessionCookie();
-
-  cookies().set(
-    sessionCookie.name,
-    sessionCookie.value,
-    sessionCookie.attributes,
-  );
-
-  return redirect("/login");
-}
-
-interface ActionResult {
-  error: string | null;
 }

@@ -21,7 +21,7 @@ export function Button({ onClick, link, className, children, ...rest }: Props) {
     >
       {link ? (
         <Link
-          href="/tool"
+          href={link}
           className="border-2 text-zinc-800 absolute w-full h-full -mt-1 -ml-1 border-zinc-800 bg-white rounded text-sm md:text-base grid place-items-center hover:-mt-[2px] hover:-ml-[2px] transition-all"
         >
           {children}

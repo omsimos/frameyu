@@ -1,7 +1,7 @@
 import { cache } from "react";
-import { Lucia, Session, User } from "lucia";
 import { Google } from "arctic";
 import { cookies } from "next/headers";
+import { Lucia, Session, User } from "lucia";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 
 export const google = new Google(
@@ -25,6 +25,8 @@ export const lucia = new Lucia(adapter, {
     return {
       googleId: attributes.googleId,
       username: attributes.username,
+      email: attributes.email,
+      image: attributes.image,
     };
   },
 });
@@ -74,4 +76,6 @@ declare module "lucia" {
 interface DatabaseUserAttributes {
   googleId: string;
   username: string;
+  email: string;
+  image: string;
 }

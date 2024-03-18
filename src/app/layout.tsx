@@ -50,7 +50,6 @@ export default function RootLayout({
         />
         <NextTopLoader showSpinner={false} />
 
-        <Navbar />
         {children}
         <Footer />
       </body>
