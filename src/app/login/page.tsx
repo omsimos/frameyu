@@ -7,7 +7,6 @@ import { lucia, validateRequest } from "@/lib/auth";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -38,7 +37,7 @@ export default async function RegPage() {
             Connect your Google account to get started.
           </CardDescription>
         </CardHeader>
-        <CardFooter className="flex flex-col">
+        <CardFooter className="flex flex-col mt-4">
           <Link
             href="/login/google"
             className={cn(

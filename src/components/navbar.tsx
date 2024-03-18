@@ -6,7 +6,7 @@ export function Navbar() {
     <nav className="py-12 flex justify-between items-center">
       <Link
         href="/"
-        className="text-2xl font-black text-zinc-800 tracking-[-0.09em]"
+        className="text-2xl font-black tracking-[-0.09em]"
       >
         frame<span className="text-purple-600">yu</span>
       </Link>

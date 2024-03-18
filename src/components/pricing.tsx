@@ -9,7 +9,7 @@ export function Pricing() {
         sub="Affordable pricing to supercharge your campaign."
       />
 
-      <div className="mt-16 flex xl:space-x-8 lg:space-x-4 justify-center lg:h-[600px] text-secondary-200 flex-col lg:flex-row space-y-8 lg:space-y-0">
+      <div className="mt-16 flex xl:space-x-8 lg:space-x-4 justify-center lg:h-[600px] text-zinc-800 flex-col lg:flex-row space-y-8 lg:space-y-0">
         <Plan
           title="Enjoyer"
           sub="No payment required"
@@ -17,23 +17,19 @@ export function Pricing() {
             "100% free forever",
             "No watermark",
             "High-quality image",
-            <span key="item 4" className="text-secondary-100">
-              Shareable link
-            </span>,
-            <span key="item 5" className="text-secondary-100">
-              Caption text input
-            </span>,
+            "Caption field",
+            "Shareable link",
           ]}
           img="/assets/enjoyer-avatar.svg"
           handleStart="/tool"
         />
         <Plan
           title="Custom"
-          sub="₱1,099/3 months"
+          sub="₱???/month"
           details={[
             <>
               Everything in{" "}
-              <span className="ml-1 text-primary-100">Enjoyer</span>
+              <span className="ml-1 text-violet-600">Enjoyer</span>
             </>,
             "Personalized website",
             "Custom subdomain",

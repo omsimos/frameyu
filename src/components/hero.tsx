@@ -1,6 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { Frame } from "lucide-react";
+
 import encircle from "@/assets/encircle.svg";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
@@ -27,19 +31,31 @@ export function Hero() {
           drag and zoom.
         </p>
 
-        <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-12 space-x-4 justify-center xl:justify-start">
+        <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-8 space-x-4 justify-center xl:justify-start">
           <Link
             href="/login"
-            className="px-6 py-3 bg-zinc-800 text-white rounded"
+            className={cn(
+              buttonVariants({
+                size: "lg",
+              }),
+              "md:text-lg",
+            )}
           >
             Get Started
           </Link>
 
           <Link
             href="/tool"
-            className="px-6 py-3 border-2 border-zinc-800 box-border rounded text-zinc-800"
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+                size: "lg",
+              }),
+              "md:text-lg",
+            )}
           >
-            Use tool &rarr;
+            Use tool
+            <Frame className="ml-2 h-4 w-4" />
           </Link>
         </div>
       </div>
