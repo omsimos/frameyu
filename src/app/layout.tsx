@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font";
 import { Toaster } from "react-hot-toast";
+import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
