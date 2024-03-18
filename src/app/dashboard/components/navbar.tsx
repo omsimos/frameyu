@@ -1,9 +1,8 @@
 import Link from "next/link";
 
-import { logout } from "@/app/actions";
 import { validateRequest } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Logout } from "./logout";
 
 export async function DashboardNavbar() {
   const { user } = await validateRequest();
@@ -15,11 +14,7 @@ export async function DashboardNavbar() {
       </Link>
 
       <div className="font-medium flex space-x-12 items-center">
-        <form action={logout}>
-          <Button variant="outline" type="submit">
-            Sign out
-          </Button>
-        </form>
+        <Logout />
 
         <Avatar>
           <AvatarImage src={user?.image} alt="user avatar" />
