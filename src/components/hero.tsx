@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40">
+    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40 container">
       <div>
         <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-zinc-800 leading-tight">
           Frame overlayer,

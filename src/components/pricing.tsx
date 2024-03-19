@@ -1,9 +1,9 @@
 import { Heading } from "./heading";
-import { Plan } from "./utils/plan";
+import { Plan } from "./plan";
 
 export function Pricing() {
   return (
-    <section id="pricing" className="md:pt-52 pt-32 -scroll-mt-28">
+    <section id="pricing" className="md:pt-52 pt-32 -scroll-mt-28 container">
       <Heading
         title="Get started for free!"
         sub="Affordable pricing to supercharge your campaign."

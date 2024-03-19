@@ -4,7 +4,6 @@ import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
@@ -35,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${GeistSans.className} max-w-screen-xl px-6 2xl:px-0 mx-auto bg-white text-zinc-800`}
+        className={`${GeistSans.className} bg-white text-zinc-800`}
       >
         <Toaster
           position="bottom-center"

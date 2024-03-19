@@ -3,7 +3,7 @@ import { Button } from "./utils/button";
 
 export function Navbar() {
   return (
-    <nav className="py-12 flex justify-between items-center">
+    <nav className="py-12 flex justify-between items-center container">
       <Link
         href="/"
         className="text-2xl font-black tracking-[-0.09em]"

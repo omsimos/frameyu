@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from "react";
 import { nanoid } from "nanoid";
-
-import { IconCheckCircle } from "./icons";
+import { IconCheckCircle } from "./utils/icons";
 
 type Props = {
   title: string;
