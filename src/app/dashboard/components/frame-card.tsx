@@ -7,12 +7,6 @@ import {
 } from "@/components/ui/card";
 import { Copy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 export function FrameCard() {
   return (
@@ -20,22 +14,13 @@ export function FrameCard() {
       <CardHeader>
         <div>
           <h3 className="font-semibold text-lg">Frame Name</h3>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="outline-none flex items-center text-sm hover:underline"
-                >
-                  <Copy className="h-4 w-4 mr-2" />
-                  frameyu.com/f/name
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">
-                <p>Copy to clipboard</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <button
+            type="button"
+            className="outline-none flex items-center text-sm hover:underline"
+          >
+            <Copy className="h-4 w-4 mr-2" />
+            frameyu.com/f/name
+          </button>
         </div>
       </CardHeader>
 
