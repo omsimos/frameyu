@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Frame } from "lucide-react";
 
-import { validateRequest } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { MenuDropdown } from "./menu-dropdown";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export async function DashboardNavbar() {
-  const { user } = await validateRequest();
+  const { user } = await getSession();
 
   return (
     <nav className="border-b border-zinc-300 py-8 mb-16">

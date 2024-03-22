@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { validateRequest } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { GoogleIcon } from "@/components/icons";
 
 export default async function LoginPage() {
-  const { user } = await validateRequest();
+  const { user } = await getSession();
 
   if (user) {
     redirect("/dashboard");

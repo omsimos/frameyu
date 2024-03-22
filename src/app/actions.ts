@@ -2,10 +2,10 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { lucia, validateRequest } from "@/lib/auth";
+import { lucia, getSession } from "@/lib/auth";
 
 export async function logout(): Promise<ActionResult> {
-  const { session } = await validateRequest();
+  const { session } = await getSession();
 
   if (!session) {
     return {

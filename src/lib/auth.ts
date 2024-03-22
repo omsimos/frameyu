@@ -31,7 +31,7 @@ export const lucia = new Lucia(adapter, {
   },
 });
 
-export const validateRequest = cache(
+export const getSession = cache(
   async (): Promise<
     { user: User; session: Session } | { user: null; session: null }
   > => {
