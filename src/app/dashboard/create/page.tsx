@@ -6,7 +6,7 @@ export default function CreatePage() {
       <div className="text-center mb-12">
         <h1 className="font-semibold text-3xl">Share Frame</h1>
         <p className="text-muted-foreground">
-          Let's supercharge your campaign!
+          Let&apos;s supercharge your campaign!
         </p>
       </div>
 
