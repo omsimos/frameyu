@@ -29,7 +29,7 @@ export default async function DashboardPage() {
   const result = await getClient().query(GetUsersQuery, {});
 
   return (
-    <section className="container min-h-screen">
+    <section className="container">
       <div>
         <h1 className="font-semibold text-3xl">Manage Frames</h1>
         <p className="text-muted-foreground">
