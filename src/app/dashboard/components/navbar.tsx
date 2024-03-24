@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { Frame } from "lucide-react";
 
 import { getSession } from "@/lib/auth";
 import { MenuDropdown } from "./menu-dropdown";
+import { NavbarButton } from "./navbar-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { buttonVariants } from "@/components/ui/button";
 
 export async function DashboardNavbar() {
   const { user } = await getSession();
@@ -17,10 +16,7 @@ export async function DashboardNavbar() {
         </Link>
 
         <div className="font-medium flex space-x-6 items-center">
-          <Link href="/dashboard/create" className={buttonVariants()}>
-            <Frame className="mr-2 h-4 w-4" />
-            Create Frame
-          </Link>
+          <NavbarButton />
 
           <MenuDropdown>
             <button className="outline-none" type="button">
