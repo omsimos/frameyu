@@ -12,25 +12,9 @@ import {
 } from "react-zoom-pan-pinch";
 
 import Modal from "@/components/utils/modal";
+import { handleImageChange } from "@/lib/utils";
 import { Button } from "@/components/utils/button";
 import { IconPhoto, IconRestart, IconWarning } from "@/components/utils/icons";
-
-const handlePicChange = (
-  e: React.ChangeEvent<HTMLInputElement>,
-  setter: React.Dispatch<React.SetStateAction<string>>,
-) => {
-  if (!e.target.files) return;
-
-  const file = e.target.files[0];
-  const reader = new FileReader();
-
-  reader.onloadend = () => {
-    const dataUrl = reader.result as string;
-    setter(dataUrl);
-  };
-
-  reader.readAsDataURL(file);
-};
 
 export default function Home() {
   const [frame, setFrame] = useState("");
@@ -109,15 +93,27 @@ export default function Home() {
             ref={profileRef}
             type="file"
             accept="image/*"
-            onChange={(e) => handlePicChange(e, setProfilePic)}
+            onChange={(e) =>
+              handleImageChange({
+                file: e.target.files![0],
+                onSuccess: setProfilePic,
+                onError: (err) => toast.error(err.message),
+              })
+            }
             className="hidden"
           />
 
           <input
             ref={frameRef}
             type="file"
-            accept="image/*"
-            onChange={(e) => handlePicChange(e, setFrame)}
+            accept="image/png"
+            onChange={(e) =>
+              handleImageChange({
+                file: e.target.files![0],
+                onSuccess: setFrame,
+                onError: (err) => toast.error(err.message),
+              })
+            }
             className="hidden"
           />
 
