@@ -14,11 +14,11 @@ export function UploadFrame() {
   const frameRef = useRef<HTMLInputElement>(null);
 
   return (
-    <section>
-      <Card className="w-[300px] h-[300px] p-4">
+    <section className="w-full">
+      <Card className="h-[350px] p-4">
         {frame ? (
           <Image
-            priority
+             priority
             quality={100}
             src={frame}
             height={500}
