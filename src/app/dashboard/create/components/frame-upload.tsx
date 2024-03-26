@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { handleImageChange } from "@/lib/utils";
 import { ArrowRight, FileImage, Frame } from "lucide-react";
 
-export function UploadFrame() {
+export function FrameUpload() {
   const [frame, setFrame] = useState("");
   const frameRef = useRef<HTMLInputElement>(null);
   const router = useRouter();

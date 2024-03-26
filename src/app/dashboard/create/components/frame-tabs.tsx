@@ -1,25 +1,22 @@
 "use client";
 
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-
-import { UploadFrame } from "./upload-frame";
+import { FrameUpload } from "./frame-upload";
 import { FrameCaption } from "./frame-caption";
+import { useFrameStore } from "@/store/useFrameStore";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function FrameTabs() {
-  const searchParams = useSearchParams();
-  const tab = searchParams.get("tab");
+  const currentTab = useFrameStore((state) => state.currentTab);
 
   return (
-    <Tabs defaultValue="frame" value={tab ?? "frame"} className="w-[350px]">
+    <Tabs value={currentTab} className="w-[350px]">
       <TabsList>
         <TabTrigger tab="Frame" />
         <TabTrigger tab="Caption" />
       </TabsList>
 
       <TabsContent value="frame">
-        <UploadFrame />
+        <FrameUpload />
       </TabsContent>
 
       <TabsContent value="caption">
@@ -30,17 +27,14 @@ export function FrameTabs() {
 }
 
 function TabTrigger({ tab }: { tab: string }) {
+  const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
+
   return (
-    <TabsTrigger value={tab.toLowerCase()}>
-      <Link
-        href={{
-          query: {
-            tab: tab.toLowerCase(),
-          },
-        }}
-      >
-        {tab}
-      </Link>
+    <TabsTrigger
+      onClick={() => updateCurrentTab(tab.toLowerCase())}
+      value={tab.toLowerCase()}
+    >
+      {tab}
     </TabsTrigger>
   );
 }
