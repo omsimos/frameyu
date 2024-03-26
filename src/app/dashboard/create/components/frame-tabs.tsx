@@ -2,6 +2,7 @@
 
 import { FrameUpload } from "./frame-upload";
 import { FrameCaption } from "./frame-caption";
+import { FramePreview } from "./frame-preview";
 import { useFrameStore } from "@/store/useFrameStore";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -13,6 +14,7 @@ export function FrameTabs() {
       <TabsList>
         <TabTrigger tab="Frame" />
         <TabTrigger tab="Caption" />
+        <TabTrigger tab="Preview" />
       </TabsList>
 
       <TabsContent value="frame">
@@ -22,15 +24,21 @@ export function FrameTabs() {
       <TabsContent value="caption">
         <FrameCaption />
       </TabsContent>
+
+      <TabsContent value="preview">
+        <FramePreview />
+      </TabsContent>
     </Tabs>
   );
 }
 
 function TabTrigger({ tab }: { tab: string }) {
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
+  const imgFileUrl = useFrameStore((state) => state.imgFileUrl);
 
   return (
     <TabsTrigger
+      disabled={!imgFileUrl}
       onClick={() => updateCurrentTab(tab.toLowerCase())}
       value={tab.toLowerCase()}
     >
