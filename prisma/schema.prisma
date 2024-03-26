@@ -19,6 +19,7 @@ model User {
     image    String?
     email    String
     sessions Session[]
+    frames   Frame[]
 }
 
 model Session {
@@ -26,4 +27,13 @@ model Session {
     userId    String
     expiresAt DateTime
     user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Frame {
+    id      String  @id
+    imgUrl  String
+    handle  String? @unique
+    caption String?
+    userId  String
+    user    User    @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
