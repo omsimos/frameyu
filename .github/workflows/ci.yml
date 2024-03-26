@@ -26,4 +26,6 @@ jobs:
         run: bun install
 
       - name: Build
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
         run: bun run build
