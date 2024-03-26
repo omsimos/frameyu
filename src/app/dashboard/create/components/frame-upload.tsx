@@ -1,26 +1,28 @@
+import { useRef } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { ArrowRight, FileImage, Frame } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { handleImageChange } from "@/lib/utils";
-import { ArrowRight, FileImage, Frame } from "lucide-react";
+import { useFrameStore } from "@/store/useFrameStore";
 
 export function FrameUpload() {
-  const [frame, setFrame] = useState("");
   const frameRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+
+  const imgFileUrl = useFrameStore((state) => state.imgFileUrl);
+  const updateImgFileUrl = useFrameStore((state) => state.updateImgFileUrl);
+  const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
 
   return (
     <section className="w-full">
       <Card className="h-[350px] p-4">
-        {frame ? (
+        {imgFileUrl ? (
           <Image
             priority
             quality={100}
-            src={frame}
+            src={imgFileUrl}
             height={500}
             width={500}
             className="object-cover pointer-events-none aspect-square w-full rounded-md"
@@ -37,24 +39,22 @@ export function FrameUpload() {
         )}
       </Card>
 
-      <div className="flex items-center space-x-2">
-        <Button
-          className="w-full mt-4"
-          onClick={() => frameRef.current?.click()}
-        >
+      <div className="flex items-center space-x-2 mt-4">
+        <Button className="w-full" onClick={() => frameRef.current?.click()}>
           <FileImage className="mr-2 h-4 w-4" />
           Upload Frame
         </Button>
 
         <Button
           onClick={() => {
-            router.push("/dashboard/create?tab=caption");
+            updateCurrentTab("caption");
           }}
-          disabled={!frame}
-          className="w-full mt-4"
+          disabled={!imgFileUrl}
+          size="icon"
+          variant="secondary"
+          className="flex-none"
         >
-          Proceed
-          <ArrowRight className="ml-2 h-4 w-4" />
+          <ArrowRight className="h-4 w-4" />
         </Button>
       </div>
 
@@ -65,7 +65,7 @@ export function FrameUpload() {
         onChange={(e) =>
           handleImageChange({
             file: e.target.files![0],
-            onSuccess: setFrame,
+            onSuccess: updateImgFileUrl,
             onError: (err) => toast.error(err.message),
           })
         }

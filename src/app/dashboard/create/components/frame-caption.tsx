@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useFrameStore } from "@/store/useFrameStore";
 
 const formSchema = z.object({
   customUrl: z
@@ -36,6 +37,8 @@ const formSchema = z.object({
 });
 
 export function FrameCaption() {
+  const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -88,10 +91,23 @@ export function FrameCaption() {
           )}
         />
 
-        <Button type="submit" className="w-full mt-4">
-          Proceed
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
+        <div className="flex items-center space-x-2 mt-4">
+          <Button type="submit" className="w-full">
+            <Save className="mr-2 h-4 w-4" />
+            Save Changes
+          </Button>
+
+          <Button
+            onClick={() => {
+              updateCurrentTab("preview");
+            }}
+            size="icon"
+            variant="secondary"
+            className="flex-none"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
       </form>
     </Form>
   );
