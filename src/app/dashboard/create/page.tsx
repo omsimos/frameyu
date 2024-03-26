@@ -1,5 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UploadFrame } from "./components/upload-frame";
+import { FrameTabs } from "./components/frame-tabs";
 
 export default function CreatePage() {
   return (
@@ -11,21 +10,7 @@ export default function CreatePage() {
         </p>
       </div>
 
-      <Tabs defaultValue="frame" className="w-[350px]">
-        <TabsList>
-          <TabsTrigger value="frame">Frame</TabsTrigger>
-          <TabsTrigger disabled value="caption">
-            Caption
-          </TabsTrigger>
-          <TabsTrigger disabled value="preview">
-            Preview
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="frame">
-          <UploadFrame />
-        </TabsContent>
-      </Tabs>
+      <FrameTabs />
     </section>
   );
 }

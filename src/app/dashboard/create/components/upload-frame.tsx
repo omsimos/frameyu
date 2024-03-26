@@ -1,24 +1,24 @@
-"use client";
-
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { handleImageChange } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { handleImageChange } from "@/lib/utils";
 import { ArrowRight, FileImage, Frame } from "lucide-react";
 
 export function UploadFrame() {
   const [frame, setFrame] = useState("");
   const frameRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   return (
     <section className="w-full">
       <Card className="h-[350px] p-4">
         {frame ? (
           <Image
-             priority
+            priority
             quality={100}
             src={frame}
             height={500}
@@ -29,6 +29,7 @@ export function UploadFrame() {
         ) : (
           <button
             type="button"
+            onClick={() => frameRef.current?.click()}
             className="bg-zinc-200 w-full h-full rounded-md grid place-items-center"
           >
             <Frame className="text-zinc-400 h-6 w-6" />
@@ -46,9 +47,11 @@ export function UploadFrame() {
         </Button>
 
         <Button
+          onClick={() => {
+            router.push("/dashboard/create?tab=caption");
+          }}
           disabled={!frame}
           className="w-full mt-4"
-          onClick={() => frameRef.current?.click()}
         >
           Proceed
           <ArrowRight className="ml-2 h-4 w-4" />
