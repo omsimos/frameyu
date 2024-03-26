@@ -22,5 +22,6 @@ const builder = new SchemaBuilder<{
 
 builder.addScalarType("Date", DateResolver, {});
 builder.queryType({});
+builder.mutationType({})
 
 export default builder;
