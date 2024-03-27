@@ -11,7 +11,7 @@ export function FrameTabs() {
 
   return (
     <Tabs value={currentTab} className="w-[350px]">
-      <TabsList>
+      <TabsList className="mb-6">
         <TabTrigger tab="Frame" />
         <TabTrigger tab="Caption" />
         <TabTrigger tab="Preview" />

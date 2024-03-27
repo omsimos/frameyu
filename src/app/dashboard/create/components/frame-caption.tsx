@@ -57,7 +57,7 @@ export function FrameCaption() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="urlHandle"
@@ -70,7 +70,7 @@ export function FrameCaption() {
                 <Input placeholder="frameyu" {...field} />
               </FormControl>
               <FormDescription>
-                fy.omsimos.com/f/
+                yu.omsimos.com/f/
                 {form.getValues().urlHandle}
               </FormDescription>
               <FormMessage />

@@ -39,6 +39,10 @@ export function FrameUpload() {
         )}
       </Card>
 
+      <p className="text-sm text-muted-foreground my-2">
+        Ensure that your image is transparent (.png)
+      </p>
+
       <div className="flex items-center space-x-2 mt-4">
         <Button className="w-full" onClick={() => frameRef.current?.click()}>
           <FileImage className="mr-2 h-4 w-4" />
