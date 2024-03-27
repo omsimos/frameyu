@@ -11,18 +11,18 @@ import { useFrameStore } from "@/store/useFrameStore";
 export function FrameUpload() {
   const frameRef = useRef<HTMLInputElement>(null);
 
-  const imgFileUrl = useFrameStore((state) => state.imgFileUrl);
-  const updateImgFileUrl = useFrameStore((state) => state.updateImgFileUrl);
+  const frameData = useFrameStore((state) => state.frameData);
+  const updateFileUrl = useFrameStore((state) => state.updateFileUrl);
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
 
   return (
     <section className="w-full">
       <Card className="h-[350px] p-4">
-        {imgFileUrl ? (
+        {frameData.fileUrl ? (
           <Image
             priority
             quality={100}
-            src={imgFileUrl}
+            src={frameData.fileUrl}
             height={500}
             width={500}
             className="object-cover pointer-events-none aspect-square w-full rounded-md"
@@ -49,7 +49,7 @@ export function FrameUpload() {
           onClick={() => {
             updateCurrentTab("caption");
           }}
-          disabled={!imgFileUrl}
+          disabled={!frameData.fileUrl}
           size="icon"
           variant="secondary"
           className="flex-none"
@@ -65,7 +65,7 @@ export function FrameUpload() {
         onChange={(e) =>
           handleImageChange({
             file: e.target.files![0],
-            onSuccess: updateImgFileUrl,
+            onSuccess: updateFileUrl,
             onError: (err) => toast.error(err.message),
           })
         }

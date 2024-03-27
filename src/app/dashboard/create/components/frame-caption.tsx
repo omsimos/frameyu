@@ -1,4 +1,5 @@
 import { z } from "zod";
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { ArrowRight, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
 
 const formSchema = z.object({
-  customUrl: z
+  urlHandle: z
     .string()
     .min(3, {
       message: "URL handle must be at least 3 characters.",
@@ -28,7 +29,7 @@ const formSchema = z.object({
       message: "URL handle must not exceed 30 characters.",
     })
     .refine((username) => /^[a-zA-Z0-9_]+$/.test(username), {
-      message: "URL handle must be alphanumeric",
+      message: "URL handle must be alphanumeric with no spaces.",
     }),
 
   caption: z.string().max(2200, {
@@ -38,17 +39,20 @@ const formSchema = z.object({
 
 export function FrameCaption() {
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
+  const updateDetails = useFrameStore((state) => state.updateDetails);
+  const frameData = useFrameStore((state) => state.frameData);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      customUrl: "",
-      caption: "",
+      urlHandle: frameData.urlHandle,
+      caption: frameData.caption,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    updateDetails(values);
+    toast.success("Frame details updated");
   }
 
   return (
@@ -56,7 +60,7 @@ export function FrameCaption() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-8">
         <FormField
           control={form.control}
-          name="customUrl"
+          name="urlHandle"
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -67,7 +71,7 @@ export function FrameCaption() {
               </FormControl>
               <FormDescription>
                 fy.omsimos.com/f/
-                {form.getValues().customUrl}
+                {form.getValues().urlHandle}
               </FormDescription>
               <FormMessage />
             </FormItem>

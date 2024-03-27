@@ -34,11 +34,11 @@ export function FrameTabs() {
 
 function TabTrigger({ tab }: { tab: string }) {
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
-  const imgFileUrl = useFrameStore((state) => state.imgFileUrl);
+  const frameData = useFrameStore((state) => state.frameData);
 
   return (
     <TabsTrigger
-      disabled={!imgFileUrl}
+      disabled={!frameData.fileUrl}
       onClick={() => updateCurrentTab(tab.toLowerCase())}
       value={tab.toLowerCase()}
     >

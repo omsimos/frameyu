@@ -1,19 +1,39 @@
 import { create } from "zustand";
 
+type FrameData = {
+  fileUrl: string;
+  urlHandle?: string;
+  caption?: string;
+};
+
 type State = {
   currentTab: string;
-  imgFileUrl: string;
+  frameData: FrameData;
 };
 
 type Action = {
   updateCurrentTab: (tab: string) => void;
-  updateImgFileUrl: (url: string) => void;
+  updateFileUrl: (url: string) => void;
+  updateDetails: (details: Omit<FrameData, "fileUrl">) => void;
 };
 
 export const useFrameStore = create<State & Action>()((set) => ({
   currentTab: "frame",
-  imgFileUrl: "",
+  frameData: { fileUrl: "", urlHandle: "", caption: "" },
 
   updateCurrentTab: (tab) => set(() => ({ currentTab: tab })),
-  updateImgFileUrl: (url) => set(() => ({ imgFileUrl: url })),
+  updateFileUrl: (url) =>
+    set((state) => ({
+      frameData: {
+        ...state.frameData,
+        fileUrl: url,
+      },
+    })),
+  updateDetails: (details) =>
+    set((state) => ({
+      frameData: {
+        ...state.frameData,
+        ...details,
+      },
+    })),
 }));
