@@ -4,9 +4,9 @@ builder.prismaObject("Frame", {
   fields: (t) => ({
     id: t.exposeID("id"),
     title: t.exposeString("title"),
-    image: t.exposeString("imgUrl"),
-    username: t.exposeString("handle", { nullable: true }),
-    email: t.exposeString("caption", { nullable: true }),
+    imgUrl: t.exposeString("imgUrl"),
+    handle: t.exposeString("handle", { nullable: true }),
+    caption: t.exposeString("caption", { nullable: true }),
     user: t.relation("user"),
   }),
 });
