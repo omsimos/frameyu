@@ -23,7 +23,7 @@ builder.queryFields((t) => ({
 
 const CreateFrameInput = builder.inputType("CreateFrameInput", {
   fields: (t) => ({
-    id: t.string({
+    title: t.string({
       required: true,
     }),
     imgUrl: t.string({
