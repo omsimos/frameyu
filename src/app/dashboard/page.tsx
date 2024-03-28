@@ -2,7 +2,7 @@ import { graphql } from "gql.tada";
 import { registerUrql } from "@urql/next/rsc";
 import { cacheExchange, createClient, fetchExchange } from "@urql/core";
 
-import { FrameCard } from "./components/frame-card";
+import { FrameCard, FrameFields } from "./components/frame-card";
 
 const makeClient = () => {
   return createClient({
@@ -13,32 +13,33 @@ const makeClient = () => {
 
 const { getClient } = registerUrql(makeClient);
 
-const GetUsersQuery = graphql(`
-  query GetUsers {
-    users {
-      id
-      username
+const GetFramesQuery = graphql(
+  `
+    query GetFrames {
+      frames {
+        id
+        ...FrameFields
+      }
     }
-  }
-`);
+  `,
+  [FrameFields],
+);
 
 export default async function DashboardPage() {
-  const result = await getClient().query(GetUsersQuery, {});
+  const result = await getClient().query(GetFramesQuery, {});
 
   return (
     <section className="container">
       <div>
         <h1 className="font-semibold text-3xl">Manage Frames</h1>
         <p className="text-muted-foreground">
-          Create up to 3 public frames for free!
+          Premium features are currently free for all users.
         </p>
 
-        {JSON.stringify(result)}
-
-        <div className="mt-8 flex space-x-4">
-          <FrameCard />
-          <FrameCard />
-          <FrameCard />
+        <div className="mt-8 flex flex-wrap gap-4">
+          {result.data?.frames.map((frame, i) => (
+            <FrameCard key={frame.id} frameData={frame} isPremium={i > 0} />
+          ))}
         </div>
       </div>
     </section>

@@ -6,5 +6,6 @@ builder.prismaObject("User", {
     username: t.exposeString("username"),
     email: t.exposeString("email"),
     image: t.exposeString("image", { nullable: true }),
+    frames: t.relation("frames"),
   }),
 });

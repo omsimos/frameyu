@@ -1,41 +1,61 @@
 import Image from "next/image";
+
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Copy } from "lucide-react";
+import { FragmentOf, graphql, readFragment } from "@/graphql";
 import { Badge } from "@/components/ui/badge";
 
-export function FrameCard() {
+type Props = {
+  frameData: FragmentOf<typeof FrameFields>;
+  isPremium?: boolean;
+};
+
+export const FrameFields = graphql(`
+  fragment FrameFields on Frame {
+    id
+    title
+    handle
+    imgUrl
+  }
+`);
+
+export function FrameCard({ frameData, isPremium }: Props) {
+  const data = readFragment(FrameFields, frameData);
+
   return (
-    <Card className="cursor-pointer hover:scale-105 transition-all">
+    <Card className="cursor-pointer hover:border-purple-300 transition-all">
       <CardHeader>
         <div>
-          <h3 className="font-semibold text-lg">Frame Name</h3>
+          <h3 className="font-semibold text-lg">{data.title}</h3>
           <button
             type="button"
-            className="outline-none flex items-center text-sm hover:underline"
+            className="outline-none flex items-center text-sm hover:underline text-muted-foreground"
           >
-            <Copy className="h-4 w-4 mr-2" />
-            frameyu.com/f/name
+            frameyu.com/f/{data.handle}
           </button>
         </div>
       </CardHeader>
 
       <CardContent>
         <Image
-          src="https://utfs.io/f/a84b14dc-65ec-4289-a25f-feb8bac59f33-nxnxr6.jpg"
+          src={data.imgUrl}
           alt="Frame name"
           width={200}
           height={200}
-          className="rounded object-cover"
+          className="rounded object-cover aspect-square"
         />
       </CardContent>
 
       <CardFooter>
-        <Badge>Free</Badge>
+        {isPremium ? (
+          <Badge>Premium</Badge>
+        ) : (
+          <Badge variant="secondary" className="border border-zinc-200">Free</Badge>
+        )}
       </CardFooter>
     </Card>
   );
