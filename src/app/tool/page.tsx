@@ -1,8 +1,8 @@
 "use client";
 
+import { toast } from "sonner";
 import Image from "next/image";
 import { nanoid } from "nanoid";
-import toast from "react-hot-toast";
 import { domToPng } from "modern-screenshot";
 import { useState, useCallback, useRef, useEffect } from "react";
 import {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { ArrowRight, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";

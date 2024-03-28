@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Toaster } from "react-hot-toast";
 import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://frameyu.omsimos.com"),
@@ -33,20 +33,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${GeistSans.className} bg-background text-zinc-800`}
-      >
-        <Toaster
-          position="bottom-center"
-          toastOptions={{
-            style: {
-              border: "2px solid #000",
-              padding: "12px",
-              marginBottom: "52px",
-              fontWeight: "500",
-            },
-          }}
-        />
+      <body className={`${GeistSans.className} bg-background text-zinc-800`}>
+        <Toaster />
         <NextTopLoader showSpinner={false} />
 
         {children}

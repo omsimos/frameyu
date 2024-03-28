@@ -1,6 +1,6 @@
 import { useRef } from "react";
+import { toast } from "sonner";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import { ArrowRight, FileImage, Frame } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
