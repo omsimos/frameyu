@@ -8,13 +8,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function FrameTabs() {
   const currentTab = useFrameStore((state) => state.currentTab);
+  const frameData = useFrameStore((state) => state.frameData);
 
   return (
     <Tabs value={currentTab} className="w-[350px]">
       <TabsList className="mb-6">
         <TabTrigger tab="Frame" />
-        <TabTrigger tab="Caption" />
-        <TabTrigger tab="Preview" />
+        <TabTrigger tab="Caption" disabled={!frameData.fileUrl} />
+        <TabTrigger
+          tab="Preview"
+          disabled={!frameData.fileUrl || !frameData.title}
+        />
       </TabsList>
 
       <TabsContent value="frame">
@@ -32,13 +36,12 @@ export function FrameTabs() {
   );
 }
 
-function TabTrigger({ tab }: { tab: string }) {
+function TabTrigger({ tab, disabled }: { tab: string; disabled?: boolean }) {
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
-  const frameData = useFrameStore((state) => state.frameData);
 
   return (
     <TabsTrigger
-      disabled={!frameData.fileUrl}
+      disabled={disabled}
       onClick={() => updateCurrentTab(tab.toLowerCase())}
       value={tab.toLowerCase()}
     >

@@ -1,7 +1,9 @@
 import { create } from "zustand";
+import { nanoid } from "nanoid";
 
 type FrameData = {
   fileUrl: string;
+  title: string;
   urlHandle?: string;
   caption?: string;
 };
@@ -19,7 +21,12 @@ type Action = {
 
 export const useFrameStore = create<State & Action>()((set) => ({
   currentTab: "frame",
-  frameData: { fileUrl: "", urlHandle: "", caption: "" },
+  frameData: {
+    fileUrl: "",
+    title: "",
+    urlHandle: nanoid(12).toLowerCase(),
+    caption: "",
+  },
 
   updateCurrentTab: (tab) => set(() => ({ currentTab: tab })),
   updateFileUrl: (url) =>

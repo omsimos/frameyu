@@ -13,27 +13,32 @@ datasource db {
 }
 
 model User {
-    id       String    @id @default(cuid())
-    username String    @unique
-    googleId String    @unique
-    image    String?
-    email    String
-    sessions Session[]
-    frames   Frame[]
+    id        String    @id @default(cuid())
+    username  String    @unique
+    googleId  String    @unique
+    image     String?
+    email     String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    frames    Frame[]
+    sessions  Session[]
 }
 
 model Session {
     id        String   @id @default(cuid())
     userId    String
     expiresAt DateTime
-    user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Frame {
-    id      String  @id
-    imgUrl  String
-    handle  String? @unique
-    caption String?
-    userId  String
-    user    User    @relation(references: [id], fields: [userId], onDelete: Cascade)
+    id        String    @id @default(cuid())
+    title     String
+    imgUrl    String
+    handle    String?   @unique
+    caption   String?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    userId    String
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -20,27 +20,38 @@ export function FramePreview() {
   const frameData = useFrameStore((state) => state.frameData);
 
   return (
-    <section className="w-full">
-      <div className="grid w-full max-w-sm items-center gap-1.5 my-2">
-        <Label htmlFor="url" className="mb-1">Frame URL</Label>
+    <section className="w-full space-y-6">
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label htmlFor="url" className="mb-1">
+          Frame URL
+        </Label>
         <Input
           id="url"
           type="text"
           value={`yu.omsimos.com/f/${frameData.urlHandle}`}
           readOnly
-          className="mb-4"
         />
       </div>
 
-      <div className="grid w-full max-w-sm items-center gap-1.5 my-2">
-        <Label htmlFor="caption" className="mb-1">Caption</Label>
-        <Textarea
-          id="caption"
-          value={frameData.caption}
-          readOnly
-          className="mb-2"
-        />
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label htmlFor="title" className="mb-1">
+          Title
+        </Label>
+        <Input id="title" value={frameData.title} readOnly />
       </div>
+
+      {frameData.caption && (
+        <div className="grid w-full max-w-sm items-center gap-1.5 my-2">
+          <Label htmlFor="caption" className="mb-1">
+            Caption
+          </Label>
+          <Textarea
+            id="caption"
+            value={frameData.caption}
+            readOnly
+          />
+        </div>
+      )}
 
       <Card className="h-[350px] relative overflow-hidden">
         <Image

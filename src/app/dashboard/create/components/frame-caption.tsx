@@ -20,10 +20,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
 
 const formSchema = z.object({
+  title: z.string().max(50, {
+    message: "Title must not exceed 50 characters.",
+  }),
   urlHandle: z
     .string()
-    .min(3, {
-      message: "URL handle must be at least 3 characters.",
+    .min(8, {
+      message: "URL handle must be at least 8 characters.",
     })
     .max(30, {
       message: "URL handle must not exceed 30 characters.",
@@ -45,6 +48,7 @@ export function FrameCaption() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      title: frameData.title,
       urlHandle: frameData.urlHandle,
       caption: frameData.caption,
     },
@@ -73,6 +77,23 @@ export function FrameCaption() {
                 yu.omsimos.com/f/
                 {form.getValues().urlHandle}
               </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Title<span className="text-red-500">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input placeholder="Super Cool Frame" {...field} />
+              </FormControl>
+              <FormDescription>What is your frame about?</FormDescription>
               <FormMessage />
             </FormItem>
           )}
