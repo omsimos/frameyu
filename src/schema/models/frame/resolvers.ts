@@ -44,16 +44,23 @@ builder.mutationFields((t) => ({
       }),
     },
     resolve: async (_query, _root, { input }, { userId }) => {
-      return prisma.frame.create({
-        data: {
-          ...input,
-          user: {
-            connect: {
-              id: userId,
+      try {
+        const frame = prisma.frame.create({
+          data: {
+            ...input,
+            user: {
+              connect: {
+                id: userId,
+              },
             },
           },
-        },
-      });
+        });
+
+        return frame;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
     },
   }),
 }));

@@ -1,23 +1,96 @@
 import Image from "next/image";
-import { PackageCheck } from "lucide-react";
+import { toast } from "sonner";
+import { useMutation } from "urql";
 import { useRef, useState } from "react";
+import { PackageCheck } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   ReactZoomPanPinchRef,
   TransformComponent,
   TransformWrapper,
 } from "react-zoom-pan-pinch";
 
+import { graphql } from "@/graphql";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
+import { uploadFiles } from "@/lib/uploadthing";
+
+const CreateFrameMutation = graphql(`
+  mutation CreateFrame($input: CreateFrameInput!) {
+    createFrame(input: $input) {
+      id
+      title
+      caption
+      handle
+      imgUrl
+    }
+  }
+`);
 
 export function FramePreview() {
+  const router = useRouter();
+  const [{ fetching }, createFrameFn] = useMutation(CreateFrameMutation);
   const [frameOpacity, setFrameOpacity] = useState(1);
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
   const frameData = useFrameStore((state) => state.frameData);
+
+  const isPublishing = useFrameStore((state) => state.isPublishing);
+  const updateIsPublishing = useFrameStore((state) => state.updateIsPublishing);
+
+  const handlePublish = () => {
+    if (!frameData.file) {
+      return;
+    }
+
+    updateIsPublishing(true);
+
+    toast.promise(
+      uploadFiles("imageUploader", {
+        files: [frameData.file],
+      }),
+      {
+        loading: "Please wait...",
+        success: (data) => {
+          toast.promise(
+            createFrameFn({
+              input: {
+                title: frameData.title,
+                handle: frameData.urlHandle,
+                caption: frameData.caption,
+                imgUrl: data[0].url,
+              },
+            }),
+            {
+              loading: "Publishing...",
+              success: (res) => {
+                if (res.error) {
+                  updateIsPublishing(false);
+                  return `Error publishing frame: ${res.error.message}`;
+                }
+
+                updateIsPublishing(false);
+                router.push("/dashboard");
+                return "Frame published";
+              },
+              error: (err) => {
+                updateIsPublishing(false);
+                return `Error publishing frame: ${err.message}`;
+              },
+            },
+          );
+          return "Almost there...";
+        },
+        error: (err) => {
+          updateIsPublishing(false);
+          return `Error uploading frame: ${err.message}`;
+        },
+      },
+    );
+  };
 
   return (
     <section className="w-full space-y-6">
@@ -45,11 +118,7 @@ export function FramePreview() {
           <Label htmlFor="caption" className="mb-1">
             Caption
           </Label>
-          <Textarea
-            id="caption"
-            value={frameData.caption}
-            readOnly
-          />
+          <Textarea id="caption" value={frameData.caption} readOnly />
         </div>
       )}
 
@@ -58,7 +127,7 @@ export function FramePreview() {
           style={{ opacity: frameOpacity }}
           priority
           quality={100}
-          src={frameData.fileUrl}
+          src={frameData.imgUrl}
           height={500}
           width={500}
           className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
@@ -85,7 +154,11 @@ export function FramePreview() {
         </TransformWrapper>
       </Card>
 
-      <Button className="w-full mt-4">
+      <Button
+        disabled={fetching || isPublishing}
+        onClick={handlePublish}
+        className="w-full mt-4"
+      >
         <PackageCheck className="mr-2 h-4 w-4" />
         Publish Frame
       </Button>

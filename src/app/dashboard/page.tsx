@@ -6,10 +6,7 @@ import { FrameCard } from "./components/frame-card";
 
 const makeClient = () => {
   return createClient({
-    url:
-      process.env.NODE_ENV === "production"
-        ? process.env.GRAPHQL_URL!
-        : "http://localhost:3000/api/graphql",
+    url: process.env.NEXT_PUBLIC_GRAPHQL_URL!,
     exchanges: [cacheExchange, fetchExchange],
   });
 };

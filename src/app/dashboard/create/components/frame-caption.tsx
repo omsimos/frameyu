@@ -31,7 +31,7 @@ const formSchema = z.object({
     .max(30, {
       message: "URL handle must not exceed 30 characters.",
     })
-    .refine((username) => /^[a-zA-Z0-9_]+$/.test(username), {
+    .refine((username) => /^[a-zA-Z0-9_-]+$/.test(username), {
       message: "URL handle must be alphanumeric with no spaces.",
     }),
 
@@ -55,7 +55,10 @@ export function FrameCaption() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    updateDetails(values);
+    updateDetails({
+      ...values,
+      urlHandle: values.urlHandle.toLowerCase(),
+    });
     toast.success("Frame details updated");
   }
 

@@ -14,10 +14,10 @@ export function FrameTabs() {
     <Tabs value={currentTab} className="w-[350px]">
       <TabsList className="mb-6">
         <TabTrigger tab="Frame" />
-        <TabTrigger tab="Caption" disabled={!frameData.fileUrl} />
+        <TabTrigger tab="Caption" disabled={!frameData.imgUrl} />
         <TabTrigger
           tab="Preview"
-          disabled={!frameData.fileUrl || !frameData.title}
+          disabled={!frameData.imgUrl || !frameData.title}
         />
       </TabsList>
 
@@ -38,10 +38,11 @@ export function FrameTabs() {
 
 function TabTrigger({ tab, disabled }: { tab: string; disabled?: boolean }) {
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
+  const isPublishing = useFrameStore((state) => state.isPublishing);
 
   return (
     <TabsTrigger
-      disabled={disabled}
+      disabled={disabled || isPublishing}
       onClick={() => updateCurrentTab(tab.toLowerCase())}
       value={tab.toLowerCase()}
     >

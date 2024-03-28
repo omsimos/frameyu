@@ -18,11 +18,11 @@ export function FrameUpload() {
   return (
     <section className="w-full">
       <Card className="h-[350px] p-4">
-        {frameData.fileUrl ? (
+        {frameData.imgUrl ? (
           <Image
             priority
             quality={100}
-            src={frameData.fileUrl}
+            src={frameData.imgUrl}
             height={500}
             width={500}
             className="object-cover pointer-events-none aspect-square w-full rounded-md"
@@ -53,7 +53,7 @@ export function FrameUpload() {
           onClick={() => {
             updateCurrentTab("caption");
           }}
-          disabled={!frameData.fileUrl}
+          disabled={!frameData.imgUrl}
           size="icon"
           variant="secondary"
           className="flex-none"
@@ -69,7 +69,7 @@ export function FrameUpload() {
         onChange={(e) =>
           handleImageChange({
             file: e.target.files![0],
-            onSuccess: updateFileUrl,
+            onSuccess: (dataUrl) => updateFileUrl(dataUrl, e.target.files![0]),
             onError: (err) => toast.error(err.message),
           })
         }

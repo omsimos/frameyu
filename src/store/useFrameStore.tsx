@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { nanoid } from "nanoid";
 
 type FrameData = {
-  fileUrl: string;
+  file: File | null;
+  imgUrl: string;
   title: string;
   urlHandle?: string;
   caption?: string;
@@ -11,29 +12,34 @@ type FrameData = {
 type State = {
   currentTab: string;
   frameData: FrameData;
+  isPublishing: boolean;
 };
 
 type Action = {
   updateCurrentTab: (tab: string) => void;
-  updateFileUrl: (url: string) => void;
-  updateDetails: (details: Omit<FrameData, "fileUrl">) => void;
+  updateFileUrl: (imgUrl: string, file: File) => void;
+  updateDetails: (details: Omit<FrameData, "imgUrl" | "file">) => void;
+  updateIsPublishing: (isPublishing: boolean) => void;
 };
 
 export const useFrameStore = create<State & Action>()((set) => ({
   currentTab: "frame",
   frameData: {
-    fileUrl: "",
+    file: null,
+    imgUrl: "",
     title: "",
     urlHandle: nanoid(12).toLowerCase(),
     caption: "",
   },
+  isPublishing: false,
 
   updateCurrentTab: (tab) => set(() => ({ currentTab: tab })),
-  updateFileUrl: (url) =>
+  updateFileUrl: (imgUrl, file) =>
     set((state) => ({
       frameData: {
         ...state.frameData,
-        fileUrl: url,
+        imgUrl,
+        file,
       },
     })),
   updateDetails: (details) =>
@@ -43,4 +49,6 @@ export const useFrameStore = create<State & Action>()((set) => ({
         ...details,
       },
     })),
+
+  updateIsPublishing: (isPublishing) => set(() => ({ isPublishing })),
 }));
