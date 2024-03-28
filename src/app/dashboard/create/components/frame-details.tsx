@@ -40,7 +40,7 @@ const formSchema = z.object({
   }),
 });
 
-export function FrameCaption() {
+export function FrameDetails() {
   const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
   const updateDetails = useFrameStore((state) => state.updateDetails);
   const frameData = useFrameStore((state) => state.frameData);
@@ -126,6 +126,7 @@ export function FrameCaption() {
           </Button>
 
           <Button
+            disabled={!frameData.title || !frameData.urlHandle}
             onClick={() => {
               updateCurrentTab("preview");
             }}

@@ -15,9 +15,9 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { uploadFiles } from "@/lib/uploadthing";
 import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
-import { uploadFiles } from "@/lib/uploadthing";
 
 const CreateFrameMutation = graphql(`
   mutation CreateFrame($input: CreateFrameInput!) {

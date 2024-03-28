@@ -1,7 +1,7 @@
 "use client";
 
 import { FrameUpload } from "./frame-upload";
-import { FrameCaption } from "./frame-caption";
+import { FrameDetails } from "./frame-details";
 import { FramePreview } from "./frame-preview";
 import { useFrameStore } from "@/store/useFrameStore";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,7 +26,7 @@ export function FrameTabs() {
       </TabsContent>
 
       <TabsContent value="caption">
-        <FrameCaption />
+        <FrameDetails />
       </TabsContent>
 
       <TabsContent value="preview">
