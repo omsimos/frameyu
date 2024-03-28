@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { graphql } from "gql.tada";
 import { registerUrql } from "@urql/next/rsc";
 import { cacheExchange, createClient, fetchExchange } from "@urql/core";
 
 import { FrameCard, FrameFields } from "./components/frame-card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const makeClient = () => {
   return createClient({
@@ -37,9 +39,19 @@ export default async function DashboardPage() {
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          {result.data?.frames.map((frame, i) => (
-            <FrameCard key={frame.id} frameData={frame} isPremium={i > 0} />
-          ))}
+          <Suspense
+            fallback={
+              <>
+                <Skeleton className="w-[250px] h-[360px]" />
+                <Skeleton className="w-[250px] h-[360px]" />
+                <Skeleton className="w-[250px] h-[360px]" />
+              </>
+            }
+          >
+            {result.data?.frames.map((frame, i) => (
+              <FrameCard key={frame.id} frameData={frame} isPremium={i > 0} />
+            ))}
+          </Suspense>
         </div>
       </div>
     </section>

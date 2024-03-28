@@ -11,7 +11,7 @@ export default function LoginLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar />
       {children}
     </div>

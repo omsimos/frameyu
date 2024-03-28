@@ -11,7 +11,7 @@ export async function DashboardNavbar() {
   return (
     <nav className="border-b border-zinc-300 py-6 mb-16">
       <div className="flex justify-between items-center container">
-        <Link href="/" className="text-2xl font-black tracking-[-0.09em]">
+        <Link href="/dashboard" className="text-2xl font-black tracking-[-0.09em]">
           frame<span className="text-purple-600">yu</span>
         </Link>
 
