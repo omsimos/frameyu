@@ -35,7 +35,7 @@ model Frame {
     id        String    @id @default(cuid())
     title     String
     imgUrl    String
-    handle    String?   @unique
+    handle    String   @unique
     caption   String?
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
