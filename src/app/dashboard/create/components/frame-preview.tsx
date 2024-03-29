@@ -122,46 +122,52 @@ export function FramePreview() {
         </div>
       )}
 
-      <Card className="h-[350px] relative overflow-hidden">
-        <Image
-          style={{ opacity: frameOpacity }}
-          priority
-          quality={100}
-          src={frameData.imgUrl}
-          height={500}
-          width={500}
-          className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
-          alt="DP Frame"
-        />
+      <div>
+        <Card className="h-[350px] relative overflow-hidden">
+          <Image
+            style={{ opacity: frameOpacity }}
+            priority
+            quality={100}
+            src={frameData.imgUrl}
+            height={500}
+            width={500}
+            className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
+            alt="DP Frame"
+          />
 
-        <TransformWrapper
-          ref={controlRef}
-          onPanningStart={() => setFrameOpacity(0.7)}
-          onPanningStop={() => setFrameOpacity(1)}
-          onPinchingStop={() => setFrameOpacity(1)}
+          <TransformWrapper
+            ref={controlRef}
+            onPanningStart={() => setFrameOpacity(0.7)}
+            onPanningStop={() => setFrameOpacity(1)}
+            onPinchingStop={() => setFrameOpacity(1)}
+          >
+            <TransformComponent>
+              <Image
+                quality={100}
+                src="/assets/characters.png"
+                height={500}
+                width={500}
+                className="object-contain w-full scale-[0.5]"
+                alt="Profile Picture"
+                draggable={false}
+              />
+            </TransformComponent>
+          </TransformWrapper>
+        </Card>
+
+        <p className="text-sm text-muted-foreground mt-2">
+          Confirm your frame details before publishing.
+        </p>
+
+        <Button
+          disabled={fetching || isPublishing}
+          onClick={handlePublish}
+          className="w-full mt-4"
         >
-          <TransformComponent>
-            <Image
-              quality={100}
-              src="/assets/characters.png"
-              height={500}
-              width={500}
-              className="object-contain w-full scale-[0.5]"
-              alt="Profile Picture"
-              draggable={false}
-            />
-          </TransformComponent>
-        </TransformWrapper>
-      </Card>
-
-      <Button
-        disabled={fetching || isPublishing}
-        onClick={handlePublish}
-        className="w-full mt-4"
-      >
-        <PackageCheck className="mr-2 h-4 w-4" />
-        Publish Frame
-      </Button>
+          <PackageCheck className="mr-2 h-4 w-4" />
+          Publish Frame
+        </Button>
+      </div>
     </section>
   );
 }

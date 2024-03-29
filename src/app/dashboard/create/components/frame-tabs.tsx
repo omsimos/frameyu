@@ -11,7 +11,7 @@ export function FrameTabs() {
   const frameData = useFrameStore((state) => state.frameData);
 
   return (
-    <Tabs value={currentTab} className="w-[350px]">
+    <Tabs value={currentTab} className="max-w-[400px] w-full">
       <TabsList className="mb-6">
         <TabTrigger tab="Frame" />
         <TabTrigger tab="Caption" disabled={!frameData.imgUrl} />

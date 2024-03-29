@@ -17,7 +17,7 @@ export function FrameUpload() {
 
   return (
     <section className="w-full">
-      <Card className="h-[350px] p-4">
+      <Card className="max-h-[400px] h-full aspect-square p-4">
         {frameData.imgUrl ? (
           <Image
             priority
@@ -32,7 +32,7 @@ export function FrameUpload() {
           <button
             type="button"
             onClick={() => frameRef.current?.click()}
-            className="bg-zinc-200 w-full h-full rounded-md grid place-items-center"
+            className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center"
           >
             <Frame className="text-zinc-400 h-6 w-6" />
           </button>
