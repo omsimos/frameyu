@@ -28,7 +28,9 @@ const CreateFrameInput = builder.inputType("CreateFrameInput", {
     imgUrl: t.string({
       required: true,
     }),
-    handle: t.string(),
+    handle: t.string({
+      required: true,
+    }),
     caption: t.string(),
   }),
 });

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-import { ArrowRight, Save } from "lucide-react";
+import { PackageX, Save } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useFrameStore } from "@/store/useFrameStore";
+import { EditFrameProps } from "./edit-frame";
 
 const formSchema = z.object({
   title: z.string().max(50, {
@@ -40,25 +40,17 @@ const formSchema = z.object({
   }),
 });
 
-export function FrameDetails() {
-  const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
-  const updateDetails = useFrameStore((state) => state.updateDetails);
-  const frameData = useFrameStore((state) => state.frameData);
-
+export function EditFrameForm(props: EditFrameProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: frameData.title,
-      urlHandle: frameData.urlHandle,
-      caption: frameData.caption,
+      title: props.title,
+      urlHandle: props.handle,
+      caption: props.caption ?? "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    updateDetails({
-      ...values,
-      urlHandle: values.urlHandle.toLowerCase(),
-    });
     toast.success("Frame details updated");
   }
 
@@ -125,16 +117,8 @@ export function FrameDetails() {
             Save Changes
           </Button>
 
-          <Button
-            disabled={!frameData.title || !frameData.urlHandle}
-            onClick={() => {
-              updateCurrentTab("preview");
-            }}
-            size="icon"
-            variant="secondary"
-            className="flex-none"
-          >
-            <ArrowRight className="h-4 w-4" />
+          <Button size="icon" variant="destructive" className="flex-none">
+            <PackageX className="h-4 w-4" />
           </Button>
         </div>
       </form>

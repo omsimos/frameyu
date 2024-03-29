@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FragmentOf, graphql, readFragment } from "@/graphql";
 
 import {
   Card,
@@ -6,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { FragmentOf, graphql, readFragment } from "@/graphql";
 import { Badge } from "@/components/ui/badge";
+import { EditFrame } from "./edit-frame";
 
 type Props = {
   frameData: FragmentOf<typeof FrameFields>;
@@ -20,6 +21,7 @@ export const FrameFields = graphql(`
     title
     handle
     imgUrl
+    caption
   }
 `);
 
@@ -27,16 +29,13 @@ export function FrameCard({ frameData, isPremium }: Props) {
   const data = readFragment(FrameFields, frameData);
 
   return (
-    <Card className="cursor-pointer hover:border-purple-300 transition-all">
+    <Card className="hover:border-purple-300 transition-all">
       <CardHeader>
         <div>
           <h3 className="font-semibold text-lg">{data.title}</h3>
-          <button
-            type="button"
-            className="outline-none flex items-center text-sm hover:underline text-muted-foreground"
-          >
+          <p className="outline-none flex items-center text-sm text-muted-foreground">
             frameyu.com/f/{data.handle}
-          </button>
+          </p>
         </div>
       </CardHeader>
 
@@ -50,12 +49,16 @@ export function FrameCard({ frameData, isPremium }: Props) {
         />
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="justify-between">
         {isPremium ? (
           <Badge>Premium</Badge>
         ) : (
-          <Badge variant="secondary" className="border border-zinc-200">Free</Badge>
+          <Badge variant="secondary" className="border border-zinc-200">
+            Free
+          </Badge>
         )}
+
+        <EditFrame {...data} />
       </CardFooter>
     </Card>
   );

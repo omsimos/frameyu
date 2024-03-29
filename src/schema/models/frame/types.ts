@@ -5,7 +5,7 @@ builder.prismaObject("Frame", {
     id: t.exposeID("id"),
     title: t.exposeString("title"),
     imgUrl: t.exposeString("imgUrl"),
-    handle: t.exposeString("handle", { nullable: true }),
+    handle: t.exposeString("handle"),
     caption: t.exposeString("caption", { nullable: true }),
     user: t.relation("user"),
   }),
