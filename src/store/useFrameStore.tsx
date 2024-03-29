@@ -5,7 +5,7 @@ type FrameData = {
   file: File | null;
   imgUrl: string;
   title: string;
-  urlHandle?: string;
+  urlHandle: string;
   caption?: string;
 };
 
