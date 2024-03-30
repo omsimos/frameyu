@@ -94,7 +94,7 @@ export function FramePreview() {
 
   return (
     <section className="w-full space-y-6">
-      <div className="grid w-full max-w-sm items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="url" className="mb-1">
           Frame URL
         </Label>
@@ -106,7 +106,7 @@ export function FramePreview() {
         />
       </div>
 
-      <div className="grid w-full max-w-sm items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="title" className="mb-1">
           Title
         </Label>
@@ -114,7 +114,7 @@ export function FramePreview() {
       </div>
 
       {frameData.caption && (
-        <div className="grid w-full max-w-sm items-center gap-1.5 my-2">
+        <div className="grid w-full items-center gap-1.5 my-2">
           <Label htmlFor="caption" className="mb-1">
             Caption
           </Label>
@@ -123,36 +123,38 @@ export function FramePreview() {
       )}
 
       <div>
-        <Card className="h-[350px] relative overflow-hidden">
-          <Image
-            style={{ opacity: frameOpacity }}
-            priority
-            quality={100}
-            src={frameData.imgUrl}
-            height={500}
-            width={500}
-            className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
-            alt="DP Frame"
-          />
+        <Card className="p-4">
+          <div className="max-h-[400px] h-full aspect-square relative overflow-hidden">
+            <Image
+              style={{ opacity: frameOpacity }}
+              priority
+              quality={100}
+              src={frameData.imgUrl}
+              height={500}
+              width={500}
+              className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
+              alt="DP Frame"
+            />
 
-          <TransformWrapper
-            ref={controlRef}
-            onPanningStart={() => setFrameOpacity(0.7)}
-            onPanningStop={() => setFrameOpacity(1)}
-            onPinchingStop={() => setFrameOpacity(1)}
-          >
-            <TransformComponent>
-              <Image
-                quality={100}
-                src="/assets/characters.png"
-                height={500}
-                width={500}
-                className="object-contain w-full scale-[0.5]"
-                alt="Profile Picture"
-                draggable={false}
-              />
-            </TransformComponent>
-          </TransformWrapper>
+            <TransformWrapper
+              ref={controlRef}
+              onPanningStart={() => setFrameOpacity(0.7)}
+              onPanningStop={() => setFrameOpacity(1)}
+              onPinchingStop={() => setFrameOpacity(1)}
+            >
+              <TransformComponent>
+                <Image
+                  quality={100}
+                  src="/assets/characters.png"
+                  height={500}
+                  width={500}
+                  className="object-contain w-full scale-[0.5]"
+                  alt="Profile Picture"
+                  draggable={false}
+                />
+              </TransformComponent>
+            </TransformWrapper>
+          </div>
         </Card>
 
         <p className="text-sm text-muted-foreground mt-2">
