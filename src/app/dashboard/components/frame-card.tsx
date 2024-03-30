@@ -8,7 +8,9 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
 import { EditFrame } from "./edit-frame";
+import { ShareFrame } from "./share-frame";
 
 type Props = {
   frameData: FragmentOf<typeof FrameFields>;
@@ -58,7 +60,10 @@ export function FrameCard({ frameData, isPremium }: Props) {
           </Badge>
         )}
 
-        <EditFrame {...data} />
+        <div>
+          <ShareFrame handle={data.handle} />
+          <EditFrame {...data} />
+        </div>
       </CardFooter>
     </Card>
   );

@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 import { GoogleIcon } from "@/components/icons";
 
 export default async function LoginPage() {
-  const { user } = await getSession();
+  const { session } = await getSession();
 
-  if (user) {
+  if (session) {
     redirect("/dashboard");
   }
 
