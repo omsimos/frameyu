@@ -18,6 +18,29 @@ builder.queryFields((t) => ({
       }
     },
   }),
+
+  frame: t.prismaField({
+    type: "Frame",
+    args: {
+      handle: t.arg.string({
+        required: true,
+      }),
+    },
+    resolve: async (_query, _root, { handle }) => {
+      try {
+        const frame = prisma.frame.findUniqueOrThrow({
+          where: {
+            handle,
+          },
+        });
+
+        return frame;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
+  }),
 }));
 
 const CreateFrameInput = builder.inputType("CreateFrameInput", {

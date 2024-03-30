@@ -19,8 +19,10 @@ import { toast } from "sonner";
 
 export function ShareFrame({ handle }: { handle: string }) {
   const copyLink = () => {
-    navigator.clipboard.writeText(`${window.location.origin}/f/${handle}`);
-    toast.success("Copied to clipboard");
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(`${window.location.origin}/f/${handle}`);
+      toast.success("Copied to clipboard");
+    }
   };
 
   return (
@@ -44,7 +46,7 @@ export function ShareFrame({ handle }: { handle: string }) {
             </Label>
             <Input
               id="link"
-              value={`${window.location.origin}/f/${handle}`}
+              value={`${typeof window !== "undefined" ? window.location.origin : "https://frameyu.com"}/f/${handle}`}
               readOnly
             />
           </div>

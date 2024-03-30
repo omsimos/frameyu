@@ -3,8 +3,8 @@ import { graphql } from "gql.tada";
 import { registerUrql } from "@urql/next/rsc";
 import { cacheExchange, createClient, fetchExchange } from "@urql/core";
 
-import { FrameCard, FrameFields } from "./components/frame-card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { FrameCard, FrameFields } from "./components/frame-card";
 
 const makeClient = () => {
   return createClient({
