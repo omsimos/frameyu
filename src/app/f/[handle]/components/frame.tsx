@@ -43,7 +43,7 @@ export function Frame({ frameUrl }: { frameUrl: string }) {
         .catch((err) => {
           console.log(err);
         }),
-      { loading: "Saving...", success: "Saved!", error: "Error!" },
+      { loading: "Saving...", success: "Image Saved!", error: "Error!" },
     );
   }, [ref]);
 
@@ -93,7 +93,7 @@ export function Frame({ frameUrl }: { frameUrl: string }) {
                     src={profilePic}
                     height={500}
                     width={500}
-                    className="w-full aspect-square scale-[0.5]"
+                    className="w-full object-contain aspect-square scale-[0.5]"
                     alt="Profile picture"
                     draggable={false}
                   />

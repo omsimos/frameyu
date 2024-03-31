@@ -3,10 +3,9 @@ import { formatDistance } from "date-fns";
 import { registerUrql } from "@urql/next/rsc";
 import { cacheExchange, createClient, fetchExchange } from "@urql/core";
 
-import { FrameTabs } from "./components/frame-tabs";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Frame } from "./components/frame";
 import { FrameCaption } from "./components/frame-caption";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const makeClient = () => {
   return createClient({
