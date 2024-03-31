@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { nanoid } from "nanoid";
 import { domToPng } from "modern-screenshot";
+import { Download, Image as ImageIcon } from "lucide-react";
 import { useState, useCallback, useRef } from "react";
-import { FragmentOf, graphql, readFragment } from "gql.tada";
 import {
   TransformWrapper,
   TransformComponent,
@@ -13,22 +13,10 @@ import {
 } from "react-zoom-pan-pinch";
 
 import { Card } from "@/components/ui/card";
-import { handleImageChange } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { handleImageChange } from "@/lib/utils";
 
-export const FrameFields = graphql(`
-  fragment FrameFields on Frame {
-    id
-    title
-    handle
-    imgUrl
-    caption
-  }
-`);
-
-export function Frame({ frame }: { frame: FragmentOf<typeof FrameFields> }) {
-  const data = readFragment(FrameFields, frame);
-
+export function Frame({ frameUrl }: { frameUrl: string }) {
   const [profilePic, setProfilePic] = useState("");
   const [frameOpacity, setFrameOpacity] = useState(1);
 
@@ -60,77 +48,87 @@ export function Frame({ frame }: { frame: FragmentOf<typeof FrameFields> }) {
   }, [ref]);
 
   return (
-    <section className="flex justify-center">
-      <div className="md:mt-16 mt-8 flex flex-col">
-        <input
-          ref={profileRef}
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            handleImageChange({
-              file: e.target.files![0],
-              onSuccess: setProfilePic,
-              onError: (err) => toast.error(err.message),
-            })
-          }
-          className="hidden"
-        />
+    <div className="w-full">
+      <input
+        ref={profileRef}
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          handleImageChange({
+            file: e.target.files![0],
+            onSuccess: setProfilePic,
+            onError: (err) => toast.error(err.message),
+          })
+        }
+        className="hidden"
+      />
 
-        <Card className="p-4">
+      <Card className="p-4 w-full aspect-square">
+        <div className="rounded-md overflow-hidden">
           <div
             ref={ref}
-            className="max-h-[400px] aspect-square relative overflow-hidden p-4"
+            className="aspect-square w-full grid place-items-center relative overflow-hidden"
           >
             <Image
               style={{ opacity: frameOpacity }}
               priority
               quality={100}
-              src={data.imgUrl}
+              src={frameUrl}
               height={500}
               width={500}
-              className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
-              alt="DP Frame"
+              className="object-cover pointer-events-none aspect-square w-full absolute top-0 left-0 z-10"
+              alt="Frame image"
             />
 
-            <TransformWrapper
-              ref={controlRef}
-              onPanningStart={() => setFrameOpacity(0.7)}
-              onPanningStop={() => setFrameOpacity(1)}
-              onPinchingStop={() => setFrameOpacity(1)}
-            >
-              <TransformComponent>
-                <Image
-                  quality={100}
-                  src="/assets/characters.png"
-                  height={500}
-                  width={500}
-                  className="object-contain w-full scale-[0.5]"
-                  alt="Profile Picture"
-                  draggable={false}
-                />
-              </TransformComponent>
-            </TransformWrapper>
+            {profilePic && (
+              <TransformWrapper
+                ref={controlRef}
+                onPanningStart={() => setFrameOpacity(0.7)}
+                onPanningStop={() => setFrameOpacity(1)}
+                onPinchingStop={() => setFrameOpacity(1)}
+              >
+                <TransformComponent>
+                  <Image
+                    quality={100}
+                    src={profilePic}
+                    height={500}
+                    width={500}
+                    className="w-full aspect-square scale-[0.5]"
+                    alt="Profile picture"
+                    draggable={false}
+                  />
+                </TransformComponent>
+              </TransformWrapper>
+            )}
           </div>
-        </Card>
-
-        <div className="mt-6 space-x-3 text-sm md:text-base flex w-full self-start">
-          {frame && (
-            <Button
-              disabled={!frame}
-              onClick={() => profileRef.current?.click()}
-              className="w-full"
-            >
-              {profilePic ? "Change" : "Upload"} Photo
-            </Button>
-          )}
-
-          {frame && profilePic && (
-            <Button onClick={saveImage} className="w-full">
-              Save Image
-            </Button>
-          )}
         </div>
+      </Card>
+
+      <p className="text-sm text-muted-foreground my-2">
+        Pan and pinch to adjust your image.
+      </p>
+
+      <div className="mt-6 flex items-center space-x-2">
+        {frameUrl && (
+          <Button
+            disabled={!frameUrl}
+            onClick={() => profileRef.current?.click()}
+            className="w-full"
+          >
+            <ImageIcon className="mr-2 h-4 w-4" />
+            Select your photo
+          </Button>
+        )}
+
+        <Button
+          disabled={!frameUrl || !profilePic}
+          onClick={saveImage}
+          className="w-full"
+        >
+          <Download className="mr-2 h-4 w-4" />
+          Save Image
+        </Button>
       </div>
-    </section>
+    </div>
   );
 }
