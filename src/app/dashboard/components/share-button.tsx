@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-export function ShareFrame({ handle }: { handle: string }) {
+export function ShareButton({ handle }: { handle: string }) {
   const copyLink = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(`${window.location.origin}/f/${handle}`);

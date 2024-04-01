@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { toast } from "sonner";
-import { useMutation } from "urql";
 import { useRef, useState } from "react";
+import { useMutation } from "@urql/next";
 import { PackageCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {

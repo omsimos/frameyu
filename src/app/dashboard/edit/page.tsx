@@ -1,12 +1,22 @@
+"use client";
+
 import { z } from "zod";
 import { toast } from "sonner";
+import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FrameForm } from "./frame-form";
-import { EditFrameProps } from "./edit-frame";
-import { Button } from "@/components/ui/button";
-import { PackageX } from "lucide-react";
+import { FrameForm } from "../components/frame-form";
+import { useEditFrameStore } from "@/store/useEditFrameStore";
+import { UnpublishButton } from "./components/unpublish-button";
+
+export default function Page() {
+  return (
+    <Suspense>
+      <EditPage />
+    </Suspense>
+  );
+}
 
 const formSchema = z.object({
   title: z.string().max(50, {
@@ -29,13 +39,15 @@ const formSchema = z.object({
   }),
 });
 
-export function EditFrameForm(props: EditFrameProps) {
+function EditPage() {
+  const data = useEditFrameStore((state) => state.data);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: props.title,
-      urlHandle: props.handle,
-      caption: props.caption ?? "",
+      title: data.title,
+      urlHandle: data.handle,
+      caption: data.caption ?? "",
     },
   });
 
@@ -44,14 +56,12 @@ export function EditFrameForm(props: EditFrameProps) {
   }
 
   return (
-    <FrameForm
-      form={form}
-      onSubmit={onSubmit}
-      sideButton={
-        <Button size="icon" variant="destructive" className="flex-none">
-          <PackageX className="h-4 w-4" />
-        </Button>
-      }
-    />
+    <section className="max-w-[400px] mx-auto">
+      <FrameForm
+        form={form}
+        onSubmit={onSubmit}
+        sideButton={<UnpublishButton />}
+      />
+    </section>
   );
 }

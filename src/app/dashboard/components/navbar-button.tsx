@@ -8,7 +8,7 @@ import { Frame, LayoutDashboard } from "lucide-react";
 export function NavbarButton() {
   const pathname = usePathname();
 
-  return pathname === "/dashboard/create" ? (
+  return pathname === "/dashboard/create" || "/dashboard/edit" ? (
     <Link
       href="/dashboard"
       className={buttonVariants({

@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-import { EditFrame } from "./edit-frame";
-import { ShareFrame } from "./share-frame";
+import { EditButton } from "./edit-button";
+import { ShareButton } from "./share-button";
 
 type Props = {
   frameData: FragmentOf<typeof FrameFields>;
@@ -61,8 +61,8 @@ export function FrameCard({ frameData, isPremium }: Props) {
         )}
 
         <div>
-          <ShareFrame handle={data.handle} />
-          <EditFrame {...data} />
+          <ShareButton handle={data.handle} />
+          <EditButton {...data} />
         </div>
       </CardFooter>
     </Card>

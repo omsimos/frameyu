@@ -77,7 +77,7 @@ export function FrameForm({ form, onSubmit, sideButton }: Props) {
             <FormItem>
               <FormLabel>Caption</FormLabel>
               <FormControl>
-                <Textarea placeholder="Paste your caption here." {...field} />
+                <Textarea className='min-h-[150px]' placeholder="Paste your caption here." {...field} />
               </FormControl>
               <FormDescription>
                 This will be available to copy on your shared URL.

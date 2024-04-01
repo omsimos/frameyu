@@ -87,4 +87,27 @@ builder.mutationFields((t) => ({
       }
     },
   }),
+
+  deleteFrame: t.prismaField({
+    type: "Frame",
+    args: {
+      id: t.arg.string({
+        required: true,
+      }),
+    },
+    resolve: async (_query, _root, { id }) => {
+      try {
+        const frame = prisma.frame.delete({
+          where: {
+            id,
+          },
+        });
+
+        return frame;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
+  }),
 }));
