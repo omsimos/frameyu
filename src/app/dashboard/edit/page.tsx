@@ -68,7 +68,7 @@ function EditPage() {
         className="max-w-[400px] mx-auto"
         form={form}
         onSubmit={onSubmit}
-        sideButton={<UnpublishButton />}
+        sideButton={<UnpublishButton id={data.id} />}
       />
     </section>
   );
