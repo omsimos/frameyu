@@ -123,6 +123,7 @@ export function FramePreview() {
       )}
 
       <div>
+        <p className="text-sm mb-2 font-medium">Preview</p>
         <Card className="p-4">
           <div className="max-h-[400px] h-full aspect-square relative overflow-hidden">
             <Image

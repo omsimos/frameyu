@@ -54,18 +54,22 @@ export default async function Page({ params }: { params: { handle: string } }) {
           {data.user.username}
         </p>
       </div>
-      <Tabs defaultValue="frame">
-        <TabsList>
-          <TabsTrigger value="frame">Frame</TabsTrigger>
-          <TabsTrigger value="caption">Caption</TabsTrigger>
-        </TabsList>
-        <TabsContent value="frame">
-          <Frame frameUrl={data.imgUrl} />
-        </TabsContent>
-        <TabsContent value="caption">
-          <FrameCaption caption={data.caption} />
-        </TabsContent>
-      </Tabs>
+      {data.caption ? (
+        <Tabs defaultValue="frame">
+          <TabsList>
+            <TabsTrigger value="frame">Frame</TabsTrigger>
+            <TabsTrigger value="caption">Caption</TabsTrigger>
+          </TabsList>
+          <TabsContent value="frame">
+            <Frame frameUrl={data.imgUrl} />
+          </TabsContent>
+          <TabsContent value="caption">
+            <FrameCaption caption={data.caption} />
+          </TabsContent>
+        </Tabs>
+      ) : (
+        <Frame frameUrl={data.imgUrl} />
+      )}
     </section>
   );
 }

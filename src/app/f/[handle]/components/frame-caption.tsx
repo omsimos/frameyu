@@ -23,7 +23,7 @@ export function FrameCaption({ caption }: { caption?: string | null }) {
         <Label htmlFor="url" className="mb-1">
           Caption
         </Label>
-        <Textarea value={text} onChange={(e) => setText(e.target.value)} />
+        <Textarea className="min-h-[250px]" value={text} onChange={(e) => setText(e.target.value)} />
       </div>
 
       <Button type="button" onClick={copyCaption}>
