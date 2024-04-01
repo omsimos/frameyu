@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 type Props = {
   onSubmit: (values: any) => void;
@@ -26,13 +27,17 @@ type Props = {
     any,
     undefined
   >;
+  className?: string;
   sideButton?: React.ReactNode;
 };
 
-export function FrameForm({ form, onSubmit, sideButton }: Props) {
+export function FrameForm({ form, onSubmit, className, sideButton }: Props) {
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn("space-y-8", className)}
+      >
         <FormField
           control={form.control}
           name="urlHandle"
@@ -77,7 +82,11 @@ export function FrameForm({ form, onSubmit, sideButton }: Props) {
             <FormItem>
               <FormLabel>Caption</FormLabel>
               <FormControl>
-                <Textarea className='min-h-[150px]' placeholder="Paste your caption here." {...field} />
+                <Textarea
+                  className="min-h-[150px]"
+                  placeholder="Paste your caption here."
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 This will be available to copy on your shared URL.

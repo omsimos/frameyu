@@ -56,8 +56,16 @@ function EditPage() {
   }
 
   return (
-    <section className="max-w-[400px] mx-auto">
+    <section className="w-full container">
+      <div className="text-center mb-12">
+        <h1 className="font-semibold text-3xl">Edit Your Frame</h1>
+        <p className="text-muted-foreground">
+          Let&apos;s supercharge your campaign!
+        </p>
+      </div>
+
       <FrameForm
+        className="max-w-[400px] mx-auto"
         form={form}
         onSubmit={onSubmit}
         sideButton={<UnpublishButton />}
