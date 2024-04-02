@@ -22,9 +22,14 @@ export default function Page() {
 }
 
 const formSchema = z.object({
-  title: z.string().max(50, {
-    message: "Title must not exceed 50 characters.",
-  }),
+  title: z
+    .string()
+    .min(1, {
+      message: "Title is required.",
+    })
+    .max(50, {
+      message: "Title must not exceed 50 characters.",
+    }),
   urlHandle: z
     .string()
     .min(8, {

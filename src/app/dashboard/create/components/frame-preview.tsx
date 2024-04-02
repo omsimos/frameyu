@@ -71,7 +71,7 @@ export function FramePreview() {
               <TransformComponent>
                 <Image
                   quality={100}
-                  src="/assets/characters.png"
+                  src="/assets/avatar.png"
                   height={500}
                   width={500}
                   className="object-contain w-full scale-[0.5]"

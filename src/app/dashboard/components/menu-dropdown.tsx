@@ -1,3 +1,5 @@
+"use client";
+
 import { LogOut, Settings, User } from "lucide-react";
 import {
   DropdownMenu,
@@ -10,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/app/actions";
+import { toast } from "sonner";
 
 export function MenuDropdown({ children }: { children: React.ReactNode }) {
   return (
@@ -19,12 +22,12 @@ export function MenuDropdown({ children }: { children: React.ReactNode }) {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => toast.info("Coming soon!")}>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => toast.info("Coming soon!")}>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
