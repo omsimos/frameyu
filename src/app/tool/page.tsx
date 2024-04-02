@@ -13,7 +13,7 @@ import {
 
 import Modal from "@/components/utils/modal";
 import { handleImageChange } from "@/lib/utils";
-import { Button } from "@/components/utils/button";
+import { Button } from "@/components/ui/button";
 import { IconPhoto, IconRestart, IconWarning } from "@/components/utils/icons";
 
 export default function Home() {
