@@ -10,7 +10,6 @@ export type EditFrameProps = {
   id: string;
   title: string;
   caption?: string | null;
-  imgUrl: string;
   handle: string;
 };
 

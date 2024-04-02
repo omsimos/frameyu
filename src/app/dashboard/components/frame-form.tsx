@@ -28,10 +28,17 @@ type Props = {
     undefined
   >;
   className?: string;
+  disabled?: boolean;
   sideButton?: React.ReactNode;
 };
 
-export function FrameForm({ form, onSubmit, className, sideButton }: Props) {
+export function FrameForm({
+  form,
+  onSubmit,
+  className,
+  disabled,
+  sideButton,
+}: Props) {
   return (
     <Form {...form}>
       <form
@@ -97,7 +104,7 @@ export function FrameForm({ form, onSubmit, className, sideButton }: Props) {
         />
 
         <div className="flex items-center space-x-2 mt-4">
-          <Button type="submit" className="w-full">
+          <Button disabled={disabled} type="submit" className="w-full">
             <Save className="mr-2 h-4 w-4" />
             Save Changes
           </Button>

@@ -41,7 +41,7 @@ export function UnpublishButton({ id }: { id?: string }) {
         return;
       }
 
-      toast.success("Frame unpublished.");
+      toast.success("Frame unpublished");
       router.push("/dashboard");
       router.refresh();
     });

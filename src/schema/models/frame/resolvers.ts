@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import builder from "@/schema/builder";
+import { CreateFrameInput, EditFrameInput } from "./types";
 
 builder.queryFields((t) => ({
   frames: t.prismaField({
@@ -42,21 +43,6 @@ builder.queryFields((t) => ({
     },
   }),
 }));
-
-const CreateFrameInput = builder.inputType("CreateFrameInput", {
-  fields: (t) => ({
-    title: t.string({
-      required: true,
-    }),
-    imgUrl: t.string({
-      required: true,
-    }),
-    handle: t.string({
-      required: true,
-    }),
-    caption: t.string(),
-  }),
-});
 
 builder.mutationFields((t) => ({
   createFrame: t.prismaField({
@@ -101,6 +87,31 @@ builder.mutationFields((t) => ({
           where: {
             id,
           },
+        });
+
+        return frame;
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
+  }),
+
+  editFrame: t.prismaField({
+    type: "Frame",
+    args: {
+      input: t.arg({
+        type: EditFrameInput,
+        required: true,
+      }),
+    },
+    resolve: async (_query, _root, { input }) => {
+      try {
+        const frame = prisma.frame.update({
+          where: {
+            id: input.id,
+          },
+          data: input,
         });
 
         return frame;

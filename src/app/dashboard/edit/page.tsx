@@ -3,7 +3,10 @@
 import { z } from "zod";
 import { toast } from "sonner";
 import { Suspense } from "react";
+import { graphql } from "@/graphql";
+import { useMutation } from "urql";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FrameForm } from "../components/frame-form";
@@ -39,7 +42,17 @@ const formSchema = z.object({
   }),
 });
 
+const EditFrameMutation = graphql(`
+  mutation EditMutation($input: EditFrameInput!) {
+    editFrame(input: $input) {
+      id
+    }
+  }
+`);
+
 function EditPage() {
+  const router = useRouter();
+  const [{ fetching }, editFrameFn] = useMutation(EditFrameMutation);
   const data = useEditFrameStore((state) => state.data);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,7 +65,28 @@ function EditPage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    toast.success("Frame details updated");
+    if (!data.id) {
+      toast.error("Frame ID not found");
+      return;
+    }
+
+    editFrameFn({
+      input: {
+        id: data.id,
+        title: values.title,
+        handle: values.urlHandle,
+        caption: values.caption,
+      },
+    }).then((res) => {
+      if (res.error) {
+        toast.error(res.error.message);
+        return;
+      }
+
+      toast.success("Frame details updated successfully");
+      router.push("/dashboard");
+      router.refresh();
+    });
   }
 
   return (
@@ -65,6 +99,7 @@ function EditPage() {
       </div>
 
       <FrameForm
+        disabled={fetching}
         className="max-w-[400px] mx-auto"
         form={form}
         onSubmit={onSubmit}

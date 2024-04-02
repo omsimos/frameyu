@@ -3,7 +3,6 @@ import { create } from "zustand";
 type State = {
   data: {
     id?: string;
-    imgUrl?: string;
     title?: string;
     handle?: string;
     caption?: string | null;
