@@ -7,6 +7,10 @@ builder.queryFields((t) => ({
     type: ["Frame"],
     resolve: async (_query, _root, _args, { userId }) => {
       try {
+        if (!userId) {
+          throw new Error("Unauthorized");
+        }
+
         const frames = prisma.frame.findMany({
           where: {
             userId,
@@ -27,8 +31,12 @@ builder.queryFields((t) => ({
         required: true,
       }),
     },
-    resolve: async (_query, _root, { handle }) => {
+    resolve: async (_query, _root, { handle }, { userId }) => {
       try {
+        if (!userId) {
+          throw new Error("Unauthorized");
+        }
+
         const frame = prisma.frame.findUniqueOrThrow({
           where: {
             handle,
@@ -55,6 +63,10 @@ builder.mutationFields((t) => ({
     },
     resolve: async (_query, _root, { input }, { userId }) => {
       try {
+        if (!userId) {
+          throw new Error("Unauthorized");
+        }
+
         const frame = prisma.frame.create({
           data: {
             ...input,
@@ -81,8 +93,12 @@ builder.mutationFields((t) => ({
         required: true,
       }),
     },
-    resolve: async (_query, _root, { id }) => {
+    resolve: async (_query, _root, { id }, { userId }) => {
       try {
+        if (!userId) {
+          throw new Error("Unauthorized");
+        }
+
         const frame = prisma.frame.delete({
           where: {
             id,
@@ -105,8 +121,12 @@ builder.mutationFields((t) => ({
         required: true,
       }),
     },
-    resolve: async (_query, _root, { input }) => {
+    resolve: async (_query, _root, { input }, { userId }) => {
       try {
+        if (!userId) {
+          throw new Error("Unauthorized");
+        }
+
         const frame = prisma.frame.update({
           where: {
             id: input.id,
