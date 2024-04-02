@@ -7,18 +7,18 @@ import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://frameyu.omsimos.com"),
-  title: "Frameyu",
+  metadataBase: new URL("https://www.frameyu.com"),
+  title: "Frameyu: The Frame Publisher to Supercharge Your Campaign",
   description:
-    "Transform your photos with Frameyu! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
+    "Effortlessly manage and publish custom frames for your marketing campaigns with Frameyu, the free online frame publisher. Create shareable links to boost engagement. Download in high-quality images, watermark-free. Get started for free today!",
   robots: "index, follow",
   openGraph: {
     type: "website",
-    title: "Frameyu — Supercharge your campaign!",
+    title: "Frameyu — Supercharge Your Campaign!",
     description:
-      "Transform your photos with Frameyu! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
+      "Effortlessly manage and publish custom frames for your marketing campaigns with Frameyu, the free online frame publisher. Create shareable links to boost engagement. Download in high-quality images, watermark-free. Get started for free today!",
     images: [
-      "https://github.com/joshxfi/joshxfi/assets/69457996/7968f64d-d49f-4174-a698-2e157ab6af78",
+      "https://github.com/omsimos/frameyu/assets/69457996/8f7f44f1-b439-46c6-b296-fdf4bdf19bde",
     ],
   },
   twitter: {
