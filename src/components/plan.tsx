@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from "react";
 import { nanoid } from "nanoid";
-import { IconCheckCircle } from "./utils/icons";
+import { CheckCircle } from "lucide-react";
 
 type Props = {
   title: string;
@@ -30,7 +30,7 @@ export function Plan({ title, sub, details, img, handleStart }: Props) {
         <ul className="md:ml-8 ml-4 text-left font-medium mt-8 lg:mt-12 space-y-2 lg:text-lg xl:text-xl">
           {details.map((d, i) => (
             <li key={ids[i]} className="flex items-center">
-              <IconCheckCircle className="text-violet-600 mr-2 text-xl" /> {d}
+              <CheckCircle className="text-violet-600 mr-2 text-xl" /> {d}
             </li>
           ))}
         </ul>

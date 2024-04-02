@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="pb-8 pt-52 text-sm text-muted-foreground text-center">
+    <footer className="pb-8 text-sm text-muted-foreground text-center">
       <p>
         Frameyu by{" "}
         <a

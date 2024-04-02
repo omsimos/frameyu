@@ -11,9 +11,9 @@ export default function ToolLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen">
+    <>
       <Navbar />
-      {children}
-    </div>
+      <div className="min-h-screen container">{children}</div>
+    </>
   );
 }

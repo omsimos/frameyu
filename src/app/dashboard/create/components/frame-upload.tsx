@@ -20,7 +20,6 @@ export function FrameUpload() {
       <Card className="max-h-[400px] h-full aspect-square p-4">
         {frameData.imgUrl ? (
           <Image
-            priority
             quality={100}
             src={frameData.imgUrl}
             height={500}

@@ -54,7 +54,6 @@ export function FramePreview() {
           <div className="max-h-[400px] h-full aspect-square relative overflow-hidden">
             <Image
               style={{ opacity: frameOpacity }}
-              priority
               quality={100}
               src={frameData.imgUrl}
               height={500}

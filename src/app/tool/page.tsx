@@ -4,36 +4,28 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { nanoid } from "nanoid";
 import { domToPng } from "modern-screenshot";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
+import { Frame, ImageDown, ImagePlus } from "lucide-react";
 import {
   TransformWrapper,
   TransformComponent,
   ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 
-import Modal from "@/components/utils/modal";
 import { handleImageChange } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { IconPhoto, IconRestart, IconWarning } from "@/components/utils/icons";
+import { Card } from "@/components/ui/card";
+import { BrowserWarning } from "@/components/browser-warning";
 
 export default function Home() {
   const [frame, setFrame] = useState("");
-  const [isFb, setIsFb] = useState(false);
-  const [warnModal, setWarnModal] = useState(false);
-  const [profilePic, setProfilePic] = useState("");
+  const [photo, setProfilePic] = useState("");
   const [frameOpacity, setFrameOpacity] = useState(1);
 
   const ref = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLInputElement>(null);
   const frameRef = useRef<HTMLInputElement>(null);
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
-
-  useEffect(() => {
-    if (navigator.userAgent.match(/FBAN|FBAV/i)) {
-      setIsFb(true);
-      setWarnModal(true);
-    }
-  }, []);
 
   const saveImage = useCallback(() => {
     if (ref.current === null) {
@@ -58,161 +50,115 @@ export default function Home() {
     );
   }, [ref]);
 
-  const handleReset = () => {
-    setFrame("");
-    setProfilePic("");
-  };
-
   return (
-    <section className="flex justify-center">
-      <Modal
-        title="In-app browser detected"
-        description="To avoid running into issues with Frameyu, we recommend opening the tool in an external browser."
-        isOpen={warnModal}
-        handleConfirm={{
-          text: "Understood",
-          fn: () => setWarnModal(false),
-        }}
-        onClose={() => null}
-      />
+    <section className="max-w-[400px] mx-auto mt-20">
+      <BrowserWarning />
 
-      <div className="md:mt-16 mt-8 flex flex-col">
-        {isFb && (
-          <button
-            type="button"
-            className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 items-center mb-4 mx-auto"
-            onClick={() => setWarnModal(true)}
-          >
-            <IconWarning className="text-red-500 text-base mr-1" /> In-app
-            browser detected
-          </button>
-        )}
-
-        <div className="items-center flex-col justify-center border-2 border-zinc-800 p-6 rounded-2xl flex shadow-lg">
-          <input
-            ref={profileRef}
-            type="file"
-            accept="image/*"
-            onChange={(e) =>
-              handleImageChange({
-                file: e.target.files![0],
-                onSuccess: setProfilePic,
-                onError: (err) => toast.error(err.message),
-              })
-            }
-            className="hidden"
-          />
-
-          <input
-            ref={frameRef}
-            type="file"
-            accept="image/png"
-            onChange={(e) =>
-              handleImageChange({
-                file: e.target.files![0],
-                onSuccess: setFrame,
-                onError: (err) => toast.error(err.message),
-              })
-            }
-            className="hidden"
-          />
-
-          <div className="overflow-hidden rounded-xl shadow-lg">
-            <div
-              ref={ref}
-              className="relative overflow-hidden h-[300px] lg:h-[400px] aspect-square"
-            >
-              {frame ? (
-                <div
-                  style={{ opacity: frameOpacity }}
-                  className="z-50 relative"
-                >
-                  <Image
-                    priority
-                    quality={100}
-                    src={frame}
-                    height={500}
-                    width={500}
-                    className="object-contain absolute pointer-events-none"
-                    alt="DP Frame"
-                  />
-                </div>
-              ) : (
-                <button
-                  onClick={() => frameRef.current?.click()}
-                  className="bg-purple-100 border-2 border-dashed border-zinc-800 text-zinc-800 text-opacity-80 rounded-2xl h-full w-full flex items-center justify-center flex-col"
-                >
-                  <IconPhoto className="text-6xl" />
-                  <p>Upload Frame</p>
-                </button>
-              )}
-
-              {profilePic && (
-                <TransformWrapper
-                  ref={controlRef}
-                  onPanningStart={() => setFrameOpacity(0.7)}
-                  onPanningStop={() => setFrameOpacity(1)}
-                  onPinchingStop={() => setFrameOpacity(1)}
-                >
-                  <TransformComponent>
-                    <Image
-                      quality={100}
-                      src={profilePic}
-                      height={500}
-                      width={500}
-                      className="object-contain h-[300px] lg:h-[400px] scale-[0.5]"
-                      alt="Profile Picture"
-                      draggable={false}
-                    />
-                  </TransformComponent>
-                </TransformWrapper>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-6 space-x-3 text-sm md:text-base flex w-full self-start">
-            {!frame && (
-              <div>
-                <p className="text-zinc-800">
-                  Get started by uploading your frame above.{" "}
-                </p>
-                <button
-                  onClick={() => setFrame("/assets/sample_frame.png")}
-                  type="button"
-                  className="text-primary-100 mt-2"
-                >
-                  Use sample frame &rarr;
-                </button>
-              </div>
-            )}
-
-            {frame && (
-              <Button
-                disabled={!frame}
-                onClick={() => profileRef.current?.click()}
-                className="w-full"
-              >
-                {profilePic ? "Change" : "Upload"} Photo
-              </Button>
-            )}
-
-            {frame && profilePic && (
-              <Button onClick={saveImage} className="w-full">
-                Save Image
-              </Button>
-            )}
-          </div>
-
-          {frame && (
+      <Card className="p-4 w-full">
+        <div className="max-h-[400px] h-full aspect-square relative overflow-hidden">
+          {frame ? (
+            <Image
+              style={{ opacity: frameOpacity }}
+              quality={100}
+              src={frame}
+              height={500}
+              width={500}
+              className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
+              alt="DP Frame"
+            />
+          ) : (
             <button
-              onClick={handleReset}
-              className="flex items-center text-sm font-light mt-6 self-start text-primary-100"
+              type="button"
+              onClick={() => frameRef.current?.click()}
+              className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center"
             >
-              <IconRestart className="mr-1 text-lg" /> Reset all changes
+              <Frame className="text-zinc-400 h-6 w-6" />
             </button>
           )}
+
+          {photo && (
+            <TransformWrapper
+              ref={controlRef}
+              onPanningStart={() => setFrameOpacity(0.7)}
+              onPanningStop={() => setFrameOpacity(1)}
+              onPinchingStop={() => setFrameOpacity(1)}
+            >
+              <TransformComponent>
+                <Image
+                  quality={100}
+                  src="/assets/characters.png"
+                  height={500}
+                  width={500}
+                  className="object-contain w-full scale-[0.5]"
+                  alt="Profile Picture"
+                  draggable={false}
+                />
+              </TransformComponent>
+            </TransformWrapper>
+          )}
         </div>
+      </Card>
+
+      <p className="text-sm text-muted-foreground my-2">
+        Ensure that your image is transparent (.png)
+      </p>
+
+      <div className="flex items-center space-x-2 mt-4">
+        <Button className="w-full" onClick={() => frameRef.current?.click()}>
+          <Frame className="mr-2 h-4 w-4" />
+          Add Frame
+        </Button>
+
+        {frame && (
+          <Button
+            disabled={!frame}
+            onClick={() => profileRef.current?.click()}
+            className="w-full"
+          >
+            <ImagePlus className="mr-2 h-4 w-4" />
+            Select Photo
+          </Button>
+        )}
+
+        {frame && photo && (
+          <Button
+            size="icon"
+            variant="secondary"
+            className="flex-none"
+            onClick={saveImage}
+          >
+            <ImageDown className="h-4 w-4" />
+          </Button>
+        )}
       </div>
+
+      <input
+        ref={frameRef}
+        type="file"
+        accept="image/png"
+        onChange={(e) =>
+          handleImageChange({
+            file: e.target.files![0],
+            onSuccess: setFrame,
+            onError: (err) => toast.error(err.message),
+          })
+        }
+        className="hidden"
+      />
+
+      <input
+        ref={profileRef}
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          handleImageChange({
+            file: e.target.files![0],
+            onSuccess: setProfilePic,
+            onError: (err) => toast.error(err.message),
+          })
+        }
+        className="hidden"
+      />
     </section>
   );
 }
