@@ -31,10 +31,10 @@ export function FrameCard({ frameData, isPremium }: Props) {
   const data = readFragment(FrameFields, frameData);
 
   return (
-    <Card className="hover:border-purple-300 transition-all">
+    <Card className="hover:border-purple-300 transition-all w-[250px]">
       <CardHeader>
         <div>
-          <h3 className="font-semibold text-lg">{data.title}</h3>
+          <h3 className="font-semibold text-lg truncate">{data.title}</h3>
           <p className="outline-none flex items-center text-sm text-muted-foreground">
             frameyu.com/f/{data.handle}
           </p>
@@ -47,7 +47,7 @@ export function FrameCard({ frameData, isPremium }: Props) {
           alt="Frame name"
           width={200}
           height={200}
-          className="rounded object-cover aspect-square"
+          className="rounded object-cover aspect-square w-full"
         />
       </CardContent>
 
