@@ -1,7 +1,7 @@
 "use client";
 
-import { Terminal } from "lucide-react";
 import { useState, useEffect } from "react";
+import { TriangleAlert } from "lucide-react";
 
 import {
   Dialog,
@@ -50,10 +50,10 @@ export function BrowserWarning() {
       </Dialog>
 
       {isFb && (
-        <Alert className="mb-4" variant="destructive">
-          <Terminal className="h-4 w-4" />
+        <Alert className="my-4" variant="destructive">
+          <TriangleAlert className="h-4 w-4" />
           <AlertTitle>Warning</AlertTitle>
-          <AlertDescription>In-app browser detected!</AlertDescription>
+          <AlertDescription>In-app browser detected</AlertDescription>
         </Alert>
       )}
     </>

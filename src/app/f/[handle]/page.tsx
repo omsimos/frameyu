@@ -6,6 +6,7 @@ import { cacheExchange, createClient, fetchExchange } from "@urql/core";
 import { Frame } from "./components/frame";
 import { FrameCaption } from "./components/frame-caption";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BrowserWarning } from "@/components/browser-warning";
 
 const makeClient = () => {
   return createClient({
@@ -54,12 +55,14 @@ export default async function Page({ params }: { params: { handle: string } }) {
           {data.user.username}
         </p>
       </div>
+
       {data.caption ? (
         <Tabs defaultValue="frame">
           <TabsList>
             <TabsTrigger value="frame">Frame</TabsTrigger>
             <TabsTrigger value="caption">Caption</TabsTrigger>
           </TabsList>
+          <BrowserWarning />
           <TabsContent value="frame">
             <Frame frameUrl={data.imgUrl} />
           </TabsContent>
