@@ -1,3 +1,5 @@
+"use client"
+
 import { useRef } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
