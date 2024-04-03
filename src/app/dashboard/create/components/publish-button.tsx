@@ -3,7 +3,9 @@ import { graphql } from "@/graphql";
 import { useMutation } from "@urql/next";
 import { PackageCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { logEvent } from "firebase/analytics";
 
+import { analytics } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { uploadFiles } from "@/lib/uploadthing";
 import { useFrameStore } from "@/store/useFrameStore";
@@ -66,6 +68,8 @@ export function PublishButton() {
                 router.refresh();
                 updateCurrentTab("frame");
                 reset();
+
+                logEvent(analytics, "publish_frame");
                 return "Frame published";
               },
               error: (err) => {
@@ -74,7 +78,7 @@ export function PublishButton() {
               },
             },
           );
-          return "Almost there...";
+          return "Image uploaded";
         },
         error: (err) => {
           updateIsPublishing(false);

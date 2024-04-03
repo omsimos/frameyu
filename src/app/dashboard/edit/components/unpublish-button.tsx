@@ -3,6 +3,7 @@ import { useMutation } from "urql";
 import { graphql } from "@/graphql";
 import { PackageX } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { logEvent } from "firebase/analytics";
 
 import {
   AlertDialog,
@@ -16,6 +17,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteImg } from "@/app/actions";
+import { analytics } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 
 const DeleteFrameMutation = graphql(`
@@ -56,6 +58,7 @@ export function UnpublishButton({
       toast.success("Frame unpublished");
       router.push("/dashboard");
       router.refresh();
+      logEvent(analytics, "unpublish_frame");
     });
   };
 

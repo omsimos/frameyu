@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { nanoid } from "nanoid";
 import { domToPng } from "modern-screenshot";
+import { logEvent } from "firebase/analytics";
 import { useState, useCallback, useRef } from "react";
 import { Frame, ImageDown, ImagePlus } from "lucide-react";
 import {
@@ -12,9 +13,10 @@ import {
   ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 
+import { analytics } from "@/lib/firebase";
+import { Card } from "@/components/ui/card";
 import { handleImageChange } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { BrowserWarning } from "@/components/browser-warning";
 
 export default function Home() {
@@ -48,6 +50,10 @@ export default function Home() {
         }),
       { loading: "Saving...", success: "Saved!", error: "Error!" },
     );
+
+    logEvent(analytics, "save_image", {
+      type: "tool",
+    });
   }, [ref]);
 
   return (

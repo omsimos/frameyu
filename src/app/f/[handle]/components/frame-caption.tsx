@@ -2,11 +2,13 @@
 
 import { toast } from "sonner";
 import { useState } from "react";
-
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
+import { logEvent } from "firebase/analytics";
+
+import { analytics } from "@/lib/firebase";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 export function FrameCaption({ caption }: { caption?: string | null }) {
   const [text, setText] = useState(caption ?? "");
@@ -16,6 +18,8 @@ export function FrameCaption({ caption }: { caption?: string | null }) {
       navigator.clipboard.writeText(text);
       toast.success("Caption copied to clipboard");
     }
+
+    logEvent(analytics, "copy_caption");
   };
   return (
     <div>
@@ -23,7 +27,11 @@ export function FrameCaption({ caption }: { caption?: string | null }) {
         <Label htmlFor="url" className="mb-1">
           Caption
         </Label>
-        <Textarea className="min-h-[250px]" value={text} onChange={(e) => setText(e.target.value)} />
+        <Textarea
+          className="min-h-[250px]"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
       </div>
 
       <Button type="button" onClick={copyCaption}>

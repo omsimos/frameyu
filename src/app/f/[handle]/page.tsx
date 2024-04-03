@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { handle: string } }) {
   const data = result.data?.frame;
 
   if (!data) {
-    return <div>Frame not found</div>;
+    return <div className="mt-8 text-muted-foreground">Frame not found</div>;
   }
 
   return (
@@ -64,14 +64,14 @@ export default async function Page({ params }: { params: { handle: string } }) {
           </TabsList>
           <BrowserWarning />
           <TabsContent value="frame">
-            <Frame frameUrl={data.imgUrl} />
+            <Frame id={data.id} frameUrl={data.imgUrl} />
           </TabsContent>
           <TabsContent value="caption">
             <FrameCaption caption={data.caption} />
           </TabsContent>
         </Tabs>
       ) : (
-        <Frame frameUrl={data.imgUrl} />
+        <Frame id={data.id} frameUrl={data.imgUrl} />
       )}
     </section>
   );
