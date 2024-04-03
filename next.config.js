@@ -20,14 +20,14 @@ const nextConfig = {
     ],
   },
 
-    async headers() {
+  async headers() {
     return [
       {
         source: "/api/:path*",
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.NEXT_PUBLIC_URL,
+            value: process.env.NEXT_PUBLIC_URL ?? "https://frameyu.com",
           },
           {
             key: "Access-Control-Allow-Methods",
