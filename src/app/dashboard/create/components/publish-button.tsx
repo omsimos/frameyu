@@ -27,6 +27,8 @@ export function PublishButton() {
   const frameData = useFrameStore((state) => state.frameData);
   const isPublishing = useFrameStore((state) => state.isPublishing);
   const updateIsPublishing = useFrameStore((state) => state.updateIsPublishing);
+  const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
+  const reset = useFrameStore((state) => state.reset);
 
   const handlePublish = () => {
     if (!frameData.file) {
@@ -62,6 +64,8 @@ export function PublishButton() {
                 updateIsPublishing(false);
                 router.push("/dashboard");
                 router.refresh();
+                updateCurrentTab("frame");
+                reset();
                 return "Frame published";
               },
               error: (err) => {

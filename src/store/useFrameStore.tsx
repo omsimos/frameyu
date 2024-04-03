@@ -20,6 +20,7 @@ type Action = {
   updateFileUrl: (imgUrl: string, file: File) => void;
   updateDetails: (details: Omit<FrameData, "imgUrl" | "file">) => void;
   updateIsPublishing: (isPublishing: boolean) => void;
+  reset: () => void;
 };
 
 export const useFrameStore = create<State & Action>()((set) => ({
@@ -51,4 +52,15 @@ export const useFrameStore = create<State & Action>()((set) => ({
     })),
 
   updateIsPublishing: (isPublishing) => set(() => ({ isPublishing })),
+
+  reset: () =>
+    set(() => ({
+      frameData: {
+        file: null,
+        imgUrl: "",
+        title: "",
+        urlHandle: nanoid(12).toLowerCase(),
+        caption: "",
+      },
+    })),
 }));
