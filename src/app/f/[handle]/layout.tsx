@@ -11,10 +11,6 @@ export default function ToolLayout({
 }) {
   return (
     <div className="min-h-screen flex flex-col items-center mt-12 container">
-      <p className="text-2xl font-black tracking-[-0.09em]">
-        frame<span className="text-purple-600">yu</span>
-      </p>
-
       {children}
     </div>
   );
