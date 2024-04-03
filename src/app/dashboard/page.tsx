@@ -1,15 +1,15 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { graphql } from "gql.tada";
+import { Frame } from "lucide-react";
 import { registerUrql } from "@urql/next/rsc";
 import { createClient, fetchExchange } from "@urql/core";
 import { cacheExchange } from "@urql/exchange-graphcache";
 
+import { getSession } from "@/lib/auth";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FrameCard, FrameFields } from "./components/frame-card";
-import { Frame } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import Link from "next/link";
-import { getSession } from "@/lib/auth";
 
 const makeClient = () => {
   return createClient({

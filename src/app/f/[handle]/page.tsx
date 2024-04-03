@@ -1,7 +1,8 @@
 import { graphql } from "@/graphql";
 import { formatDistance } from "date-fns";
 import { registerUrql } from "@urql/next/rsc";
-import { cacheExchange, createClient, fetchExchange } from "@urql/core";
+import { createClient, fetchExchange } from "@urql/core";
+import { cacheExchange } from "@urql/exchange-graphcache";
 
 import { Frame } from "./components/frame";
 import { FrameCaption } from "./components/frame-caption";
@@ -11,7 +12,7 @@ import { BrowserWarning } from "@/components/browser-warning";
 const makeClient = () => {
   return createClient({
     url: process.env.NEXT_PUBLIC_GRAPHQL_URL!,
-    exchanges: [cacheExchange, fetchExchange],
+    exchanges: [cacheExchange({}), fetchExchange],
   });
 };
 

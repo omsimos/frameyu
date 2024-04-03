@@ -1,11 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { useFrameStore } from "@/store/useFrameStore";
 import { FrameUpload } from "./components/frame-upload";
 import { FrameDetails } from "./components/frame-details";
 import { FramePreview } from "./components/frame-preview";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Suspense } from "react";
 
 export default function Page() {
   return (
