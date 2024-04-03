@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
@@ -5,7 +6,6 @@ import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.frameyu.com"),
