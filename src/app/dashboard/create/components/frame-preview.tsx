@@ -27,7 +27,7 @@ export function FramePreview() {
         <Input
           id="url"
           type="text"
-          value={`yu.omsimos.com/f/${frameData.urlHandle}`}
+          value={`frameyu.com/f/${frameData.urlHandle}`}
           readOnly
         />
       </div>

@@ -5,6 +5,9 @@ import { cacheExchange, createClient, fetchExchange } from "@urql/core";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { FrameCard, FrameFields } from "./components/frame-card";
+import { Frame } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 const makeClient = () => {
   return createClient({
@@ -48,6 +51,16 @@ export default async function DashboardPage() {
               </>
             }
           >
+            {!result.data?.frames.length && (
+              <Link href="/dashboard/create" className="h-[360px] w-[250px]">
+                <Card className="p-4">
+                  <div className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center">
+                    <Frame className="text-zinc-400 h-6 w-6" />
+                  </div>
+                </Card>
+              </Link>
+            )}
+
             {result.data?.frames.map((frame, i) => (
               <FrameCard key={frame.id} frameData={frame} isPremium={i > 0} />
             ))}
