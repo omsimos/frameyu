@@ -7,10 +7,6 @@ builder.queryFields((t) => ({
     type: ["Frame"],
     resolve: async (_query, _root, _args, { userId }) => {
       try {
-        if (!userId) {
-          throw new Error("Unauthorized");
-        }
-
         const frames = prisma.frame.findMany({
           where: {
             userId,
@@ -31,12 +27,8 @@ builder.queryFields((t) => ({
         required: true,
       }),
     },
-    resolve: async (_query, _root, { handle }, { userId }) => {
+    resolve: async (_query, _root, { handle }) => {
       try {
-        if (!userId) {
-          throw new Error("Unauthorized");
-        }
-
         const frame = prisma.frame.findUniqueOrThrow({
           where: {
             handle,
