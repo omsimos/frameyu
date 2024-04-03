@@ -52,7 +52,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
       type: "published",
       frame_id: id,
     });
-  }, [ref]);
+  }, [ref, id]);
 
   return (
     <div className="w-full">
