@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 export type EditFrameProps = {
   id: string;
   title: string;
+  imgUrl: string;
   caption?: string | null;
   handle: string;
 };

@@ -5,6 +5,7 @@ type State = {
     id?: string;
     title?: string;
     handle?: string;
+    imgUrl?: string;
     caption?: string | null;
   };
 };

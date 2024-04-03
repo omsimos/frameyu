@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { lucia, getSession } from "@/lib/auth";
+import { utapi } from "@/server/uploadthing";
 
 export async function logout(): Promise<ActionResult> {
   const { session } = await getSession();
@@ -28,4 +29,10 @@ export async function logout(): Promise<ActionResult> {
 
 interface ActionResult {
   error: string | null;
+}
+
+export async function deleteImg(fileKey?: string) {
+  if (fileKey) {
+    await utapi.deleteFiles(fileKey);
+  }
 }

@@ -1,6 +1,8 @@
+import { toast } from "sonner";
 import { useMutation } from "urql";
 import { graphql } from "@/graphql";
 import { PackageX } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import {
   AlertDialog,
@@ -13,9 +15,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteImg } from "@/app/actions";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 const DeleteFrameMutation = graphql(`
   mutation DeleteFrame($id: String!) {
@@ -25,14 +26,25 @@ const DeleteFrameMutation = graphql(`
   }
 `);
 
-export function UnpublishButton({ id }: { id?: string }) {
+export function UnpublishButton({
+  id,
+  fileKey,
+}: {
+  id?: string;
+  fileKey?: string;
+}) {
   const router = useRouter();
   const [{ fetching }, deleteFrameFn] = useMutation(DeleteFrameMutation);
+  const deleteImgWithFileKey = deleteImg.bind(null, fileKey);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!id) {
       toast.error("Frame not found");
       return;
+    }
+
+    if (fileKey) {
+      await deleteImgWithFileKey();
     }
 
     deleteFrameFn({ id }).then((res) => {

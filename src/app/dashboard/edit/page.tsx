@@ -108,7 +108,12 @@ function EditPage() {
         className="max-w-[400px] mx-auto"
         form={form}
         onSubmit={onSubmit}
-        sideButton={<UnpublishButton id={data.id} />}
+        sideButton={
+          <UnpublishButton
+            id={data.id}
+            fileKey={data.imgUrl?.substring(data.imgUrl.lastIndexOf("/") + 1)}
+          />
+        }
       />
     </section>
   );
