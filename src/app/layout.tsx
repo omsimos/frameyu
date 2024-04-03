@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font";
-import { Toaster } from "react-hot-toast";
+import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
 
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://frameyu.omsimos.com"),
-  title: "Frameyu",
+  metadataBase: new URL("https://www.frameyu.com"),
+  title: "Frameyu: The Frame Publisher to Supercharge Your Campaign",
   description:
-    "Transform your photos with Frameyu! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
+    "Effortlessly manage and publish custom frames for your marketing campaigns with Frameyu, the free online frame publisher. Create shareable links to boost engagement. Download in high-quality images, watermark-free. Get started for free today!",
   robots: "index, follow",
   openGraph: {
     type: "website",
-    title: "Frameyu — Supercharge your campaign!",
+    title: "Frameyu — Supercharge Your Campaign!",
     description:
-      "Transform your photos with Frameyu! Our easy-to-use platform lets you overlay custom frames, adjust your photo's position, and download high-quality, watermark-free images.",
+      "Effortlessly manage and publish custom frames for your marketing campaigns with Frameyu, the free online frame publisher. Create shareable links to boost engagement. Download in high-quality images, watermark-free. Get started for free today!",
     images: [
-      "https://github.com/joshxfi/joshxfi/assets/69457996/7968f64d-d49f-4174-a698-2e157ab6af78",
+      "https://github.com/omsimos/frameyu/assets/69457996/8f7f44f1-b439-46c6-b296-fdf4bdf19bde",
     ],
   },
   twitter: {
@@ -34,23 +33,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${GeistSans.className} max-w-screen-xl px-6 2xl:px-0 mx-auto bg-white text-secondary-100`}
-      >
-        <Toaster
-          position="bottom-center"
-          toastOptions={{
-            style: {
-              border: "2px solid #000",
-              padding: "12px",
-              marginBottom: "52px",
-              fontWeight: "500",
-            },
-          }}
-        />
+      <body className={`${GeistSans.className} bg-background text-zinc-800`}>
+        <Toaster />
         <NextTopLoader showSpinner={false} />
 
-        <Navbar />
         {children}
         <Footer />
       </body>

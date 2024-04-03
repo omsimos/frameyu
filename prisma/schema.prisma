@@ -1,0 +1,44 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["driverAdapters"]
+}
+
+generator pothos {
+    provider = "prisma-pothos-types"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+}
+
+model User {
+    id        String    @id @default(cuid())
+    username  String    @unique
+    googleId  String    @unique
+    image     String?
+    email     String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    frames    Frame[]
+    sessions  Session[]
+}
+
+model Session {
+    id        String   @id @default(cuid())
+    userId    String
+    expiresAt DateTime
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Frame {
+    id        String    @id @default(cuid())
+    title     String
+    imgUrl    String
+    handle    String   @unique
+    caption   String?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+    userId    String
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

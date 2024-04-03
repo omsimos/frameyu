@@ -1,12 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { Frame } from "lucide-react";
+
 import encircle from "@/assets/encircle.svg";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40">
+    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40 container">
       <div>
-        <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-secondary-200 leading-tight">
+        <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-zinc-800 leading-tight">
           Frame overlayer,
           <br />
           built for{" "}
@@ -27,19 +31,31 @@ export function Hero() {
           drag and zoom.
         </p>
 
-        <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-12 space-x-4 justify-center xl:justify-start">
+        <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-8 space-x-4 justify-center xl:justify-start">
           <Link
-            href="/tool"
-            className="px-6 py-3 bg-secondary-200 text-white rounded"
+            href="/login"
+            className={cn(
+              buttonVariants({
+                size: "lg",
+              }),
+              "md:text-lg",
+            )}
           >
             Get Started
           </Link>
 
           <Link
-            href="/#pricing"
-            className="px-6 py-3 border-2 border-secondary-200 box-border rounded text-secondary-200"
+            href="/tool"
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+                size: "lg",
+              }),
+              "md:text-lg",
+            )}
           >
-            Learn More &rarr;
+            Use tool
+            <Frame className="ml-2 h-4 w-4" />
           </Link>
         </div>
       </div>
