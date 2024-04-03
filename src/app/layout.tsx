@@ -5,6 +5,7 @@ import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.frameyu.com"),
@@ -40,6 +41,13 @@ export default function RootLayout({
         {children}
         <Footer />
       </body>
+
+      <Script
+        async
+        strategy="afterInteractive"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4274133898976040"
+        crossOrigin="anonymous"
+      />
     </html>
   );
 }
