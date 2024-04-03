@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
@@ -40,6 +41,13 @@ export default function RootLayout({
         {children}
         <Footer />
       </body>
+
+      <Script
+        async
+        strategy="afterInteractive"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4274133898976040"
+        crossOrigin="anonymous"
+      />
     </html>
   );
 }
