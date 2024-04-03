@@ -85,12 +85,8 @@ builder.mutationFields((t) => ({
         required: true,
       }),
     },
-    resolve: async (_query, _root, { id }, { userId }) => {
+    resolve: async (_query, _root, { id }) => {
       try {
-        if (!userId) {
-          throw new Error("Unauthorized");
-        }
-
         const frame = prisma.frame.delete({
           where: {
             id,
@@ -113,12 +109,8 @@ builder.mutationFields((t) => ({
         required: true,
       }),
     },
-    resolve: async (_query, _root, { input }, { userId }) => {
+    resolve: async (_query, _root, { input }) => {
       try {
-        if (!userId) {
-          throw new Error("Unauthorized");
-        }
-
         const frame = prisma.frame.update({
           where: {
             id: input.id,

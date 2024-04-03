@@ -2,6 +2,7 @@ import prisma from "@/lib/db";
 import SchemaBuilder from "@pothos/core";
 import { DateResolver } from "graphql-scalars";
 import PrismaPlugin from "@pothos/plugin-prisma";
+import ScopeAuthPlugin from "@pothos/plugin-scope-auth";
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
 
 const builder = new SchemaBuilder<{
@@ -12,9 +13,14 @@ const builder = new SchemaBuilder<{
     Date: { Input: Date; Output: Date };
   };
   PrismaTypes: PrismaTypes;
+  AuthScopes: {
+    authenticated: boolean;
+  };
 }>({
-  plugins: [PrismaPlugin],
-
+  plugins: [ScopeAuthPlugin, PrismaPlugin],
+  authScopes: async (ctx) => ({
+    authenticated: !!ctx.userId,
+  }),
   prisma: {
     client: prisma,
   },
@@ -22,6 +28,10 @@ const builder = new SchemaBuilder<{
 
 builder.addScalarType("Date", DateResolver, {});
 builder.queryType({});
-builder.mutationType({})
+builder.mutationType({
+  authScopes: {
+    authenticated: true,
+  },
+});
 
 export default builder;

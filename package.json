@@ -15,6 +15,7 @@
     "@lucia-auth/adapter-prisma": "^4.0.1",
     "@pothos/core": "^3.41.0",
     "@pothos/plugin-prisma": "^3.65.0",
+    "@pothos/plugin-scope-auth": "^3.21.1",
     "@prisma/adapter-libsql": "^5.11.0",
     "@prisma/client": "^5.11.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",

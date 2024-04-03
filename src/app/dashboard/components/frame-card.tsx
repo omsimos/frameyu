@@ -35,7 +35,7 @@ export function FrameCard({ frameData, isPremium }: Props) {
       <CardHeader>
         <div>
           <h3 className="font-semibold text-lg truncate">{data.title}</h3>
-          <p className="outline-none flex items-center text-sm text-muted-foreground">
+          <p className="outline-none flex items-center text-sm text-muted-foreground truncate">
             frameyu.com/f/{data.handle}
           </p>
         </div>
