@@ -4,11 +4,11 @@ import builder from "@/schema/builder";
 builder.queryFields((t) => ({
   user: t.prismaField({
     type: "User",
-    resolve: async (_query, _root, _args, { userId }) => {
+    resolve: async (_query, _root, _args, ctx) => {
       try {
         const user = await prisma.user.findUniqueOrThrow({
           where: {
-            id: userId,
+            id: ctx.userId,
           },
         });
         return user;

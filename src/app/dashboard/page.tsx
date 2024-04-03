@@ -1,18 +1,20 @@
 import { Suspense } from "react";
 import { graphql } from "gql.tada";
 import { registerUrql } from "@urql/next/rsc";
-import { cacheExchange, createClient, fetchExchange } from "@urql/core";
+import { createClient, fetchExchange } from "@urql/core";
+import { cacheExchange } from "@urql/exchange-graphcache";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { FrameCard, FrameFields } from "./components/frame-card";
 import { Frame } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
+import { getSession } from "@/lib/auth";
 
 const makeClient = () => {
   return createClient({
     url: process.env.NEXT_PUBLIC_GRAPHQL_URL!,
-    exchanges: [cacheExchange, fetchExchange],
+    exchanges: [cacheExchange({}), fetchExchange],
   });
 };
 
@@ -20,8 +22,8 @@ const { getClient } = registerUrql(makeClient);
 
 const GetFramesQuery = graphql(
   `
-    query GetFrames {
-      frames {
+    query GetFrames($userId: String!) {
+      frames(userId: $userId) {
         id
         ...FrameFields
       }
@@ -31,7 +33,10 @@ const GetFramesQuery = graphql(
 );
 
 export default async function DashboardPage() {
-  const result = await getClient().query(GetFramesQuery, {});
+  const { session } = await getSession();
+  const result = await getClient().query(GetFramesQuery, {
+    userId: session?.userId!,
+  });
 
   return (
     <section className="container">

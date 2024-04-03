@@ -5,13 +5,19 @@ import { CreateFrameInput, EditFrameInput } from "./types";
 builder.queryFields((t) => ({
   frames: t.prismaField({
     type: ["Frame"],
-    resolve: async (_query, _root, _args, { userId }) => {
+    args: {
+      userId: t.arg.string({
+        required: true,
+      }),
+    },
+    resolve: async (_query, _root, { userId }) => {
       try {
         const frames = prisma.frame.findMany({
           where: {
             userId,
           },
         });
+
         return frames;
       } catch (err) {
         console.log(err);

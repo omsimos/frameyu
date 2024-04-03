@@ -7,11 +7,11 @@ import { getSession } from "@/lib/auth";
 const { handleRequest } = createYoga({
   schema,
   context: async () => {
-    const { user } = await getSession();
+    const { session } = await getSession();
 
     return {
       ...initContextCache(),
-      userId: user?.id,
+      userId: session?.userId,
     };
   },
 

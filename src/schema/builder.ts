@@ -18,7 +18,7 @@ const builder = new SchemaBuilder<{
   };
 }>({
   plugins: [ScopeAuthPlugin, PrismaPlugin],
-  authScopes: async (ctx) => ({
+  authScopes: (ctx) => ({
     authenticated: !!ctx.userId,
   }),
   prisma: {
