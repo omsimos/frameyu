@@ -39,28 +39,28 @@ export default async function DashboardPage() {
   });
 
   return (
-    <section className='container'>
+    <section className="container">
       <div>
-        <h1 className='font-semibold text-3xl'>Manage Frames</h1>
-        <p className='text-muted-foreground'>
+        <h1 className="font-semibold text-3xl">Manage Frames</h1>
+        <p className="text-muted-foreground">
           Premium features are currently free for all users.
         </p>
 
-        <div className='mt-8 flex flex-wrap gap-4'>
+        <div className="mt-8 flex flex-wrap gap-4">
           <Suspense
             fallback={
               <>
-                <Skeleton className='w-[250px] h-[360px]' />
-                <Skeleton className='w-[250px] h-[360px]' />
-                <Skeleton className='w-[250px] h-[360px]' />
+                <Skeleton className="w-[250px] h-[360px]" />
+                <Skeleton className="w-[250px] h-[360px]" />
+                <Skeleton className="w-[250px] h-[360px]" />
               </>
             }
           >
             {!result.data?.frames.length && (
-              <Link href='/dashboard/publish' className='h-[360px] w-[250px]'>
-                <Card className='p-4'>
-                  <div className='bg-zinc-200 w-full aspect-square rounded-md grid place-items-center'>
-                    <Frame className='text-zinc-400 h-6 w-6' />
+              <Link href="/dashboard/publish" className="h-[360px] w-[250px]">
+                <Card className="p-4">
+                  <div className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center">
+                    <Frame className="text-zinc-400 h-6 w-6" />
                   </div>
                 </Card>
               </Link>
