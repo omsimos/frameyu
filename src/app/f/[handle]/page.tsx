@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { graphql } from "@/graphql";
 import { formatDistance } from "date-fns";
 import { registerUrql } from "@urql/next/rsc";
@@ -49,9 +50,9 @@ export default async function Page({ params }: { params: { handle: string } }) {
   return (
     <section className="w-full max-w-[400px] mx-auto">
       <div className="mb-12 text-center">
-        <p className="mb-8 text-2xl font-black tracking-[-0.09em]">
+        <Link href="/" className="mb-8 inline-block text-2xl font-black tracking-[-0.09em]">
           frame<span className="text-purple-600">yu</span>
-        </p>
+        </Link>
 
         <h1 className="text-3xl font-bold">{data.title}</h1>
 

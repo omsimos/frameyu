@@ -48,7 +48,7 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         }),
-      { loading: "Saving...", success: "Saved!", error: "Error!" },
+      { loading: "Saving...", success: "Download ready", error: "Error!" },
     );
 
     logEvent(analytics, "save_image", {

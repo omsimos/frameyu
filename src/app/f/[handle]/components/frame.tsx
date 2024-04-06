@@ -5,7 +5,7 @@ import Image from "next/image";
 import { nanoid } from "nanoid";
 import { domToPng } from "modern-screenshot";
 import { logEvent } from "firebase/analytics";
-import { Download, Image as ImageIcon } from "lucide-react";
+import { Download, ImagePlus } from "lucide-react";
 import { useState, useCallback, useRef } from "react";
 import {
   TransformWrapper,
@@ -45,7 +45,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
         .catch((err) => {
           console.log(err);
         }),
-      { loading: "Saving...", success: "Image Saved!", error: "Error!" },
+      { loading: "Saving...", success: "Download ready", error: "Error!" },
     );
 
     logEvent(analytics, "save_image", {
@@ -122,8 +122,8 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
             onClick={() => profileRef.current?.click()}
             className="w-full"
           >
-            <ImageIcon className="mr-2 h-4 w-4" />
-            Select your photo
+            <ImagePlus className="mr-2 h-4 w-4" />
+            Select photo
           </Button>
         )}
 
@@ -133,7 +133,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
           className="w-full"
         >
           <Download className="mr-2 h-4 w-4" />
-          Save Image
+          Download image
         </Button>
       </div>
     </div>
