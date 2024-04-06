@@ -45,7 +45,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
         .catch((err) => {
           console.log(err);
         }),
-      { loading: "Saving...", success: "Image Saved!", error: "Error!" },
+      { loading: "Saving...", success: "Download ready", error: "Error!" },
     );
 
     logEvent(analytics, "save_image", {

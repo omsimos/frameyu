@@ -18,7 +18,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function BrowserWarning() {
   const [isFb, setIsFb] = useState(false);
-  const [isIos, setIsIos] = useState(true);
+  const [isIos, setIsIos] = useState(false);
   const [warnModal, setWarnModal] = useState(false);
 
   useEffect(() => {
