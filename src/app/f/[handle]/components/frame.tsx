@@ -123,7 +123,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
             className="w-full"
           >
             <ImagePlus className="mr-2 h-4 w-4" />
-            Select your photo
+            Select photo
           </Button>
         )}
 
@@ -133,7 +133,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
           className="w-full"
         >
           <Download className="mr-2 h-4 w-4" />
-          Save Image
+          Download image
         </Button>
       </div>
     </div>
