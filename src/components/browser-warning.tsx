@@ -18,7 +18,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function BrowserWarning() {
   const [isFb, setIsFb] = useState(false);
-  const [isIos, setIsIos] = useState(false);
+  const [isIos, setIsIos] = useState(true);
   const [warnModal, setWarnModal] = useState(false);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export function BrowserWarning() {
             <AlertTitle>Save to Photos (iOS)</AlertTitle>
             <AlertDescription>
               After downloading, go to Downloads folder in Files, press and hold the image, then tap
-              "Save Image"
+              &quot;Save Image&quot;
             </AlertDescription>
           </Alert>
         )
