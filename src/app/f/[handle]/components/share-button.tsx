@@ -8,8 +8,6 @@ export function ShareButton({ handle }: { handle: string }) {
   const share = () => {
     if (typeof window !== "undefined") {
       const url = `${window.location.origin}/f/${handle}`;
-      navigator.clipboard.writeText(`${window.location.origin}/f/${handle}`);
-      toast.success("Copied to clipboard");
 
       if (
         navigator.share &&
@@ -17,6 +15,9 @@ export function ShareButton({ handle }: { handle: string }) {
         process.env.NODE_ENV === "production"
       ) {
         navigator.share({ url });
+      } else {
+        navigator.clipboard.writeText(`${window.location.origin}/f/${handle}`);
+        toast.success("Copied to clipboard");
       }
     }
   };
