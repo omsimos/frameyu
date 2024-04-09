@@ -1,41 +1,20 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { graphql } from "gql.tada";
 import { Frame } from "lucide-react";
-import { registerUrql } from "@urql/next/rsc";
-import { createClient, fetchExchange } from "@urql/core";
-import { cacheExchange } from "@urql/exchange-graphcache";
 
+import prisma from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FrameCard, FrameFields } from "./components/frame-card";
-
-const makeClient = () => {
-  return createClient({
-    url: process.env.NEXT_PUBLIC_GRAPHQL_URL!,
-    exchanges: [cacheExchange({}), fetchExchange],
-  });
-};
-
-const { getClient } = registerUrql(makeClient);
-
-const GetFramesQuery = graphql(
-  `
-    query GetFrames($userId: String!) {
-      frames(userId: $userId) {
-        id
-        ...FrameFields
-      }
-    }
-  `,
-  [FrameFields],
-);
+import { FrameCard } from "./components/frame-card";
 
 export default async function DashboardPage() {
   const { session } = await getSession();
-  const result = await getClient().query(GetFramesQuery, {
-    userId: session?.userId!,
+
+  const frames = await prisma.frame.findMany({
+    where: {
+      userId: session?.userId,
+    },
   });
 
   return (
@@ -56,7 +35,7 @@ export default async function DashboardPage() {
               </>
             }
           >
-            {!result.data?.frames.length && (
+            {!frames.length && (
               <Link href="/dashboard/create" className="h-[360px] w-[250px]">
                 <Card className="p-4">
                   <div className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center">
@@ -66,8 +45,8 @@ export default async function DashboardPage() {
               </Link>
             )}
 
-            {result.data?.frames.map((frame, i) => (
-              <FrameCard key={frame.id} frameData={frame} isPremium={i > 0} />
+            {frames.map((frame, i) => (
+              <FrameCard key={frame.id} data={frame} isPremium={i > 0} />
             ))}
           </Suspense>
         </div>
