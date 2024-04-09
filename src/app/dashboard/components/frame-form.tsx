@@ -10,18 +10,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 
 type Props = {
   onSubmit: (values: any) => void;
   form: UseFormReturn<
     {
       title: string;
-      urlHandle: string;
+      handle: string;
       caption: string;
     },
     any,
@@ -47,7 +47,7 @@ export function FrameForm({
       >
         <FormField
           control={form.control}
-          name="urlHandle"
+          name="handle"
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -58,7 +58,7 @@ export function FrameForm({
               </FormControl>
               <FormDescription>
                 frameyu.com/f/
-                {form.getValues().urlHandle}
+                {form.getValues().handle}
               </FormDescription>
               <FormMessage />
             </FormItem>

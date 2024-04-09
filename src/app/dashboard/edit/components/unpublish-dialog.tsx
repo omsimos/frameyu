@@ -1,9 +1,6 @@
 import { toast } from "sonner";
-import { useMutation } from "urql";
-import { graphql } from "@/graphql";
-import { PackageX } from "lucide-react";
+import { Loader2, PackageX } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { logEvent } from "firebase/analytics";
 
 import {
   AlertDialog,
@@ -16,19 +13,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deleteImg } from "@/app/actions";
-import { analytics } from "@/lib/firebase";
+import { unpublishFrame } from "@/app/actions";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-const DeleteFrameMutation = graphql(`
-  mutation DeleteFrame($id: String!) {
-    deleteFrame(id: $id) {
-      id
-    }
-  }
-`);
-
-export function UnpublishButton({
+export function UnpublishDialog({
   id,
   fileKey,
 }: {
@@ -36,41 +25,37 @@ export function UnpublishButton({
   fileKey?: string;
 }) {
   const router = useRouter();
-  const [{ fetching }, deleteFrameFn] = useMutation(DeleteFrameMutation);
-  const deleteImgWithFileKey = deleteImg.bind(null, fileKey);
+  const [loading, setLoading] = useState(false);
 
-  const handleDelete = async () => {
-    if (!id) {
+  const handleUnpublish = async () => {
+    setLoading(true);
+
+    if (!id || !fileKey) {
       toast.error("Frame not found");
+      setLoading(false);
       return;
     }
 
-    if (fileKey) {
-      await deleteImgWithFileKey();
+    const res = await unpublishFrame({ id, fileKey });
+
+    if (res.error) {
+      toast.error(res.error);
+      setLoading(false);
+      return;
     }
 
-    deleteFrameFn({ id }).then((res) => {
-      if (res.error) {
-        toast.error(res.error.message);
-        return;
-      }
-
+    if (res.success) {
       toast.success("Frame unpublished");
       router.push("/dashboard");
-      router.refresh();
-      logEvent(analytics, "unpublish_frame");
-    });
+    }
+
+    setLoading(false);
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          disabled={fetching}
-          size="icon"
-          variant="destructive"
-          className="flex-none"
-        >
+        <Button size="icon" variant="destructive" className="flex-none">
           <PackageX className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>
@@ -84,8 +69,11 @@ export function UnpublishButton({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+          <Button disabled={loading} onClick={handleUnpublish}>
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Continue
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

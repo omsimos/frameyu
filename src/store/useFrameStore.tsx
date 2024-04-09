@@ -5,7 +5,7 @@ type FrameData = {
   file: File | null;
   imgUrl: string;
   title: string;
-  urlHandle: string;
+  handle: string;
   caption?: string;
 };
 
@@ -29,7 +29,7 @@ export const useFrameStore = create<State & Action>()((set) => ({
     file: null,
     imgUrl: "",
     title: "",
-    urlHandle: nanoid(12).toLowerCase(),
+    handle: nanoid(12).toLowerCase(),
     caption: "",
   },
   isPublishing: false,
@@ -59,7 +59,7 @@ export const useFrameStore = create<State & Action>()((set) => ({
         file: null,
         imgUrl: "",
         title: "",
-        urlHandle: nanoid(12).toLowerCase(),
+        handle: nanoid(12).toLowerCase(),
         caption: "",
       },
     })),

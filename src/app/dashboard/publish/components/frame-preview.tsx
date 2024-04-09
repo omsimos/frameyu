@@ -1,27 +1,63 @@
-"use client"
+"use client";
 
 import Image from "next/image";
+import { toast } from "sonner";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ReactZoomPanPinchRef,
   TransformComponent,
   TransformWrapper,
 } from "react-zoom-pan-pinch";
 
+import { publishFrame } from "@/app/actions";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { uploadFiles } from "@/lib/uploadthing";
+import { PublishButton } from "./publish-button";
 import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
-import { PublishButton } from "./publish-button";
 
 export function FramePreview() {
+  const router = useRouter();
   const [frameOpacity, setFrameOpacity] = useState(1);
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
   const frameData = useFrameStore((state) => state.frameData);
+  const reset = useFrameStore((state) => state.reset);
 
   return (
-    <section className="w-full space-y-6">
+    <form
+      action={async () => {
+        if (!frameData.file) {
+          toast.error("Please upload a frame image.");
+          return;
+        }
+
+        const fileRes = await uploadFiles("imageUploader", {
+          files: [frameData.file],
+        });
+
+        const res = await publishFrame({
+          title: frameData.title,
+          handle: frameData.handle,
+          caption: frameData.caption,
+          imgUrl: fileRes[0].url,
+        });
+
+        if (res.error) {
+          toast.error(res.error);
+          return;
+        }
+
+        if (res.success) {
+          toast.success("Frame published successfully.");
+          reset();
+          router.push("/dashboard");
+        }
+      }}
+      className="w-full space-y-6"
+    >
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="url" className="mb-1">
           Frame URL
@@ -29,7 +65,7 @@ export function FramePreview() {
         <Input
           id="url"
           type="text"
-          value={`frameyu.com/f/${frameData.urlHandle}`}
+          value={`frameyu.com/f/${frameData.handle}`}
           readOnly
         />
       </div>
@@ -91,6 +127,6 @@ export function FramePreview() {
 
         <PublishButton />
       </div>
-    </section>
+    </form>
   );
 }
