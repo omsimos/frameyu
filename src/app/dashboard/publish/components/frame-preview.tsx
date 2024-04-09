@@ -42,7 +42,9 @@ export function FramePreview() {
           imgUrl: fileRes[0].url,
         });
 
-        if (!res.errors) {
+        if (res.error) {
+          toast.error(res.error);
+        } else {
           toast.success("Frame published successfully.");
         }
       }}

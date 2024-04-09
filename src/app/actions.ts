@@ -6,6 +6,7 @@ import { lucia, getSession } from "@/lib/auth";
 import { utapi } from "@/server/uploadthing";
 import { z } from "zod";
 import prisma from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
 export async function logout(): Promise<ActionResult> {
   const { session } = await getSession();
@@ -72,7 +73,7 @@ export async function publishFrame({
 
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      error: "Error validating fields",
     };
   }
 
@@ -86,11 +87,21 @@ export async function publishFrame({
         userId: session.userId,
       },
     });
-
-    redirect("/dashboard");
   } catch (err) {
     console.log(err);
+
     await deleteImg(imgUrl.substring(imgUrl.lastIndexOf("/") + 1));
+
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        return {
+          error: "Frame handle already exists",
+        };
+      }
+    }
+
     throw new Error("Failed to publish frame");
   }
+
+  redirect("/dashboard");
 }
