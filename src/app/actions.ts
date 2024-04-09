@@ -112,3 +112,63 @@ export async function publishFrame({
     success: true,
   };
 }
+
+const editFrameSchema = z.object({
+  title: z.string(),
+  handle: z.string(),
+  caption: z.string(),
+});
+
+export async function editFrame({
+  id,
+  title,
+  handle,
+  caption,
+}: {
+  id: string;
+  title: string;
+  handle: string;
+  caption?: string;
+}) {
+  const { session } = await getSession();
+
+  if (!session) {
+    throw new Error("You must be signed in to perform this action");
+  }
+
+  const validatedFields = editFrameSchema.safeParse({
+    title,
+    handle,
+    caption,
+  });
+
+  if (!validatedFields.success) {
+    return {
+      error: "Error validating fields",
+    };
+  }
+
+  try {
+    await prisma.frame.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        handle,
+        caption,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return {
+      error: "Error editing frame",
+    };
+  }
+
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+  };
+}

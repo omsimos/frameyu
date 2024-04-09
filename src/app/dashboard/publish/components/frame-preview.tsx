@@ -40,7 +40,7 @@ export function FramePreview() {
 
         const res = await publishFrame({
           title: frameData.title,
-          handle: frameData.urlHandle,
+          handle: frameData.handle,
           caption: frameData.caption,
           imgUrl: fileRes[0].url,
         });
@@ -65,7 +65,7 @@ export function FramePreview() {
         <Input
           id="url"
           type="text"
-          value={`frameyu.com/f/${frameData.urlHandle}`}
+          value={`frameyu.com/f/${frameData.handle}`}
           readOnly
         />
       </div>

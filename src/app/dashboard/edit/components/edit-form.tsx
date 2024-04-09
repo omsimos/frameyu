@@ -1,14 +1,14 @@
 "use client";
 
 import { z } from "zod";
-import { toast } from "sonner";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ArrowRight } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@/components/ui/button";
-import { useFrameStore } from "@/store/useFrameStore";
+import { EditDialog } from "./edit-dialog";
+import { UnpublishButton } from "./unpublish-button";
 import { FrameForm } from "../../components/frame-form";
+import { useEditFrameStore } from "@/store/useEditFrameStore";
 
 const formSchema = z.object({
   title: z
@@ -19,7 +19,6 @@ const formSchema = z.object({
     .max(50, {
       message: "Title must not exceed 50 characters.",
     }),
-
   handle: z
     .string()
     .min(8, {
@@ -37,45 +36,45 @@ const formSchema = z.object({
   }),
 });
 
-export function FrameDetails() {
-  const updateCurrentTab = useFrameStore((state) => state.updateCurrentTab);
-  const updateDetails = useFrameStore((state) => state.updateDetails);
-  const frameData = useFrameStore((state) => state.frameData);
+export function EditForm() {
+  const [open, setOpen] = useState(false);
+  const data = useEditFrameStore((state) => state.data);
+  const updateEditData = useEditFrameStore((state) => state.updateEditData);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: frameData.title,
-      handle: frameData.handle,
-      caption: frameData.caption,
+      title: data.title,
+      handle: data.handle,
+      caption: data.caption ?? "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    updateDetails({
+    setOpen(true);
+
+    updateEditData({
+      id: data.id,
+      imgUrl: data.imgUrl,
       ...values,
-      handle: values.handle.toLowerCase(),
     });
-    toast.success("Frame details updated");
   }
 
   return (
-    <FrameForm
-      form={form}
-      onSubmit={onSubmit}
-      sideButton={
-        <Button
-          disabled={!frameData.title || !frameData.handle}
-          onClick={() => {
-            updateCurrentTab("preview");
-          }}
-          size="icon"
-          variant="secondary"
-          className="flex-none"
-        >
-          <ArrowRight className="h-4 w-4" />
-        </Button>
-      }
-    />
+    <>
+      <EditDialog open={open} onOpenChange={setOpen} />
+
+      <FrameForm
+        className="max-w-[400px] mx-auto"
+        form={form}
+        onSubmit={onSubmit}
+        sideButton={
+          <UnpublishButton
+            id={data.id}
+            fileKey={data.imgUrl?.substring(data.imgUrl.lastIndexOf("/") + 1)}
+          />
+        }
+      />
+    </>
   );
 }
