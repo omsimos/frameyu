@@ -1,27 +1,30 @@
 "use client";
 
 import Image from "next/image";
+import { toast } from "sonner";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ReactZoomPanPinchRef,
   TransformComponent,
   TransformWrapper,
 } from "react-zoom-pan-pinch";
 
+import { publishFrame } from "@/app/actions";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { uploadFiles } from "@/lib/uploadthing";
+import { PublishButton } from "./publish-button";
 import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
-import { PublishButton } from "./publish-button";
-import { publishFrame } from "@/app/actions";
-import { uploadFiles } from "@/lib/uploadthing";
-import { toast } from "sonner";
 
 export function FramePreview() {
+  const router = useRouter();
   const [frameOpacity, setFrameOpacity] = useState(1);
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
   const frameData = useFrameStore((state) => state.frameData);
+  const reset = useFrameStore((state) => state.reset);
 
   return (
     <form
@@ -44,8 +47,13 @@ export function FramePreview() {
 
         if (res.error) {
           toast.error(res.error);
-        } else {
+          return;
+        }
+
+        if (res.success) {
           toast.success("Frame published successfully.");
+          reset();
+          router.push("/dashboard");
         }
       }}
       className="w-full space-y-6"

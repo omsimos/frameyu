@@ -7,6 +7,7 @@ import { utapi } from "@/server/uploadthing";
 import { z } from "zod";
 import prisma from "@/lib/db";
 import { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export async function logout(): Promise<ActionResult> {
   const { session } = await getSession();
@@ -100,8 +101,14 @@ export async function publishFrame({
       }
     }
 
-    throw new Error("Failed to publish frame");
+    return {
+      error: "Error creating frame",
+    };
   }
 
-  redirect("/dashboard");
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+  };
 }
