@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { lucia, getSession } from "@/lib/auth";
 import { utapi } from "@/server/uploadthing";
+import { z } from "zod";
+import prisma from "@/lib/db";
 
 export async function logout(): Promise<ActionResult> {
   const { session } = await getSession();
@@ -34,5 +36,61 @@ interface ActionResult {
 export async function deleteImg(fileKey?: string) {
   if (fileKey) {
     await utapi.deleteFiles(fileKey);
+  }
+}
+
+const frameSchema = z.object({
+  title: z.string(),
+  handle: z.string(),
+  caption: z.string(),
+  imgUrl: z.string(),
+});
+
+export async function publishFrame({
+  title,
+  handle,
+  caption,
+  imgUrl,
+}: {
+  title: string;
+  handle: string;
+  caption?: string;
+  imgUrl: string;
+}) {
+  const { session } = await getSession();
+
+  if (!session) {
+    throw new Error("You must be signed in to perform this action");
+  }
+
+  const validatedFields = frameSchema.safeParse({
+    title,
+    handle,
+    caption,
+    imgUrl,
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    await prisma.frame.create({
+      data: {
+        title,
+        handle,
+        caption,
+        imgUrl,
+        userId: session.userId,
+      },
+    });
+
+    redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+    await deleteImg(imgUrl.substring(imgUrl.lastIndexOf("/") + 1));
+    throw new Error("Failed to publish frame");
   }
 }

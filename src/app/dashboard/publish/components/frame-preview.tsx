@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -14,6 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useFrameStore } from "@/store/useFrameStore";
 import { PublishButton } from "./publish-button";
+import { publishFrame } from "@/app/actions";
+import { uploadFiles } from "@/lib/uploadthing";
+import { toast } from "sonner";
 
 export function FramePreview() {
   const [frameOpacity, setFrameOpacity] = useState(1);
@@ -21,7 +24,30 @@ export function FramePreview() {
   const frameData = useFrameStore((state) => state.frameData);
 
   return (
-    <section className="w-full space-y-6">
+    <form
+      action={async () => {
+        if (!frameData.file) {
+          toast.error("Please upload a frame image.");
+          return;
+        }
+
+        const fileRes = await uploadFiles("imageUploader", {
+          files: [frameData.file],
+        });
+
+        const res = await publishFrame({
+          title: frameData.title,
+          handle: frameData.urlHandle,
+          caption: frameData.caption,
+          imgUrl: fileRes[0].url,
+        });
+
+        if (!res.errors) {
+          toast.success("Frame published successfully.");
+        }
+      }}
+      className="w-full space-y-6"
+    >
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="url" className="mb-1">
           Frame URL
@@ -91,6 +117,6 @@ export function FramePreview() {
 
         <PublishButton />
       </div>
-    </section>
+    </form>
   );
 }
