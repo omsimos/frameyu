@@ -1,47 +1,26 @@
 import Link from "next/link";
-import { graphql } from "@/graphql";
 import { formatDistance } from "date-fns";
-import { registerUrql } from "@urql/next/rsc";
-import { createClient, fetchExchange } from "@urql/core";
-import { cacheExchange } from "@urql/exchange-graphcache";
 
+import prisma from "@/lib/db";
 import { Frame } from "./components/frame";
-import { FrameCaption } from "./components/frame-caption";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BrowserWarning } from "@/components/browser-warning";
 import { ShareButton } from "./components/share-button";
-
-const makeClient = () => {
-  return createClient({
-    url: process.env.NEXT_PUBLIC_GRAPHQL_URL!,
-    exchanges: [cacheExchange({}), fetchExchange],
-  });
-};
-
-const { getClient } = registerUrql(makeClient);
-
-const GetFrameQuery = graphql(`
-  query GetFrame($handle: String!) {
-    frame(handle: $handle) {
-      id
-      title
-      imgUrl
-      caption
-      createdAt
-      user {
-        id
-        username
-      }
-    }
-  }
-`);
+import { FrameCaption } from "./components/frame-caption";
+import { BrowserWarning } from "@/components/browser-warning";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default async function Page({ params }: { params: { handle: string } }) {
-  const result = await getClient().query(GetFrameQuery, {
-    handle: params.handle,
+  const data = await prisma.frame.findUnique({
+    where: {
+      handle: params.handle,
+    },
+    include: {
+      user: {
+        select: {
+          username: true,
+        },
+     },
+    },
   });
-
-  const data = result.data?.frame;
 
   if (!data) {
     return <div className="mt-8 text-muted-foreground">Frame not found</div>;
@@ -50,7 +29,10 @@ export default async function Page({ params }: { params: { handle: string } }) {
   return (
     <section className="w-full max-w-[400px] mx-auto">
       <div className="mb-12 text-center">
-        <Link href="/" className="mb-8 inline-block text-2xl font-black tracking-[-0.09em]">
+        <Link
+          href="/"
+          className="mb-8 inline-block text-2xl font-black tracking-[-0.09em]"
+        >
           frame<span className="text-purple-600">yu</span>
         </Link>
 

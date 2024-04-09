@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FragmentOf, graphql, readFragment } from "@/graphql";
+import { Frame } from "@prisma/client";
 
 import {
   Card,
@@ -13,23 +13,11 @@ import { EditButton } from "./edit-button";
 import { ShareButton } from "./share-button";
 
 type Props = {
-  frameData: FragmentOf<typeof FrameFields>;
+  data: Frame;
   isPremium?: boolean;
 };
 
-export const FrameFields = graphql(`
-  fragment FrameFields on Frame {
-    id
-    title
-    handle
-    imgUrl
-    caption
-  }
-`);
-
-export function FrameCard({ frameData, isPremium }: Props) {
-  const data = readFragment(FrameFields, frameData);
-
+export function FrameCard({ data, isPremium }: Props) {
   return (
     <Card className="hover:border-purple-300 transition-all w-[250px]">
       <CardHeader>
