@@ -36,7 +36,7 @@ export default async function DashboardPage() {
             }
           >
             {!frames.length && (
-              <Link href="/dashboard/create" className="h-[360px] w-[250px]">
+              <Link href="/dashboard/publish" className="h-[360px] w-[250px]">
                 <Card className="p-4">
                   <div className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center">
                     <Frame className="text-zinc-400 h-6 w-6" />
