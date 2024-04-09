@@ -172,3 +172,32 @@ export async function editFrame({
     success: true,
   };
 }
+
+export async function unpublishFrame({
+  id,
+  fileKey,
+}: {
+  id: string;
+  fileKey: string;
+}) {
+  await deleteImg(fileKey);
+
+  try {
+    await prisma.frame.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return {
+      error: "Error unpublishing frame",
+    };
+  }
+
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+  };
+}

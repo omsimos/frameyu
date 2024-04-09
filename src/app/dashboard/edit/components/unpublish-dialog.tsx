@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { PackageX } from "lucide-react";
+import { Loader2, PackageX } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -13,9 +13,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { unpublishFrame } from "@/app/actions";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-export function UnpublishButton({
+export function UnpublishDialog({
   id,
   fileKey,
 }: {
@@ -23,12 +25,31 @@ export function UnpublishButton({
   fileKey?: string;
 }) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const handleDelete = async () => {
-    if (!id) {
+  const handleUnpublish = async () => {
+    setLoading(true);
+
+    if (!id || !fileKey) {
       toast.error("Frame not found");
+      setLoading(false);
       return;
     }
+
+    const res = await unpublishFrame({ id, fileKey });
+
+    if (res.error) {
+      toast.error(res.error);
+      setLoading(false);
+      return;
+    }
+
+    if (res.success) {
+      toast.success("Frame unpublished");
+      router.push("/dashboard");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -48,8 +69,11 @@ export function UnpublishButton({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+          <Button disabled={loading} onClick={handleUnpublish}>
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Continue
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { EditDialog } from "./edit-dialog";
-import { UnpublishButton } from "./unpublish-button";
+import { UnpublishDialog } from "./unpublish-dialog";
 import { FrameForm } from "../../components/frame-form";
 import { useEditFrameStore } from "@/store/useEditFrameStore";
 
@@ -69,7 +69,7 @@ export function EditForm() {
         form={form}
         onSubmit={onSubmit}
         sideButton={
-          <UnpublishButton
+          <UnpublishDialog
             id={data.id}
             fileKey={data.imgUrl?.substring(data.imgUrl.lastIndexOf("/") + 1)}
           />
