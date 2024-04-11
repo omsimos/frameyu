@@ -22,7 +22,7 @@ export default async function DashboardPage() {
       <div>
         <h1 className="font-semibold text-3xl">Manage Frames</h1>
         <p className="text-muted-foreground">
-          Premium features are currently free for all users.
+          Premium features are free for a limited time.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4">
