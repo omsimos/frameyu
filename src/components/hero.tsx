@@ -11,7 +11,7 @@ export function Hero() {
     <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40 container">
       <div>
         <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-zinc-800 leading-tight">
-          Frame overlayer,
+          Frame publisher,
           <br />
           built for{" "}
           <span className="relative">
@@ -27,8 +27,8 @@ export function Hero() {
         </h1>
 
         <p className="md:mt-6 mt-2 sm:mt-4 font-medium lg:max-w-xl max-w-md mx-auto xl:mx-0 text-center xl:text-left text-sm sm:text-base md:text-lg lg:text-xl">
-          Seamlessly add a frame to your photo with built-in image controls for
-          drag and zoom.
+          Seamlessly manage and publish frames for your campaign with custom
+          handles and no watermark!
         </p>
 
         <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-8 space-x-4 justify-center xl:justify-start">
