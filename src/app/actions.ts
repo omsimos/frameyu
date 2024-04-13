@@ -167,6 +167,7 @@ export async function editFrame({
   }
 
   revalidatePath("/dashboard");
+  revalidatePath(`/f/${handle}`);
 
   return {
     success: true,
