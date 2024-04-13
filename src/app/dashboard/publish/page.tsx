@@ -26,7 +26,7 @@ export default async function Publish() {
         </p>
       </div>
 
-      {userFrames._all >= 5 ? (
+      {userFrames._all >= 10 ? (
         <Alert className="max-w-md w-full container">
           <Frown className="h-4 w-4" />
           <AlertTitle>Limit Reached</AlertTitle>
