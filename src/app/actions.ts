@@ -166,7 +166,7 @@ export async function editFrame({
     };
   }
 
-  revalidatePath("/dashboard/[slug]", "page");
+  revalidatePath("/dashboard/[slug]", "layout");
   revalidatePath(`/f/${handle}`);
 
   return {
@@ -196,7 +196,7 @@ export async function unpublishFrame({
     };
   }
 
-  revalidatePath("/dashboard/[slug]", "page");
+  revalidatePath("/dashboard/[slug]", "layout");
 
   return {
     success: true,
