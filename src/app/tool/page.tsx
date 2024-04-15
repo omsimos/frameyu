@@ -61,47 +61,52 @@ export default function Home() {
       <BrowserWarning />
 
       <Card className="p-4 w-full">
-        <div className="max-h-[400px] h-full aspect-square relative overflow-hidden">
-          {frame ? (
-            <Image
-              style={{ opacity: frameOpacity }}
-              quality={100}
-              src={frame}
-              height={500}
-              width={500}
-              className="object-cover pointer-events-none aspect-square w-full rounded-md absolute top-0 left-0 z-10"
-              alt="DP Frame"
-            />
-          ) : (
-            <button
-              type="button"
-              onClick={() => frameRef.current?.click()}
-              className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center"
-            >
-              <Frame className="text-zinc-400 h-6 w-6" />
-            </button>
-          )}
+        <div className="rounded-md overflow-hidden">
+          <div
+            ref={ref}
+            className="aspect-square w-full grid place-items-center relative overflow-hidden"
+          >
+            {frame ? (
+              <Image
+                style={{ opacity: frameOpacity }}
+                quality={100}
+                src={frame}
+                height={500}
+                width={500}
+                className="object-cover pointer-events-none aspect-square w-full absolute top-0 left-0 z-10"
+                alt="Frame image"
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => frameRef.current?.click()}
+                className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center"
+              >
+                <Frame className="text-zinc-400 h-6 w-6" />
+              </button>
+            )}
 
-          {photo && (
-            <TransformWrapper
-              ref={controlRef}
-              onPanningStart={() => setFrameOpacity(0.7)}
-              onPanningStop={() => setFrameOpacity(1)}
-              onPinchingStop={() => setFrameOpacity(1)}
-            >
-              <TransformComponent>
-                <Image
-                  quality={100}
-                  src={photo}
-                  height={500}
-                  width={500}
-                  className="object-contain w-full scale-[0.5]"
-                  alt="Profile Picture"
-                  draggable={false}
-                />
-              </TransformComponent>
-            </TransformWrapper>
-          )}
+            {photo && (
+              <TransformWrapper
+                ref={controlRef}
+                onPanningStart={() => setFrameOpacity(0.7)}
+                onPanningStop={() => setFrameOpacity(1)}
+                onPinchingStop={() => setFrameOpacity(1)}
+              >
+                <TransformComponent>
+                  <Image
+                    quality={100}
+                    src={photo}
+                    height={500}
+                    width={500}
+                    className="w-full object-contain aspect-square scale-[0.5]"
+                    alt="Profile picture"
+                    draggable={false}
+                  />
+                </TransformComponent>
+              </TransformWrapper>
+            )}
+          </div>
         </div>
       </Card>
 
