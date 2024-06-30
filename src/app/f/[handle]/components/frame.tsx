@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import Image from "next/image";
 import { nanoid } from "nanoid";
-import { domToPng } from "modern-screenshot";
+import { domToJpeg } from "modern-screenshot";
 import { logEvent } from "firebase/analytics";
 import { Download, ImagePlus } from "lucide-react";
 import { useState, useCallback, useRef } from "react";
@@ -32,7 +32,7 @@ export function Frame({ id, frameUrl }: { id: string; frameUrl: string }) {
     }
 
     toast.promise(
-      domToPng(ref.current, {
+      domToJpeg(ref.current, {
         quality: 1,
         scale: 4,
       })
