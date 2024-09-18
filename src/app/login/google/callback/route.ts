@@ -1,6 +1,6 @@
-import { generateId } from "lucia";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
+import { generateIdFromEntropySize } from "lucia";
 
 import prisma from "@/lib/db";
 import { google, lucia } from "@/lib/auth";
@@ -66,7 +66,7 @@ export async function GET(request: Request): Promise<Response> {
       });
     }
 
-    const usernameId = generateId(5);
+    const usernameId = generateIdFromEntropySize(5);
 
     const newUser = await prisma.user.create({
       data: {

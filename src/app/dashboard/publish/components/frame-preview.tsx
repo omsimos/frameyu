@@ -34,9 +34,22 @@ export function FramePreview() {
           return;
         }
 
-        const fileRes = await uploadFiles("imageUploader", {
-          files: [frameData.file],
-        });
+        let fileRes = [];
+
+        try {
+          fileRes = await uploadFiles("imageUploader", {
+            files: [frameData.file],
+          });
+        } catch (err: any) {
+          console.log(err);
+
+          if (err.message.includes("FileSizeMismatch")) {
+            toast.error("Image size should not exceed 4MB.");
+          } else {
+            toast.error("An error occurred while uploading the frame image.");
+          }
+          return;
+        }
 
         const res = await publishFrame({
           title: frameData.title,
