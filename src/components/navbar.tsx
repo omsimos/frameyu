@@ -1,31 +1,28 @@
 import Link from "next/link";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   return (
-    <nav className="py-10 flex justify-between items-center container">
-      <Link href="/" className="text-2xl font-black tracking-[-0.09em]">
-        frame<span className="text-purple-600">yu</span>
-      </Link>
+    <nav className="py-6 border-b border-b-secondary">
+      <div className="flex justify-between items-center container">
+        <Link href="/" className="text-2xl font-black tracking-[-0.09em]">
+          frame<span className="text-primary">yu</span>
+        </Link>
 
-      <div className="font-medium flex space-x-24 items-center">
-        <ul className="lg:flex space-x-28 hidden">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/#pricing">Pricing</Link>
-          </li>
-          <li>
-            <Link href="mailto:omsimos.agency@gmail.com">Contact</Link>
-          </li>
-        </ul>
+        <div className="flex space-x-10 items-center">
+          <Link className="text-secondary-foreground" href="/#pricing">
+            Pricing
+          </Link>
 
-        <div className="bg-zinc-800 relative rounded h-[45px] w-[150px]">
           <Link
             href="/login"
-            className="border-2 text-zinc-800 absolute w-full h-full -mt-1 -ml-1 border-zinc-800 bg-white rounded text-sm md:text-base grid place-items-center hover:-mt-[2px] hover:-ml-[2px] transition-all"
+            className={cn(
+              buttonVariants({ size: "sm" }),
+              "rounded-full px-6 py-2 bg-primary text-white text-base font-normal",
+            )}
           >
-            Let&apos;s Frame
+            Sign up
           </Link>
         </div>
       </div>

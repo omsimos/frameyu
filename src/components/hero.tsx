@@ -10,28 +10,28 @@ export function Hero() {
   return (
     <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40 container">
       <div>
-        <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-extrabold text-zinc-800 leading-tight">
-          Frame publisher,
+        <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-bold leading-tight">
+          Publish Frames
           <br />
-          built for{" "}
+          For{" "}
           <span className="relative">
-            your
+            Every
             <Image
               priority
               src={encircle}
               alt="Circle"
-              className="absolute top-0 right-0"
+              className="absolute md:-top-3 top-0 right-0"
             />
           </span>{" "}
-          pictures.
+          Campaign
         </h1>
 
-        <p className="md:mt-6 mt-2 sm:mt-4 font-medium lg:max-w-xl max-w-md mx-auto xl:mx-0 text-center xl:text-left text-sm sm:text-base md:text-lg lg:text-xl">
-          Seamlessly manage and publish frames for your campaign with custom
-          handles and no watermark!
+        <p className="md:mt-6 mt-2 sm:mt-4 lg:max-w-xl max-w-md mx-auto xl:mx-0 text-center xl:text-left text-sm sm:text-base md:text-lg lg:text-xl text-secondary-foreground">
+          Unlock the power of personalized frames to elevate your brand and
+          campaigns!
         </p>
 
-        <div className="flex font-medium md:text-lg text-sm sm:text-base lg:text-xl mt-8 space-x-4 justify-center xl:justify-start">
+        <div className="flex md:text-lg text-sm sm:text-base lg:text-xl mt-8 space-x-4 justify-center xl:justify-start">
           <Link
             href="/login"
             className={cn(
@@ -54,7 +54,7 @@ export function Hero() {
               "md:text-lg",
             )}
           >
-            Use tool
+            Frame Tool
             <Frame className="ml-2 h-4 w-4" />
           </Link>
         </div>

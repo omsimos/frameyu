@@ -58,8 +58,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${GeistSans.className} bg-background text-zinc-800`}>
         <Toaster />
-        <NextTopLoader showSpinner={false} />
-
+        <NextTopLoader color="#BB93FF" showSpinner={false} />
         {children}
         <Footer />
       </body>
