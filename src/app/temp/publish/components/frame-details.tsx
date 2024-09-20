@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
 import { useFrameStore } from "@/store/useFrameStore";
-import { FrameForm } from "./frame-form";
+import { FrameForm } from "../../components/frame-form";
 
 const formSchema = z.object({
   title: z
