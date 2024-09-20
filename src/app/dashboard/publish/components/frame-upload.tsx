@@ -56,7 +56,7 @@ export function FrameUpload() {
           }}
           disabled={!frameData.imgUrl}
           size="icon"
-          variant="secondary"
+          variant="outline"
           className="flex-none"
         >
           <ArrowRight className="h-4 w-4" />
