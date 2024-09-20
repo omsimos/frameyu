@@ -26,6 +26,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Frames } from "./components/frames";
 import { Sidebar } from "./components/sidebar";
 import { MobileSidebar } from "./components/mobile-sidebar";
+import { VisitorsChart } from "./components/visitors-chart";
+import { SummaryChart } from "./components/summary-chart";
 
 export default function Dashboard() {
   return (
@@ -134,8 +136,15 @@ export default function Dashboard() {
                 </Button>
               </div>
             </div>
-            <TabsContent value="all">
+            <TabsContent
+              className="flex flex-col xl:flex-row gap-6"
+              value="all"
+            >
               <Frames />
+              <div className="flex xl:flex-col sm:flex-row flex-col gap-4 flex-none xl:max-w-sm">
+                <VisitorsChart />
+                <SummaryChart />
+              </div>
             </TabsContent>
           </Tabs>
         </main>

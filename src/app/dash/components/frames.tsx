@@ -8,7 +8,6 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import {
   Table,
@@ -40,11 +39,11 @@ export async function Frames() {
   });
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Frames</CardTitle>
         <CardDescription>
-          Manage your products and view their sales performance.
+          Manage your frames and view their reach performance.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -80,7 +79,7 @@ export async function Frames() {
                 </TableCell>
                 <TableCell className="font-medium">{frame.title}</TableCell>
                 <TableCell>
-                  <Badge variant="outline">Draft</Badge>
+                  <Badge>Active</Badge>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">812</TableCell>
                 <TableCell className="hidden md:table-cell">25</TableCell>
@@ -107,11 +106,13 @@ export async function Frames() {
           </TableBody>
         </Table>
       </CardContent>
+      {/*
       <CardFooter>
         <div className="text-xs text-muted-foreground">
           Showing <strong>1-10</strong> of <strong>32</strong> products
         </div>
       </CardFooter>
+      */}
     </Card>
   );
 }

@@ -24,6 +24,11 @@
     --input: 220 13% 91%;
     --ring: 262.1 83.3% 57.8%;
     --radius: 0.5rem;
+    --chart-1: 270.7 91% 65.1%;
+    --chart-2: 243.4 75.4% 58.6%;
+    --chart-3: 272.9 67.2% 39.4%;
+    --chart-4: 292.2 84.1% 60.6%;
+    --chart-5: 296.7 63.6% 28%;
   }
 
   .dark {
@@ -46,13 +51,17 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 263.4 70% 50.4%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
