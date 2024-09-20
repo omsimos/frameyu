@@ -1,42 +1,36 @@
-import { Frown } from "lucide-react";
+import { FrameIcon } from "lucide-react";
+import { PublishForm } from "./components/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
-import prisma from "@/lib/db";
-import { getSession } from "@/lib/auth";
-import { PublishTabs } from "./components/publish-tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
-export default async function Publish() {
-  const { session } = await getSession();
-
-  const userFrames = await prisma.frame.count({
-    where: {
-      userId: session?.userId,
-    },
-    select: {
-      _all: true,
-    },
-  });
-
+export default function Publish() {
   return (
-    <section className="container flex flex-col items-center">
-      <div className="text-center mb-12">
-        <h1 className="font-semibold text-3xl">Publish Your Frame</h1>
-        <p className="text-muted-foreground">
-          Let&apos;s supercharge your campaign!
-        </p>
-      </div>
-
-      {userFrames._all >= 10 ? (
-        <Alert className="max-w-md w-full container">
-          <Frown className="h-4 w-4" />
-          <AlertTitle>Limit Reached</AlertTitle>
-          <AlertDescription>
-            You have reached the maximum number of free frames you can publish.
-          </AlertDescription>
-        </Alert>
-      ) : (
-        <PublishTabs />
-      )}
-    </section>
+    <Card className="max-w-screen-lg mt-12 w-full mx-auto">
+      <CardHeader>
+        <CardTitle>Publish Frame</CardTitle>
+        <CardDescription>Let's supercharge your campaign!</CardDescription>
+      </CardHeader>
+      <CardContent className="flex w-full gap-6">
+        <form className="grid items-start w-full max-w-[300px] aspect-square gap-6">
+          <fieldset className="grid gap-6 rounded-lg border p-4">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              Upload Frame<span className="text-destructive">*</span>
+            </legend>
+            <button
+              className="size-full aspect-square grid place-items-center"
+              type="button"
+            >
+              <FrameIcon className="size-6" />
+            </button>
+          </fieldset>
+        </form>
+        <PublishForm />
+      </CardContent>
+    </Card>
   );
 }
