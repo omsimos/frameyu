@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row pb-40 container">
+    <section className="lg:mt-24 mt-12 flex justify-between flex-col xl:flex-row container max-w-screen-xl">
       <div>
         <h1 className="lg:text-6xl text-2xl sm:text-4xl md:text-5xl text-center xl:text-left font-bold leading-tight">
           Publish Frames
@@ -20,7 +20,7 @@ export function Hero() {
               priority
               src={encircle}
               alt="Circle"
-              className="absolute md:-top-3 top-0 right-0"
+              className="absolute md:-top-2 top-0 right-0"
             />
           </span>{" "}
           Campaign
@@ -65,7 +65,7 @@ export function Hero() {
         width={400}
         height={400}
         src="/assets/characters.png"
-        className="object-contain w-[200px] md:w-[300px] xl:w-[400px] mx-auto xl:mx-0 mt-12 xl:mt-0"
+        className="object-contain w-[200px] md:w-[300px] xl:w-[350px] mx-auto xl:mx-0 mt-12 xl:mt-0"
         alt="Characters"
       />
     </section>

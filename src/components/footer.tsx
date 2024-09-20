@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="py-12 text-sm text-muted-foreground text-center">
+    <footer className="text-sm text-muted-foreground text-center mt-24 mb-12">
       <p>
         Frameyu by{" "}
         <a

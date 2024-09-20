@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   return (
     <nav className="py-6 border-b border-b-secondary">
-      <div className="flex justify-between items-center container">
+      <div className="flex justify-between items-center container max-w-screen-xl">
         <Link href="/" className="text-2xl font-black tracking-[-0.09em]">
           frame<span className="text-primary">yu</span>
         </Link>
