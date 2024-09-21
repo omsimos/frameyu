@@ -16,11 +16,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
+import { usePublishStore } from "@/store/usePublishStore";
 
 export function PublishForm() {
+  const data = usePublishStore((state) => state.frameDetails);
+  const updateDetails = usePublishStore((state) => state.updateDetails);
+
   return (
     <form className="grid items-start gap-4 w-full">
       <fieldset className="grid gap-6 rounded-lg border w-full h-full p-4">
@@ -29,7 +33,12 @@ export function PublishForm() {
           <Label htmlFor="type">
             Type<span className="text-destructive">*</span>
           </Label>
-          <Select>
+          <Select
+            value={data.type}
+            onValueChange={(type: "active" | "draft" | "private") =>
+              updateDetails({ type })
+            }
+          >
             <SelectTrigger
               id="type"
               className="items-start [&_[data-description]]:hidden"
@@ -84,18 +93,34 @@ export function PublishForm() {
               URL Handle
               <Badge className="ml-2">Pro</Badge>
             </Label>
-            <Input disabled id="handle" placeholder="frameyu.com/f/handle" />
+            <Input
+              disabled
+              id="handle"
+              placeholder="frameyu.com/f/handle"
+              value={data.handle}
+              onChange={(e) => updateDetails({ handle: e.target.value })}
+            />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="title">
               Title<span className="text-destructive">*</span>
             </Label>
-            <Input id="title" placeholder="Frameyu" />
+            <Input
+              id="title"
+              placeholder="Frameyu"
+              value={data.title}
+              onChange={(e) => updateDetails({ title: e.target.value })}
+            />
           </div>
         </div>
         <div className="grid gap-3">
           <Label htmlFor="temperature">Caption</Label>
-          <Textarea id="temperature" placeholder="Paste your caption here..." />
+          <Textarea
+            id="temperature"
+            placeholder="Paste your caption here..."
+            value={data.caption}
+            onChange={(e) => updateDetails({ caption: e.target.value })}
+          />
         </div>
       </fieldset>
 

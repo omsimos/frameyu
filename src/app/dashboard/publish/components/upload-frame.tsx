@@ -1,14 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
 import { toast } from "sonner";
-import { useRef, useState } from "react";
 import { FrameIcon } from "lucide-react";
 import { handleImageChange } from "@/lib/utils";
+import { usePublishStore } from "@/store/usePublishStore";
 
 export function UploadFrame() {
-  const [fileUrl, setFileUrl] = useState("");
   const frameRef = useRef<HTMLInputElement>(null);
+  const frameDetails = usePublishStore((state) => state.frameDetails);
+  const updateFile = usePublishStore((state) => state.updateFile);
+
+  const imgUrl = frameDetails.url;
 
   return (
     <form className="grid items-start w-full max-w-[300px] aspect-square gap-6">
@@ -21,9 +25,9 @@ export function UploadFrame() {
           className="size-full aspect-square grid place-items-center"
           type="button"
         >
-          {fileUrl ? (
+          {imgUrl ? (
             <Image
-              src={fileUrl}
+              src={imgUrl}
               height={300}
               width={300}
               className="object-cover rounded-md"
@@ -43,7 +47,7 @@ export function UploadFrame() {
           handleImageChange({
             file: e.target.files![0],
             sizeLimit: 4,
-            onSuccess: setFileUrl,
+            onSuccess: (url) => updateFile({ url, file: e.target.files![0] }),
             onError: (err) => toast.error(err.message),
           })
         }

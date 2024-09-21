@@ -1,4 +1,4 @@
-import { PublishForm } from "./components/form";
+import { PublishForm } from "./components/publish-form";
 import {
   Card,
   CardHeader,
@@ -6,7 +6,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { UploadFrame } from "./components/upload";
+import { UploadFrame } from "./components/upload-frame";
 
 export default function Publish() {
   return (
