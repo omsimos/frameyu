@@ -59,14 +59,14 @@ export function PublishForm() {
                   </div>
                 </div>
               </SelectItem>
-              <SelectItem value="private">
+              <SelectItem disabled value="private">
                 <div className="flex items-start gap-3 text-muted-foreground">
                   <GlobeLockIcon className="size-5" />
                   <div className="grid gap-0.5">
                     <div className="font-medium text-foreground flex items-center">
                       Private
                       <Badge data-description className="ml-2">
-                        Premium
+                        Pro
                       </Badge>
                     </div>
                     <p className="text-xs" data-description>
@@ -82,9 +82,9 @@ export function PublishForm() {
           <div className="grid gap-3">
             <Label htmlFor="handle">
               URL Handle
-              <Badge className="ml-2">Premium</Badge>
+              <Badge className="ml-2">Pro</Badge>
             </Label>
-            <Input id="handle" placeholder="frameyu.com/f/handle" />
+            <Input disabled id="handle" placeholder="frameyu.com/f/handle" />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="title">
@@ -101,7 +101,7 @@ export function PublishForm() {
 
       <Button>
         <PackageIcon className="size-4 mr-2" />
-        Save Changes
+        Publish Frame
       </Button>
     </form>
   );
