@@ -1,18 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Search } from "lucide-react";
 import { redirect } from "next/navigation";
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -36,9 +27,9 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { session } = await getSession();
+  const { user } = await getSession();
 
-  if (!session) {
+  if (!user) {
     redirect("/login");
   }
 
@@ -65,7 +56,7 @@ export default async function DashboardLayout({
                 className="overflow-hidden rounded-full"
               >
                 <Image
-                  src="/placeholder-user.jpg"
+                  src={user.image}
                   width={36}
                   height={36}
                   alt="Avatar"
