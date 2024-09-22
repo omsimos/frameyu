@@ -37,6 +37,9 @@ const getFrames = cache(async () => {
     where: {
       userId: session?.userId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 });
 
@@ -48,7 +51,7 @@ export async function Frames() {
       <CardHeader>
         <CardTitle>Frames</CardTitle>
         <CardDescription>
-          Manage your framesData and view their reach performance.
+          Manage your frames and view their reach performance.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -89,7 +92,7 @@ export async function Frames() {
                 <TableCell className="hidden md:table-cell">812</TableCell>
                 <TableCell className="hidden md:table-cell">25</TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {format(frame.createdAt, "PPP")}
+                  {format(frame.createdAt, "PP")}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>

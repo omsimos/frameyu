@@ -1,34 +1,35 @@
 import { create } from "zustand";
 
-type Frame = {
+export type PublishFrame = {
   file: File | null;
   url: string;
   type: "active" | "draft" | "private";
   title: string;
-  handle: string;
+  handle?: string;
   caption?: string;
 };
 
 type State = {
-  frameDetails: Frame;
+  frameDetails: PublishFrame;
 };
 
 type Action = {
   updateFile: ({ url, file }: { url: string; file: File }) => void;
-  updateDetails: (details: Partial<Frame>) => void;
-  reset: () => void;
+  updateDetails: (details: Partial<PublishFrame>) => void;
+  resetDetails: () => void;
+};
+
+const defaultDetails: PublishFrame = {
+  file: null,
+  url: "",
+  type: "active",
+  title: "",
+  handle: "",
+  caption: "",
 };
 
 export const usePublishStore = create<State & Action>()((set) => ({
-  frameDetails: {
-    file: null,
-    url: "",
-    type: "active",
-    title: "",
-    handle: "",
-    caption: "",
-  },
-
+  frameDetails: defaultDetails,
   updateFile: ({ url, file }) =>
     set((state) => ({
       frameDetails: {
@@ -46,15 +47,8 @@ export const usePublishStore = create<State & Action>()((set) => ({
       },
     })),
 
-  reset: () =>
+  resetDetails: () =>
     set(() => ({
-      frameDetails: {
-        file: null,
-        url: "",
-        type: "active",
-        title: "",
-        caption: "",
-        handle: "",
-      },
+      frameDetails: defaultDetails,
     })),
 }));

@@ -6,6 +6,13 @@ import {
   Share2Icon,
   SquarePenIcon,
 } from "lucide-react";
+import { toast } from "sonner";
+import { nanoid } from "nanoid";
+import { useCallback } from "react";
+
+import { publishFrame } from "../actions";
+import { uploadFiles } from "@/lib/uploadthing";
+import { PublishFrame, usePublishStore } from "@/store/usePublishStore";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,8 +26,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { PublishFrame, usePublishStore } from "@/store/usePublishStore";
-import { useCallback } from "react";
 
 export function PublishForm() {
   const data = usePublishStore((state) => state.frameDetails);
@@ -54,8 +59,49 @@ export function PublishForm() {
     [updateDetails],
   );
 
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    if (!data.file) {
+      toast.error("You must upload a frame to publish");
+      return;
+    }
+
+    let fileRes = [];
+
+    try {
+      fileRes = await uploadFiles("imageUploader", {
+        files: [data.file],
+      });
+    } catch (err: any) {
+      console.log(err);
+
+      if (err.message.includes("FileSizeMismatch")) {
+        toast.error("Image size should not exceed 4MB");
+      } else {
+        toast.error("An error occurred while uploading the frame image");
+      }
+
+      return;
+    }
+
+    const handle = data.handle || nanoid(12);
+
+    const res = await publishFrame({
+      title: data.title,
+      handle,
+      caption: data.caption,
+      imgUrl: fileRes[0].url,
+    });
+
+    if (res?.data?.error) {
+      toast.error(res.data.error);
+      return;
+    }
+  };
+
   return (
-    <form className="grid items-start gap-4 w-full">
+    <form onSubmit={handleSubmit} className="grid items-start gap-4 w-full">
       <fieldset className="grid gap-6 rounded-lg border w-full h-full p-4">
         <legend className="-ml-1 px-1 text-sm font-medium">Details</legend>
         <div className="grid gap-3 w-full">
@@ -151,7 +197,7 @@ export function PublishForm() {
 
       <Button type="submit" disabled={!data.title || !data.file}>
         <PackageIcon className="size-4 mr-2" />
-        Publish PublishFrame
+        Publish Frame
       </Button>
     </form>
   );
