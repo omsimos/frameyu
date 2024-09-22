@@ -19,11 +19,40 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { usePublishStore } from "@/store/usePublishStore";
+import { PublishFrame, usePublishStore } from "@/store/usePublishStore";
+import { useCallback } from "react";
 
 export function PublishForm() {
   const data = usePublishStore((state) => state.frameDetails);
   const updateDetails = usePublishStore((state) => state.updateDetails);
+
+  const updateType = useCallback(
+    (type: PublishFrame["type"]) => {
+      updateDetails({ type });
+    },
+    [updateDetails],
+  );
+
+  const updateHandle = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateDetails({ handle: e.target.value });
+    },
+    [updateDetails],
+  );
+
+  const updateTitle = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      updateDetails({ title: e.target.value });
+    },
+    [updateDetails],
+  );
+
+  const updateCaption = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      updateDetails({ caption: e.target.value });
+    },
+    [updateDetails],
+  );
 
   return (
     <form className="grid items-start gap-4 w-full">
@@ -33,12 +62,7 @@ export function PublishForm() {
           <Label htmlFor="type">
             Type<span className="text-destructive">*</span>
           </Label>
-          <Select
-            value={data.type}
-            onValueChange={(type: "active" | "draft" | "private") =>
-              updateDetails({ type })
-            }
-          >
+          <Select required value={data.type} onValueChange={updateType}>
             <SelectTrigger
               id="type"
               className="items-start [&_[data-description]]:hidden"
@@ -98,7 +122,7 @@ export function PublishForm() {
               id="handle"
               placeholder="frameyu.com/f/handle"
               value={data.handle}
-              onChange={(e) => updateDetails({ handle: e.target.value })}
+              onChange={updateHandle}
             />
           </div>
           <div className="grid gap-3">
@@ -107,9 +131,10 @@ export function PublishForm() {
             </Label>
             <Input
               id="title"
+              required
               placeholder="Frameyu"
               value={data.title}
-              onChange={(e) => updateDetails({ title: e.target.value })}
+              onChange={updateTitle}
             />
           </div>
         </div>
@@ -119,14 +144,14 @@ export function PublishForm() {
             id="temperature"
             placeholder="Paste your caption here..."
             value={data.caption}
-            onChange={(e) => updateDetails({ caption: e.target.value })}
+            onChange={updateCaption}
           />
         </div>
       </fieldset>
 
-      <Button>
+      <Button type="submit" disabled={!data.title || !data.file}>
         <PackageIcon className="size-4 mr-2" />
-        Publish Frame
+        Publish PublishFrame
       </Button>
     </form>
   );

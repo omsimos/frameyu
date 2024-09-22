@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { toast } from "sonner";
-import { FrameIcon } from "lucide-react";
+import { ImageUpIcon } from "lucide-react";
 import { handleImageChange } from "@/lib/utils";
 import { usePublishStore } from "@/store/usePublishStore";
 
@@ -18,24 +18,26 @@ export function UploadFrame() {
     <form className="grid items-start w-full max-w-[300px] aspect-square gap-6">
       <fieldset className="grid gap-6 rounded-lg border p-4">
         <legend className="-ml-1 px-1 text-sm font-medium">
-          Upload Frame<span className="text-destructive">*</span>
+          Campaign Frame<span className="text-destructive">*</span>
         </legend>
         <button
           onClick={() => frameRef.current?.click()}
-          className="size-full aspect-square grid place-items-center"
+          className="size-full aspect-square grid place-items-center relative"
           type="button"
         >
-          {imgUrl ? (
+          {imgUrl && (
             <Image
               src={imgUrl}
               height={300}
               width={300}
-              className="object-cover rounded-md"
+              className="object-cover rounded-md absolute inset-0"
               alt="Campaign Frame"
             />
-          ) : (
-            <FrameIcon className="size-6" />
           )}
+          <div className="grid place-items-center">
+            <ImageUpIcon className="size-6 text-primary" />
+            <h4 className="text-sm mt-2 text-secondary-foreground/50">Upload Image (.png)</h4>
+          </div>
         </button>
       </fieldset>
 

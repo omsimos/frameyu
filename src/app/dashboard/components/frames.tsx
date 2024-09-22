@@ -28,22 +28,27 @@ import {
 
 import prisma from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { cache } from "react";
 
-export async function Frames() {
+const getFrames = cache(async () => {
   const { session } = await getSession();
 
-  const frames = await prisma.frame.findMany({
+  return await prisma.frame.findMany({
     where: {
       userId: session?.userId,
     },
   });
+});
+
+export async function Frames() {
+  const framesData = await getFrames();
 
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Frames</CardTitle>
         <CardDescription>
-          Manage your frames and view their reach performance.
+          Manage your framesData and view their reach performance.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -66,7 +71,7 @@ export async function Frames() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {frames.map((frame) => (
+            {framesData.map((frame) => (
               <TableRow key={frame.id}>
                 <TableCell className="hidden sm:table-cell">
                   <Image
