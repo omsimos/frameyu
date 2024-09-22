@@ -13,7 +13,7 @@ export default function Publish() {
     <Card className="max-w-screen-lg mt-12 w-full mx-auto">
       <CardHeader>
         <CardTitle>Publish Frame</CardTitle>
-        <CardDescription>Let's supercharge your campaign!</CardDescription>
+        <CardDescription>Let&apos;s supercharge your campaign!</CardDescription>
       </CardHeader>
       <CardContent className="flex w-full gap-6">
         <UploadFrame />
