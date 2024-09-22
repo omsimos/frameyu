@@ -11,6 +11,7 @@ export function UploadFrame() {
   const frameRef = useRef<HTMLInputElement>(null);
   const frameDetails = usePublishStore((state) => state.frameDetails);
   const updateFile = usePublishStore((state) => state.updateFile);
+  const publishStatus = usePublishStore((state) => state.publishStatus);
 
   const imgUrl = frameDetails.url;
 
@@ -22,6 +23,7 @@ export function UploadFrame() {
         </legend>
         <button
           onClick={() => frameRef.current?.click()}
+          disabled={publishStatus !== "idle"}
           className="size-full aspect-square grid place-items-center relative"
           type="button"
         >
@@ -36,7 +38,9 @@ export function UploadFrame() {
           )}
           <div className="grid place-items-center">
             <ImageUpIcon className="size-6 text-primary" />
-            <h4 className="text-sm mt-2 text-secondary-foreground/50">Upload Image (.png)</h4>
+            <h4 className="text-sm mt-2 text-secondary-foreground/50">
+              Upload Image (.png)
+            </h4>
           </div>
         </button>
       </fieldset>
@@ -45,6 +49,7 @@ export function UploadFrame() {
         ref={frameRef}
         type="file"
         accept="image/png"
+        disabled={publishStatus !== "idle"}
         onChange={(e) =>
           handleImageChange({
             file: e.target.files![0],

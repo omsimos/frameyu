@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { nanoid } from "nanoid";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { publishFrame } from "../actions";
 import { uploadFiles } from "@/lib/uploadthing";
@@ -26,10 +26,19 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { PublishingModal } from "./publishing-modal";
 
 export function PublishForm() {
   const data = usePublishStore((state) => state.frameDetails);
   const updateDetails = usePublishStore((state) => state.updateDetails);
+  const resetDetails = usePublishStore((state) => state.resetDetails);
+
+  const publishStatus = usePublishStore((state) => state.publishStatus);
+  const updatePublishStatus = usePublishStore(
+    (state) => state.updatePublishStatus,
+  );
+
+  const [loaderOpen, setLoaderOpen] = useState(false);
 
   const updateType = useCallback(
     (type: PublishFrame["type"]) => {
@@ -67,13 +76,17 @@ export function PublishForm() {
       return;
     }
 
+    setLoaderOpen(true);
+
     let fileRes = [];
 
     try {
+      updatePublishStatus("Uploading image to the cloud...");
       fileRes = await uploadFiles("imageUploader", {
         files: [data.file],
       });
     } catch (err: any) {
+      updatePublishStatus("idle");
       console.log(err);
 
       if (err.message.includes("FileSizeMismatch")) {
@@ -82,11 +95,13 @@ export function PublishForm() {
         toast.error("An error occurred while uploading the frame image");
       }
 
+      setLoaderOpen(false);
       return;
     }
 
     const handle = data.handle || nanoid(12);
 
+    updatePublishStatus("We're almost there, please wait...");
     const res = await publishFrame({
       title: data.title,
       handle,
@@ -95,9 +110,16 @@ export function PublishForm() {
     });
 
     if (res?.data?.error) {
+      updatePublishStatus("idle");
       toast.error(res.data.error);
+      setLoaderOpen(false);
       return;
     }
+
+    updatePublishStatus("Done! Your frame is now live, redirecting...");
+    toast.success("Frame published successfully");
+    setLoaderOpen(false);
+    resetDetails();
   };
 
   return (
@@ -108,7 +130,12 @@ export function PublishForm() {
           <Label htmlFor="type">
             Type<span className="text-destructive">*</span>
           </Label>
-          <Select required value={data.type} onValueChange={updateType}>
+          <Select
+            required
+            disabled={publishStatus !== "idle"}
+            value={data.type}
+            onValueChange={updateType}
+          >
             <SelectTrigger
               id="type"
               className="items-start [&_[data-description]]:hidden"
@@ -178,6 +205,7 @@ export function PublishForm() {
             <Input
               id="title"
               required
+              disabled={publishStatus !== "idle"}
               placeholder="Frameyu"
               value={data.title}
               onChange={updateTitle}
@@ -185,9 +213,10 @@ export function PublishForm() {
           </div>
         </div>
         <div className="grid gap-3">
-          <Label htmlFor="temperature">Caption</Label>
+          <Label htmlFor="caption">Caption</Label>
           <Textarea
-            id="temperature"
+            id="caption"
+            disabled={publishStatus !== "idle"}
             placeholder="Paste your caption here..."
             value={data.caption}
             onChange={updateCaption}
@@ -195,10 +224,15 @@ export function PublishForm() {
         </div>
       </fieldset>
 
-      <Button type="submit" disabled={!data.title || !data.file}>
+      <Button
+        type="submit"
+        disabled={!data.title || !data.file || publishStatus !== "idle"}
+      >
         <PackageIcon className="size-4 mr-2" />
         Publish Frame
       </Button>
+
+      <PublishingModal isOpen={loaderOpen} onCancel={() => null} />
     </form>
   );
 }

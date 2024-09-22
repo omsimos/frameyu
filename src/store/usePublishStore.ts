@@ -11,9 +11,11 @@ export type PublishFrame = {
 
 type State = {
   frameDetails: PublishFrame;
+  publishStatus: "idle" | string;
 };
 
 type Action = {
+  updatePublishStatus: (status: "idle" | string) => void;
   updateFile: ({ url, file }: { url: string; file: File }) => void;
   updateDetails: (details: Partial<PublishFrame>) => void;
   resetDetails: () => void;
@@ -30,6 +32,10 @@ const defaultDetails: PublishFrame = {
 
 export const usePublishStore = create<State & Action>()((set) => ({
   frameDetails: defaultDetails,
+  publishStatus: "idle",
+
+  updatePublishStatus: (status) => set({ publishStatus: status }),
+
   updateFile: ({ url, file }) =>
     set((state) => ({
       frameDetails: {
@@ -50,5 +56,6 @@ export const usePublishStore = create<State & Action>()((set) => ({
   resetDetails: () =>
     set(() => ({
       frameDetails: defaultDetails,
+      publishStatus: "idle",
     })),
 }));
