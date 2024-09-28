@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   return (
-    <nav className="py-6 border-b border-b-secondary">
+    <nav className="py-6 border-b">
       <div className="flex justify-between items-center container max-w-screen-xl">
         <Link href="/" className="text-2xl font-black tracking-[-0.09em]">
           frame<span className="text-primary">yu</span>
         </Link>
 
         <div className="flex space-x-10 items-center">
-          <Link className="text-secondary-foreground" href="/#pricing">
+          <Link className="text-secondary-foreground" href="/pricing">
             Pricing
           </Link>
 
