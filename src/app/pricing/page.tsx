@@ -1,6 +1,9 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, CheckIcon } from "lucide-react";
+import { toast } from "sonner";
 
 export default function PricingPage() {
   return (
@@ -37,7 +40,7 @@ export default function PricingPage() {
               </li>
               <li>
                 <CheckIcon className="size-4 inline-block mr-2" />
-                Download HD
+                High Quality Image
               </li>
             </ul>
           </div>
@@ -68,11 +71,11 @@ export default function PricingPage() {
               </li>
               <li>
                 <CheckIcon className="size-4 inline-block mr-2" />
-                Analytics
+                Unlimited Frames
               </li>
               <li>
                 <CheckIcon className="size-4 inline-block mr-2" />
-                Unlimited Frames
+                Campaign Analytics
               </li>
               <li>
                 <CheckIcon className="size-4 inline-block mr-2" />
@@ -89,7 +92,10 @@ export default function PricingPage() {
             </ul>
           </div>
 
-          <Button className="mt-12 w-full font-medium">
+          <Button
+            onClick={() => toast("Coming Soon!")}
+            className="mt-12 w-full font-medium"
+          >
             Choose Plan <ArrowRightIcon className="size-4 ml-2" />
           </Button>
         </section>
@@ -119,7 +125,10 @@ export default function PricingPage() {
             </ul>
           </div>
 
-          <Button className="mt-12 w-full font-medium">
+          <Button
+            onClick={() => toast("Coming Soon!")}
+            className="mt-12 w-full font-medium"
+          >
             Choose Plan <ArrowRightIcon className="size-4 ml-2" />
           </Button>
         </section>
