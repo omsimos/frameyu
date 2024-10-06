@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,6 +41,10 @@ export default function PricingPage() {
               <li>
                 <CheckIcon className="size-4 inline-block mr-2" />
                 High Quality Image
+              </li>
+              <li>
+                <CheckIcon className="size-4 inline-block mr-2" />
+                4MB Upload Limit
               </li>
             </ul>
           </div>
@@ -88,6 +92,10 @@ export default function PricingPage() {
               <li>
                 <CheckIcon className="size-4 inline-block mr-2" />
                 Private Frames
+              </li>
+              <li>
+                <CheckIcon className="size-4 inline-block mr-2" />
+                8MB Upload Limit
               </li>
             </ul>
           </div>
