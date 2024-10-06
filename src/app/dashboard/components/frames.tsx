@@ -85,12 +85,12 @@ export async function Frames() {
                     width="64"
                   />
                 </TableCell>
-                <TableCell className="font-medium">{frame.handle}</TableCell>
+                <TableCell className="font-medium">{frame.title}</TableCell>
                 <TableCell>
                   <Badge>Active</Badge>
                 </TableCell>
-                <TableCell className="hidden md:table-cell">812</TableCell>
-                <TableCell className="hidden md:table-cell">25</TableCell>
+                <TableCell className="hidden md:table-cell">--</TableCell>
+                <TableCell className="hidden md:table-cell">--</TableCell>
                 <TableCell className="hidden md:table-cell">
                   {format(frame.createdAt, "PP")}
                 </TableCell>
