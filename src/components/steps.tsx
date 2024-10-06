@@ -2,16 +2,22 @@ import { LogInIcon, PackageIcon, Share2Icon } from "lucide-react";
 
 export function Steps() {
   return (
-    <section className="bg-white py-12 mt-24">
-      <div className="flex items-center flex-col md:flex-row gap-y-20 md:gap-y-0 justify-between container max-w-screen-xl">
-        <Step icon={LogInIcon} content="Continue with your Frameyu account" />
+    <section className="bg-white py-12 mt-16">
+      <div className="grid md:grid-cols-3 gap-10 container max-w-screen-xl">
+        <Step
+          icon={LogInIcon}
+          content="Log in to Frameyu"
+          subContent="Sign in to view, edit, and manage for all your campaign frames in one place."
+        />
         <Step
           icon={PackageIcon}
-          content="Publish the frame for your campaign"
+          content="Publish Frame"
+          subContent="Make your frame available and update details like captions for your audience to use."
         />
         <Step
           icon={Share2Icon}
-          content="Share the frame link to your audience"
+          content="Share Your Frame"
+          subContent="Distribute your unique link across social media so your audience can easily apply your frame."
         />
       </div>
     </section>
@@ -20,6 +26,7 @@ export function Steps() {
 
 type Props = {
   content: string;
+  subContent: string;
   icon: React.ElementType;
 };
 
@@ -27,9 +34,12 @@ function Step(props: Props) {
   const Icon = props.icon;
 
   return (
-    <div className="flex items-center flex-col gap-y-6">
+    <div className="flex flex-col">
       <Icon className="size-10 rounded-md bg-primary p-2 text-white" />
-      <h3 className="font-medium md:text-xl text-lg max-w-60 text-center">{props.content}</h3>
+      <h3 className="font-medium md:text-xl text-lg max-w-60 mt-6 mb-2">
+        {props.content}
+      </h3>
+      <p className="text-muted-foreground">{props.subContent}</p>
     </div>
   );
 }
