@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { getSession } from "@/lib/auth";
 
-export function Navbar() {
+export async function Navbar() {
+  const { session } = await getSession();
+
   return (
     <nav className="py-6 border-b">
       <div className="flex justify-between items-center container max-w-screen-xl">
@@ -15,15 +18,27 @@ export function Navbar() {
             Pricing
           </Link>
 
-          <Link
-            href="/login"
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "rounded-full px-6 py-2 bg-primary text-white text-base font-normal",
-            )}
-          >
-            Sign up
-          </Link>
+          {session ? (
+            <Link
+              href="/dashboard"
+              className={cn(
+                buttonVariants({ size: "sm" }),
+                "rounded-full px-6 py-2 bg-primary text-white text-base font-normal",
+              )}
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className={cn(
+                buttonVariants({ size: "sm" }),
+                "rounded-full px-6 py-2 bg-primary text-white text-base font-normal",
+              )}
+            >
+              Sign up
+            </Link>
+          )}
         </div>
       </div>
     </nav>
