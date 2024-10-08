@@ -85,7 +85,7 @@ export async function Frames() {
                     width="64"
                   />
                 </TableCell>
-                <TableCell className="font-medium">{frame.title}</TableCell>
+                <TableCell className="font-medium">{frame.handle}</TableCell>
                 <TableCell>
                   <Badge>Active</Badge>
                 </TableCell>

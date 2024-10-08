@@ -67,7 +67,7 @@ export function RenderFrame({
   }, []);
 
   return (
-    <div className="w-full mt-32">
+    <div className="w-full">
       <input
         ref={profileRef}
         type="file"
