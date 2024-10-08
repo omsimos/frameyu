@@ -11,7 +11,7 @@ import {
 } from "react-zoom-pan-pinch";
 
 import { Button } from "@/components/ui/button";
-import { handleImageChange } from "@/lib/utils";
+import { debounce, handleImageChange } from "@/lib/utils";
 
 export function RenderFrame({
   id,
@@ -56,15 +56,18 @@ export function RenderFrame({
     }
   };
 
-  const handleTransform = useCallback((ref: ReactZoomPanPinchRef) => {
-    const previewScale = 1280 / 400;
+  const handleTransform = useCallback(
+    debounce((ref: ReactZoomPanPinchRef) => {
+      const previewScale = 1280 / 400;
 
-    setPosition({
-      x: ref.state.positionX * previewScale,
-      y: ref.state.positionY * previewScale,
-    });
-    setScale(ref.state.scale);
-  }, []);
+      setPosition({
+        x: ref.state.positionX * previewScale,
+        y: ref.state.positionY * previewScale,
+      });
+      setScale(ref.state.scale);
+    }, 100),
+    [],
+  );
 
   return (
     <div className="w-full">
