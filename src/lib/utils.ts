@@ -7,10 +7,22 @@ export function cn(...inputs: ClassValue[]) {
 
 export const handleImageChange = async (options: {
   file: File;
+  sizeLimit?: number;
   onSuccess: (dataUrl: string) => void;
   onError: (error: Error) => void;
 }) => {
   try {
+    if (
+      options.sizeLimit &&
+      options.file.size > options.sizeLimit * 1024 * 1024
+    ) {
+      options.onError(
+        new Error(`File size should be less than ${options.sizeLimit}MB`),
+      );
+
+      return;
+    }
+
     const dataUrl = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result);
@@ -22,4 +34,18 @@ export const handleImageChange = async (options: {
   } catch (err) {
     options.onError(err as Error);
   }
+};
+
+export const debounce = <F extends (...args: any[]) => any>(
+  func: F,
+  waitFor: number,
+) => {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+
+  return (...args: Parameters<F>): void => {
+    if (timeout !== null) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => func(...args), waitFor);
+  };
 };

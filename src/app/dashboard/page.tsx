@@ -1,56 +1,78 @@
 import Link from "next/link";
-import { Suspense } from "react";
-import { Frame } from "lucide-react";
+import { File, ListFilter, PlusCircle } from "lucide-react";
 
-import prisma from "@/lib/db";
-import { getSession } from "@/lib/auth";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { FrameCard } from "./components/frame-card";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default async function DashboardPage() {
-  const { session } = await getSession();
+import { Frames } from "./components/frames";
+import { SummaryChart } from "./components/summary-chart";
+import { VisitorsChart } from "./components/visitors-chart";
 
-  const frames = await prisma.frame.findMany({
-    where: {
-      userId: session?.userId,
-    },
-  });
-
+export default function Dashboard() {
   return (
-    <section className="container">
-      <div>
-        <h1 className="font-semibold text-3xl">Manage Frames</h1>
-        <p className="text-muted-foreground">
-          Premium features are free for a limited time.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-4">
-          <Suspense
-            fallback={
-              <>
-                <Skeleton className="w-[250px] h-[360px]" />
-                <Skeleton className="w-[250px] h-[360px]" />
-                <Skeleton className="w-[250px] h-[360px]" />
-              </>
-            }
-          >
-            {!frames.length && (
-              <Link href="/dashboard/publish" className="h-[360px] w-[250px]">
-                <Card className="p-4">
-                  <div className="bg-zinc-200 w-full aspect-square rounded-md grid place-items-center">
-                    <Frame className="text-zinc-400 h-6 w-6" />
-                  </div>
-                </Card>
+    <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+      <Tabs defaultValue="all">
+        <div className="flex items-center">
+          <TabsList>
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="active">Active</TabsTrigger>
+            <TabsTrigger value="draft">Draft</TabsTrigger>
+            <TabsTrigger value="archived" className="hidden sm:flex">
+              Archived
+            </TabsTrigger>
+          </TabsList>
+          <div className="ml-auto flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-8 gap-1">
+                  <ListFilter className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Filter
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuCheckboxItem checked>
+                  Active
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button size="sm" variant="outline" className="h-8 gap-1">
+              <File className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Export
+              </span>
+            </Button>
+            <Button asChild size="sm" className="h-8 gap-1">
+              <Link href="/dashboard/publish">
+                <PlusCircle className="h-3.5 w-3.5" />
+                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                  Publish Frame
+                </span>
               </Link>
-            )}
-
-            {frames.map((frame, i) => (
-              <FrameCard key={frame.id} data={frame} isPremium={i > 0} />
-            ))}
-          </Suspense>
+            </Button>
+          </div>
         </div>
-      </div>
-    </section>
+        <TabsContent className="flex flex-col xl:flex-row gap-6" value="all">
+          <Frames />
+          <div className="flex xl:flex-col sm:flex-row flex-col gap-4 flex-none xl:max-w-sm">
+            <VisitorsChart />
+            <SummaryChart />
+          </div>
+        </TabsContent>
+      </Tabs>
+    </main>
   );
 }

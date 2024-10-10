@@ -1,16 +1,26 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
-    <footer className="py-12 text-sm text-muted-foreground text-center">
-      <p>
-        Frameyu by{" "}
-        <a
-          target="_blank"
-          href="https://github.com/joshxfi"
-          className="hover:underline"
-        >
-          Josh Daniel
-        </a>
-      </p>
+    <footer className="text-sm text-muted-foreground text-center mt-24 mb-12">
+      <ul className="flex items-center justify-center gap-6 mb-2">
+        <li>
+          <Link className="hover:underline" href="/terms">
+            Terms of Service
+          </Link>
+        </li>
+        <li>
+          <Link className="hover:underline" href="/privacy">
+            Privacy Policy
+          </Link>
+        </li>
+        <li>
+          <Link className="hover:underline" href="/refund">
+            Refund Policy
+          </Link>
+        </li>
+      </ul>
+
       <p>© 2024 Omsimos. All Rights Reserved</p>
     </footer>
   );
