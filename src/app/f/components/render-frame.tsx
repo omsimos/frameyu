@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import Image from "next/image";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { DownloadIcon, ImagePlusIcon } from "lucide-react";
 import {
   TransformWrapper,
@@ -65,20 +65,15 @@ export function RenderFrame({
     setIsLoading(false);
   };
 
-  const handleTransform = useCallback(
-    debounce((ref: ReactZoomPanPinchRef) => {
-      if (!containerRef.current) return;
+  const handleTransform = debounce((ref: ReactZoomPanPinchRef) => {
+    const previewScale = 1000 / containerRef.current!.clientWidth;
 
-      const previewScale = 1000 / containerRef.current.clientWidth;
-
-      setPosition({
-        x: ref.state.positionX * previewScale,
-        y: ref.state.positionY * previewScale,
-      });
-      setScale(ref.state.scale);
-    }, 100),
-    [containerRef.current],
-  );
+    setPosition({
+      x: ref.state.positionX * previewScale,
+      y: ref.state.positionY * previewScale,
+    });
+    setScale(ref.state.scale);
+  }, 100);
 
   return (
     <div className="w-full bg-white p-4 rounded-md">
