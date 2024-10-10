@@ -1,4 +1,4 @@
-// eslint @next/next/no-img-element: 0
+/* eslint-disable @next/next/no-img-element */
 
 import { NextRequest, NextResponse } from "next/server";
 import { Resvg } from "@resvg/resvg-js";
