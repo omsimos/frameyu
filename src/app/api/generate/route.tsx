@@ -1,3 +1,5 @@
+// eslint @next/next/no-img-element: 0
+
 import { NextRequest, NextResponse } from "next/server";
 import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
@@ -25,6 +27,7 @@ export async function POST(req: NextRequest) {
             transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
             transformOrigin: "top left",
           }}
+          alt="Photo"
         />
         <img
           src={frameUrl}
@@ -35,6 +38,7 @@ export async function POST(req: NextRequest) {
             width: "100%",
             height: "100%",
           }}
+          alt="Frame"
         />
       </div>,
       {
