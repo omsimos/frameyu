@@ -2,14 +2,15 @@
 
 import { toast } from "sonner";
 import Image from "next/image";
-import { Download, ImagePlus } from "lucide-react";
 import { useState, useRef, useCallback } from "react";
+import { DownloadIcon, ImagePlusIcon } from "lucide-react";
 import {
   TransformWrapper,
   TransformComponent,
   ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 
+import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { debounce, handleImageChange } from "@/lib/utils";
 
@@ -21,6 +22,7 @@ export function RenderFrame({
   frameUrl: string;
 }) {
   const [photoUrl, setPhotoUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [frameOpacity, setFrameOpacity] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(0.5);
@@ -29,6 +31,8 @@ export function RenderFrame({
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
 
   const handleDownload = async () => {
+    setIsLoading(true);
+
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -54,6 +58,9 @@ export function RenderFrame({
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     }
+
+    toast.success("Image downloaded successfully");
+    setIsLoading(false);
   };
 
   const handleTransform = useCallback(
@@ -100,6 +107,7 @@ export function RenderFrame({
         {photoUrl && (
           <TransformWrapper
             ref={controlRef}
+            disabled={isLoading}
             onPanningStart={() => setFrameOpacity(0.7)}
             onPanningStop={() => setFrameOpacity(1)}
             onPinchingStop={() => setFrameOpacity(1)}
@@ -133,22 +141,26 @@ export function RenderFrame({
       <div className="mt-6 flex items-center space-x-2">
         {frameUrl && (
           <Button
-            disabled={!frameUrl}
+            disabled={!frameUrl || isLoading}
             onClick={() => profileRef.current?.click()}
             className="w-full"
           >
-            <ImagePlus className="mr-2 h-4 w-4" />
-            Select photo
+            <ImagePlusIcon className="mr-2 size-5" />
+            {photoUrl ? "Change" : "Select"} photo
           </Button>
         )}
 
         {photoUrl && (
           <Button
-            disabled={!frameUrl}
+            disabled={!frameUrl || isLoading}
             onClick={handleDownload}
             className="w-full"
           >
-            <Download className="mr-2 h-4 w-4" />
+            {isLoading ? (
+              <Spinner className="mr-2 size-5" />
+            ) : (
+              <DownloadIcon className="mr-2 size-5" />
+            )}
             Download image
           </Button>
         )}
