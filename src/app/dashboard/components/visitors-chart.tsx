@@ -61,8 +61,8 @@ export function VisitorsChart() {
   }, []);
 
   return (
-    <Card className="relative">
-      <div className="absolute inset-0 backdrop-blur-sm bg-background/80 flex flex-col items-center justify-center text-center p-4 z-50">
+    <Card className="relative overflow-hidden">
+      <div className="absolute inset-0 backdrop-blur-sm bg-white/60 flex flex-col items-center justify-center text-center p-4 z-50">
         <GlobeIcon className="size-8 text-primary mb-4" />
         <h3 className="text-lg font-semibold mb-2">Visitors Insight</h3>
         <p className="text-sm text-muted-foreground mb-4">

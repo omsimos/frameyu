@@ -70,7 +70,7 @@ export function RenderFrame({
   );
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-white p-4 rounded-md">
       <input
         ref={profileRef}
         type="file"
@@ -85,48 +85,46 @@ export function RenderFrame({
         className="hidden"
       />
 
-      <section className="flex flex-col items-center gap-8">
-        <div className="aspect-square relative max-w-[400px] w-full">
-          <Image
-            style={{ opacity: frameOpacity }}
-            priority
-            quality={100}
-            src={frameUrl}
-            height={500}
-            width={500}
-            className="object-cover pointer-events-none aspect-square w-full h-full absolute top-0 left-0 z-10 rounded-md"
-            alt="Frame Image"
-          />
+      <div className="aspect-square relative max-w-[500px] w-full overflow-hidden rounded-md">
+        <Image
+          style={{ opacity: frameOpacity }}
+          priority
+          quality={100}
+          src={frameUrl}
+          height={500}
+          width={500}
+          className="object-cover pointer-events-none aspect-square w-full h-full absolute top-0 left-0 z-10"
+          alt="Frame Image"
+        />
 
-          {photoUrl && (
-            <TransformWrapper
-              ref={controlRef}
-              onPanningStart={() => setFrameOpacity(0.7)}
-              onPanningStop={() => setFrameOpacity(1)}
-              onPinchingStop={() => setFrameOpacity(1)}
-              onTransformed={handleTransform}
-              minScale={0.1}
-              maxScale={5}
-              initialScale={0.5}
-              centerOnInit
-              limitToBounds={false}
-              centerZoomedOut={false}
-            >
-              <TransformComponent>
-                <Image
-                  quality={100}
-                  src={photoUrl}
-                  height={500}
-                  width={500}
-                  className="w-full object-contain aspect-square"
-                  alt="Profile Picture"
-                  draggable={false}
-                />
-              </TransformComponent>
-            </TransformWrapper>
-          )}
-        </div>
-      </section>
+        {photoUrl && (
+          <TransformWrapper
+            ref={controlRef}
+            onPanningStart={() => setFrameOpacity(0.7)}
+            onPanningStop={() => setFrameOpacity(1)}
+            onPinchingStop={() => setFrameOpacity(1)}
+            onTransformed={handleTransform}
+            minScale={0.1}
+            maxScale={5}
+            initialScale={0.5}
+            centerOnInit
+            limitToBounds={false}
+            centerZoomedOut={false}
+          >
+            <TransformComponent>
+              <Image
+                quality={100}
+                src={photoUrl}
+                height={500}
+                width={500}
+                className="w-full object-contain aspect-square"
+                alt="Profile Picture"
+                draggable={false}
+              />
+            </TransformComponent>
+          </TransformWrapper>
+        )}
+      </div>
 
       <p className="text-sm text-muted-foreground my-2">
         Pan and pinch to adjust your image.
@@ -144,14 +142,16 @@ export function RenderFrame({
           </Button>
         )}
 
-        <Button
-          disabled={!frameUrl || !photoUrl}
-          onClick={handleDownload}
-          className="w-full"
-        >
-          <Download className="mr-2 h-4 w-4" />
-          Download image
-        </Button>
+        {photoUrl && (
+          <Button
+            disabled={!frameUrl}
+            onClick={handleDownload}
+            className="w-full"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Download image
+          </Button>
+        )}
       </div>
     </div>
   );

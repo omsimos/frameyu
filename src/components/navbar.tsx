@@ -13,7 +13,7 @@ export async function Navbar() {
           frame<span className="text-primary">yu</span>
         </Link>
 
-        <div className="flex space-x-10 items-center">
+        <div className="flex space-x-8 items-center">
           <Link className="text-secondary-foreground" href="/pricing">
             Pricing
           </Link>
