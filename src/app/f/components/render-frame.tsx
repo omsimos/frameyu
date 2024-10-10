@@ -23,10 +23,12 @@ export function RenderFrame({
 }) {
   const [photoUrl, setPhotoUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [scale, setScale] = useState(0.5);
   const [frameOpacity, setFrameOpacity] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [scale, setScale] = useState(0.5);
 
+  const containerRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLInputElement>(null);
   const controlRef = useRef<ReactZoomPanPinchRef>(null);
 
@@ -65,7 +67,9 @@ export function RenderFrame({
 
   const handleTransform = useCallback(
     debounce((ref: ReactZoomPanPinchRef) => {
-      const previewScale = 1280 / 400;
+      if (!containerRef.current) return;
+
+      const previewScale = 1000 / containerRef.current.clientWidth;
 
       setPosition({
         x: ref.state.positionX * previewScale,
@@ -73,7 +77,7 @@ export function RenderFrame({
       });
       setScale(ref.state.scale);
     }, 100),
-    [],
+    [containerRef.current],
   );
 
   return (
@@ -92,7 +96,10 @@ export function RenderFrame({
         className="hidden"
       />
 
-      <div className="aspect-square relative max-w-[500px] w-full overflow-hidden rounded-md">
+      <div
+        ref={containerRef}
+        className="aspect-square relative max-w-[500px] w-full overflow-hidden rounded-md"
+      >
         <Image
           style={{ opacity: frameOpacity }}
           priority
